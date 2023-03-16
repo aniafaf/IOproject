@@ -35,6 +35,9 @@ Aplikacja jest stworzona z myślą o grupach osób takich jak:
 * Github
 * Github actions
 * jest (unit front-end tests)
+* prettier
+* black
+* vite
 
 ## Techologie
 * Html
