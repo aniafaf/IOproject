@@ -22,7 +22,7 @@ Aplikacja jest stworzona z myślą o grupach osób takich jak:
 * tworzenie grup dla osób dzielących między sobą określone wydatki
 * możliwość dodania okładki dla grupy (własne zdjęcie)
 * dodawanie użytkowników do istniejących już grup
-* tworzenie wydarzeń (wewnątrz grupy) w ramach, których grupa będzie się rozlcizać
+* tworzenie wydarzeń (wewnątrz grupy) w ramach, których grupa będzie się rozliczać
 * dodawanie wydatków:
 	- dodawanie opisu (tekst/zdjęcie)
 	- możliwość wybrania konkretnych dłużników z grupy (dla danego wydatku)
