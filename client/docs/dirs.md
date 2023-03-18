@@ -12,10 +12,10 @@ Assets used in components, such as images.
 
 Reusable react components.
 
-# /src/hooks
+## /src/hooks
 
 Reusable state [hooks](https://legacy.reactjs.org/docs/hooks-intro.html). See `/src/hooks/alert.tsx` for an example.
 
-# /src/views
+## /src/views
 
 Individual pages that are to be rendered in routes defined inside of `/src/App.tsx`. Folder structure should reflect the url structure. For instance, `/user/:user_id/groups` should be reflected as `views/user/groups`.
