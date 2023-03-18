@@ -12,4 +12,10 @@ export const fetch_api = <T = unknown, O extends Object = Object, E = string>(
     method: 'POST',
     credentials: 'include',
     ...(body ? { body: JSON.stringify(body, null, 0) } : {}),
-  }).then(r => r.json() as ApiCall<T, E>)
+  })
+    .then(r => r.json() as ApiCall<T, E>)
+    .catch(e => ({
+      ok: false,
+      data: null,
+      error: JSON.stringify(e) as E,
+    }))
