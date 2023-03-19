@@ -18,4 +18,18 @@ Reusable state [hooks](https://legacy.reactjs.org/docs/hooks-intro.html). See `/
 
 ## /src/views
 
-Individual pages that are to be rendered in routes defined inside of `/src/App.tsx`. Folder structure should reflect the url structure. For instance, `/user/:user_id/groups` should be reflected as `views/user/groups`.
+Individual pages that are to be rendered in routes defined inside of `/src/App.tsx`. Folder structure should loosely reflect the url path. Non-reusable components should be placed in a `components` subdirectory, and tests - within an `index.test.tsx` file. If the view uses no subcomponents, it needn't contain a `components` subdirectory. All subcomponent tests should be put inside of a `components/__tests__` directory.
+
+For instance, `view1/view2/:param1`, defining a subcomponent `View1/Elem1` would be reflected as:
+```
+client/src/views
+└── View1
+    ├── components
+    │   ├── Elem1.tsx
+    │   └── __tests__
+    ├── index.test.tsx
+    ├── index.tsx
+    └── View2
+        ├── index.test.tsx
+        └── index.tsx
+```
