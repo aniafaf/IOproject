@@ -33,6 +33,6 @@ client/src/views
         ├── index.test.tsx
         ├── index.tsx
         └── [param1]
-            ├── index.test.tex
+            ├── index.test.tsx
             └── index.tsx
 ```
