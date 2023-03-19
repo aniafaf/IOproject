@@ -31,5 +31,8 @@ client/src/views
     ├── index.tsx
     └── View2
         ├── index.test.tsx
-        └── index.tsx
+        ├── index.tsx
+        └── [param1]
+            ├── index.test.tex
+            └── index.tsx
 ```
