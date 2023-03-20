@@ -29,7 +29,8 @@ def login_to(request):
         user_authenticate = authenticate(request, username=user_name, password=password)
         if user_authenticate is not None:
             login(request, user_authenticate)
-            return redirect('player_list')
+            #TODO
+            return redirect('TODO')
         else:
             messages.error(request, "Wrong username or password !!!")
     context = {'page': page}
