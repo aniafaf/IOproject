@@ -5,10 +5,10 @@
 - Type: `Path` (`string`).
 - Purpose: Defines the base path for assets, ie. the path that is prepended to the resulting paths (`src/assets/`, later translated to `$ASSETS_BASE/assets/`). Assets are imported using `import` statements in `.tsx` files ([vite docs](https://vitejs.dev/guide/assets.html)):
 
-  ```tsx
-  import imgUrl from './img.png'
-  document.getElementById('hero-img').src = imgUrl
-  ```
+```ts
+import imgUrl from './img.png'
+document.getElementById('hero-img').src = imgUrl
+```
 
 - Example: `ASSETS_BASE=/~ts438730/io/client/public/`.
 - Defined in: `.env.production` for production (default for `npm build`), `.env.development` for development (default for `npm run dev`).
