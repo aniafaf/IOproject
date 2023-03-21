@@ -2,3 +2,7 @@ bin
 include
 lib
 lib64
+__pycache__
+*.sqlite3
+.venv
+pyvenv.cfg
