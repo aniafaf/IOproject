@@ -14,8 +14,7 @@ else
 fi
 
 print_info 'Starting server...'
-cd .. && pwd
-if python manage.py runserver 0.0.0.0:8000; then
+if ! python ../manage.py runserver 0.0.0.0:8000; then
   print_error 'Failed to start server.'
   exit 1
 fi
