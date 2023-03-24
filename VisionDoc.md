@@ -16,7 +16,7 @@ Aplikacja jest stworzona z myślą o grupach osób takich jak:
 * osoby indywidualne, które chcą śledzić swoje wydatki
 * wiele innych
 
-## Funkcjoalność
+## Funkcjonalność
 * rejestracja oraz logowanie w aplikacji
 * dodawanie i śledzenie wydatków indywidualnych
 * tworzenie grup dla osób dzielących między sobą określone wydatki
@@ -34,12 +34,12 @@ Aplikacja jest stworzona z myślą o grupach osób takich jak:
 ## Narzędzia
 * Github
 * Github actions
-* jest (unit front-end tests)
+* vitest
 * prettier
 * black
 * vite
 
-## Techologie
+## Technologie
 * Html
 * CSS
 * Javascript (typescript)
