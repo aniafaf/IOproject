@@ -1,5 +1,15 @@
 # Client Documentation
 
+<<<<<<< HEAD
+=======
+## Navigation
+
+1. [..](../)
+1. [Directories](./dirs.md)
+1. [Environment variables](./env.md)
+1. [Testing](./tests.md)
+
+>>>>>>> main
 ## Useful materials
 
 1. [React documentation](https://react.dev/learn)

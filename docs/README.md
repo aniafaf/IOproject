@@ -1,4 +1,8 @@
-# [PH] Getting started
+# Getting started
+
+## Navigation
+
+1. [client](./client/README.md)
 
 ## Initialising the development environment
 
