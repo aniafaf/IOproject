@@ -1,5 +1,9 @@
 # Getting started
 
+## Navigation
+
+1. [client](./client/README.md)
+
 ## Initialising the development environment
 
 Before starting, please make sure you have [python](https://www.python.org/downloads/), and [node](https://nodejs.org/en/download) installed.
