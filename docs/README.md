@@ -1,4 +1,4 @@
-# [PH] Getting started
+# Getting started
 
 ## Initialising the development environment
 
