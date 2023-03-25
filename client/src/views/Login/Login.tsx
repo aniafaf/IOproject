@@ -19,21 +19,21 @@ function Login() {
               />
               <FieldSet>
                 <TextInputField
-                  label='[PH]email'
+                  label='email'
                   onUpdate={() => {}}
                   validate={_ => false}
                 />
                 <TextInputField
-                  label='[PH]password'
+                  label='password'
                   type={'password'}
                   onUpdate={() => {}}
                   validate={_ => false}
                 />
-                <FormLink>[PH]Forgot password?</FormLink>
+                <FormLink>Forgot password?</FormLink>
               </FieldSet>
               <FieldSet>
                 <FormButton>log in</FormButton>
-                <FormLink align='center'>[PH]Don’t have an account? Sign up</FormLink>
+                <FormLink align='center'>Don’t have an account? Sign up</FormLink>
               </FieldSet>
     </CenterSplitLayout>
   );

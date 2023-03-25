@@ -10,6 +10,9 @@ import { Spinner } from './components/Spinner'
 import { TextInputField } from './components/TextInputField'
 import { NotFound } from './views/404'
 import { Login } from './views/Login/Login'
+import { Register } from './views/Register/Register'
+import { PasswordRecovery } from './views/PasswordRecovery/PasswordRecovery'
+import { ActiveAccount } from './views/ActiveAccount/ActiveAccount'
 
 function App() {
   const router = createHashRouter([
