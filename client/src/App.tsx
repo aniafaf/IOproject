@@ -40,7 +40,7 @@ function App() {
               </FieldSet>
               <FieldSet>
                 <FormButton>log in</FormButton>
-                <FormLink align='center'>[PH]Forgot password?</FormLink>
+                <FormLink align='center'>[PH]Don’t have an account? Sign up</FormLink>
               </FieldSet>
             </CenterSplitLayout>
           ),
