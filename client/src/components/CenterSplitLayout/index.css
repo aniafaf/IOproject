@@ -12,14 +12,13 @@
 
 .center_split__container {
   --left-width: 60%;
-  --d: 5px;
   width: var(--center-split-width);
   height: var(--center-split-height);
   margin-top: var(--center-split-margin-top);
   background: linear-gradient(
     115.7deg,
     #f8fbfc 31.12%,
-    rgba(230, 230, 255, 0) 101.91%
+    rgba(230 230 255 / 0) 101.91%
   );
   border-radius: 10px;
   box-shadow: 5px 5px 10px 0 rgb(0 0 0 / 0.05),
@@ -52,7 +51,10 @@
 }
 
 .sub_container__children {
-  height: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
 }
 
 @media screen and (max-width: 800px) {
