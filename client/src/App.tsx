@@ -37,6 +37,8 @@ function App() {
                   validate={_ => false}
                 />
                 <FormLink>[PH]Forgot password?</FormLink>
+              </FieldSet>
+              <FieldSet>
                 <FormButton>log in</FormButton>
                 <FormLink align='center'>[PH]Forgot password?</FormLink>
               </FieldSet>

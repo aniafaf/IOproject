@@ -31,7 +31,7 @@
 }
 
 .sub_container {
-  height: 100%;
+  height: auto;
   flex-basis: 1;
   flex-grow: 1;
 }
@@ -51,10 +51,11 @@
 }
 
 .sub_container__children {
-  min-height: 100%;
+  height: auto;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+  justify-content: space-evenly;
 }
 
 @media screen and (max-width: 800px) {
