@@ -1,6 +1,7 @@
 import { Typography, createTheme, ThemeProvider, Grid } from '@mui/material'
 import { StrictMode } from 'react'
 import { createHashRouter, RouterProvider } from 'react-router-dom'
+import { CenterSplitLayout } from './components/CenterSplitLayout'
 import { Spinner } from './components/Spinner'
 import { NotFound } from './views/404'
 
@@ -12,20 +13,7 @@ function App() {
       children: [
         {
           path: '/',
-          Component: () => (
-            <Grid
-              container
-              spacing={0}
-              direction='column'
-              alignItems='center'
-              justifyContent='center'
-              style={{ minHeight: '100vh' }}
-            >
-              <Grid item xs={3}>
-                <Typography variant='h1'>[Placeholder]</Typography>
-              </Grid>
-            </Grid>
-          ),
+          Component: () => <CenterSplitLayout>[Placeholder]</CenterSplitLayout>,
         },
       ],
     },
