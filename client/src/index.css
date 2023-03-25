@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Libre Bodoni');
+@import url('https://fonts.googleapis.com/css?family=Libre Franklin');
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -11,6 +14,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 html, body, #root {

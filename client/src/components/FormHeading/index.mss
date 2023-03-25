@@ -1,6 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Libre Bodoni');
-@import url('https://fonts.googleapis.com/css?family=Libre Franklin');
-
 .form_heading {
   text-align: center;
   margin: 50px 0;
