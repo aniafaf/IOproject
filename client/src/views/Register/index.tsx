@@ -7,7 +7,7 @@ import { Route } from '../../routes'
 
 export const RegisterView = () => (
   <CenterSplitLayout>
-    <FieldSet>
+    <FieldSet width={'300px'}>
       <TextInputField
         label='first name'
         onUpdate={() => {}}

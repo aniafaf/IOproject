@@ -6,7 +6,7 @@
   font-family: 'Libre Franklin', 'Franklin Gothic Medium', 'Arial Narrow', Arial,
     sans-serif;
 
-  &__label {
+  &__label { 
     display: block;
     font-size: 0.8rem;
     color: #636363;
