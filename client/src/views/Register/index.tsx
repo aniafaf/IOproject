@@ -3,6 +3,7 @@ import { FieldSet } from '../../components/FieldSet'
 import { FormButton } from '../../components/FormButton'
 import { FormLink } from '../../components/FormLink'
 import { TextInputField } from '../../components/TextInputField'
+import { Route } from '../../routes'
 
 export const RegisterView = () => (
   <CenterSplitLayout>
@@ -32,7 +33,9 @@ export const RegisterView = () => (
     </FieldSet>
     <FieldSet>
       <FormButton>sign up</FormButton>
-      <FormLink align='center'>Already have an account? Log in</FormLink>
+      <FormLink to={Route.login()} align='center'>
+        Already have an account? Log in
+      </FormLink>
     </FieldSet>
   </CenterSplitLayout>
 )

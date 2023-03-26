@@ -4,6 +4,7 @@ import { FormButton } from '../../components/FormButton'
 import { FormHeading } from '../../components/FormHeading'
 import { FormLink } from '../../components/FormLink'
 import { TextInputField } from '../../components/TextInputField'
+import { Route } from '../../routes'
 
 export const ActiveAccountView = () => (
   <CenterSplitLayout>
@@ -20,7 +21,7 @@ export const ActiveAccountView = () => (
     </FieldSet>
     <FieldSet>
       <FormButton>sign up</FormButton>
-      <FormLink align='center'>Back to log in</FormLink>
+      <FormLink to={Route.login()} align='center'>Back to log in</FormLink>
     </FieldSet>
   </CenterSplitLayout>
 )

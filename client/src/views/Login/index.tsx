@@ -4,6 +4,7 @@ import { FormButton } from '../../components/FormButton'
 import { FormHeading } from '../../components/FormHeading'
 import { FormLink } from '../../components/FormLink'
 import { TextInputField } from '../../components/TextInputField'
+import { Route } from '../../routes'
 
 export const LoginView = () => (
   <CenterSplitLayout>
@@ -19,11 +20,11 @@ export const LoginView = () => (
         onUpdate={() => {}}
         validate={_ => false}
       />
-      <FormLink>Forgot password?</FormLink>
+      <FormLink to={Route.recovery()}>Forgot password?</FormLink>
     </FieldSet>
     <FieldSet>
       <FormButton>log in</FormButton>
-      <FormLink align='center'>Don’t have an account? Sign up</FormLink>
+      <FormLink to={Route.sign_up()} align='center'>Don’t have an account? Sign up</FormLink>
     </FieldSet>
   </CenterSplitLayout>
 )
