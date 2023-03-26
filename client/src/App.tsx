@@ -1,18 +1,12 @@
-import { Typography, createTheme, ThemeProvider, Grid } from '@mui/material'
+import { createTheme, ThemeProvider } from '@mui/material'
 import { StrictMode } from 'react'
 import { createHashRouter, RouterProvider } from 'react-router-dom'
-import { CenterSplitLayout } from './components/CenterSplitLayout'
-import { FieldSet } from './components/FieldSet'
-import { FormButton } from './components/FormButton'
-import { FormHeading } from './components/FormHeading'
-import { FormLink } from './components/FormLink'
 import { Spinner } from './components/Spinner'
-import { TextInputField } from './components/TextInputField'
 import { NotFound } from './views/404'
-import { Login } from './views/Login/Login'
-import { Register } from './views/Register/Register'
-import { PasswordRecovery } from './views/PasswordRecovery/PasswordRecovery'
-import { ActiveAccount } from './views/ActiveAccount/ActiveAccount'
+import { LoginView } from './views/Login'
+import { RegisterView } from './views/Register'
+import { PasswordRecoveryView } from './views/PasswordRecovery'
+import { ActiveAccountView } from './views/ActiveAccount'
 
 function App() {
   const router = createHashRouter([
@@ -21,10 +15,20 @@ function App() {
       errorElement: <NotFound />,
       children: [
         {
-          path: '/',
-          Component: () => (
-            <Login />
-          ),
+          path: 'login',
+          element: <LoginView />,
+        },
+        {
+          path: 'sign-up',
+          element: <RegisterView />,
+        },
+        {
+          path: 'activate',
+          element: <ActiveAccountView />,
+        },
+        {
+          path: 'recover',
+          element: <PasswordRecoveryView />,
         },
       ],
     },
