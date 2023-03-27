@@ -7,6 +7,7 @@ import { LoginView } from './views/Login'
 import { RegisterView } from './views/Register'
 import { PasswordRecoveryView } from './views/PasswordRecovery'
 import { ActiveAccountView } from './views/ActiveAccount'
+import { HomeView } from './views/Home'
 
 function App() {
   const router = createHashRouter([
@@ -29,6 +30,10 @@ function App() {
         {
           path: 'recover',
           element: <PasswordRecoveryView />,
+        },
+        {
+          path: '',
+          element: <HomeView />,
         },
       ],
     },
