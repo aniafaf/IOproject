@@ -3,3 +3,7 @@ include
 lib
 lib64
 .idea
+accountapp/migrations/__pycache__
+accountapp/__pycache__
+ioserver/__pycache__
+db.sqlite3

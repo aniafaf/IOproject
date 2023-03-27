@@ -14,7 +14,7 @@ from django.core.mail import EmailMessage
 
 from .forms import SignupForm
 
-from ..accountapp.token import account_activation_token
+from accountapp.token import account_activation_token
 
 
 def login_to(request):
@@ -54,7 +54,7 @@ def signup(request):
             current_site = get_current_site(request)
             mail_subject = 'Activation link has been sent to your email id'
             #TODO
-            message = render_to_string('TODO', {
+            message = render_to_string('accountapp/account_activation_mail.html', {
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
