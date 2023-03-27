@@ -14,7 +14,7 @@ from django.core.mail import EmailMessage
 
 from .forms import SignupForm
 
-from accountapp.token import account_activation_token
+from ..accountapp.token import account_activation_token
 
 
 def login_to(request):
