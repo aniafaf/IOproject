@@ -1,0 +1,72 @@
+.center_split {
+  --center-split-width: min(77.5vw, 90%);
+  --center-split-height: 67vh;
+  --center-split-margin-top: 15vh;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(109.27deg, #86b6e2 56.85%, #305f8b 96.58%);
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+}
+
+.center_split__container {
+  --left-width: 60%;
+  width: var(--center-split-width);
+  height: var(--center-split-height);
+  margin-top: var(--center-split-margin-top);
+  background: linear-gradient(
+    115.7deg,
+    #f8fbfc 31.12%,
+    rgba(230 230 255 / 0) 101.91%
+  );
+  border-radius: 10px;
+  box-shadow: 7.5px 7.5px 10px 0 rgb(0 0 0 / 0.05),
+    -7.5px -7.5px 10px 0 rgb(0 0 0 / 0.05);
+  display: grid;
+  grid-template:
+    'csc_left csc_right' 1fr
+    / var(--left-width) 1fr;
+  overflow: hidden;
+}
+
+.sub_container {
+  height: auto;
+  flex-basis: 1;
+  flex-grow: 1;
+}
+
+.sub_container--right {
+  grid-area: csc_right;
+  background-image: url('./assets/ledger.webp');
+  background-size: cover;
+  background-position: center;
+}
+
+.sub_container--left {
+  grid-row: csc_left;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+}
+
+.sub_container__children {
+  height: auto;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+@media screen and (max-width: 800px) {
+  .center_split {
+    --center-split-width: 100vw;
+    --center-split-height: 100vh;
+    --center-split-margin-top: 0;
+  }
+
+  .center_split__container {
+    --left-width: 100%;
+    border-radius: 0;
+  }
+}
