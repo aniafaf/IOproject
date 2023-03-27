@@ -21,8 +21,8 @@
     rgba(230 230 255 / 0) 101.91%
   );
   border-radius: 10px;
-  box-shadow: 5px 5px 10px 0 rgb(0 0 0 / 0.05),
-    -5px -5px 10px 0 rgb(0 0 0 / 0.05);
+  box-shadow: 7.5px 7.5px 10px 0 rgb(0 0 0 / 0.05),
+    -7.5px -7.5px 10px 0 rgb(0 0 0 / 0.05);
   display: grid;
   grid-template:
     'csc_left csc_right' 1fr
