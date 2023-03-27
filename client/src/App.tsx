@@ -16,23 +16,23 @@ function App() {
       errorElement: <NotFound />,
       children: [
         {
-          path: 'login',
+          path: '/login',
           element: <LoginView />,
         },
         {
-          path: 'sign-up',
+          path: '/sign-up',
           element: <RegisterView />,
         },
         {
-          path: 'activate',
+          path: '/activate',
           element: <ActiveAccountView />,
         },
         {
-          path: 'recover',
+          path: '/recovery',
           element: <PasswordRecoveryView />,
         },
         {
-          path: '',
+          path: '/',
           element: <HomeView />,
         },
       ],
