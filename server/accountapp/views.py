@@ -20,13 +20,17 @@ def login_to(request):
     if request.method == 'POST':
         form = json.loads(request.body)
         username = form['username']
-        password = form['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            JsonResponse({'ok': True, 'error': None, 'data': True})
-        else:
-            return JsonResponse({'ok': False, 'error': "Invalid", 'data': None})
+        try:
+            if validation.validate_username(username):
+                password = form['password']
+                user = authenticate(request, username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    JsonResponse({'ok': True, 'error': None, 'data': True})
+                else: return JsonResponse({'ok': False, 'error': 'Invalid username or password', 'data': None})
+
+        except ValueError as e:
+            return JsonResponse({'ok': False, 'error': e, 'data': None})
 
 
 @login_required(login_url='login')
@@ -51,24 +55,26 @@ def create_my_user(form):
 def signup(request):
     if request.method == 'POST':
         form = json.loads(request.body)
-        if validation.validate_registration(form):
-            user = create_my_user(form)
-            current_site = get_current_site(request)
-            mail_subject = 'Activation link has been sent to your email id'
-            message = render_to_string('accountapp/account_activation_mail.html', {
-                'user': user.username,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': account_activation_token.make_token(user),
-            })
-            to_email = form['email']
-            email = EmailMessage(
-                mail_subject, message, to=[to_email]
-            )
-            email.send()
-            return JsonResponse({'ok': True, 'error': None, 'data': True})
+        try:
+            if validation.validate_registration(form):
+                user = create_my_user(form)
+                current_site = get_current_site(request)
+                mail_subject = 'Activation link has been sent to your email id'
+                message = render_to_string('accountapp/account_activation_mail.html', {
+                    'user': user.username,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': account_activation_token.make_token(user),
+                })
+                to_email = form['email']
+                email = EmailMessage(
+                    mail_subject, message, to=[to_email]
+                )
+                email.send()
+                return JsonResponse({'ok': True, 'error': None, 'data': True})
+        except ValueError as e:
+            return JsonResponse({'ok': False, 'error': e, 'data': None})
 
-    return JsonResponse({'ok': False, 'error': "Invalid", 'data': None})
 
 # TODO raczej do usuniecia, ale poki co zostawie
 # def signup(request):
