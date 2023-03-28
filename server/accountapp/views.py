@@ -1,9 +1,6 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
+import os
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout, get_user_model
-from django.contrib.auth.forms import PasswordResetForm
-from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_str
@@ -47,6 +44,8 @@ def signup(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False
+            if str(os.environ.get('TEST') == '1'):
+                user.is_active = True
             user.save()
             current_site = get_current_site(request)
             mail_subject = 'Activation link has been sent to your email id'
