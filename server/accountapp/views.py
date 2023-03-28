@@ -1,3 +1,4 @@
+import json
 import os
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout, get_user_model
@@ -10,26 +11,22 @@ from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from django.http import JsonResponse
 
-from .forms import SignupForm
+import validation
 
 from accountapp.token import account_activation_token
 
 
 def login_to(request):
     if request.method == 'POST':
-        user_name = request.POST.get('username')
-        password = request.POST.get('password')
-        try:
-            user_name = User.objects.get(username=user_name)
-        except:
-            messages.error(request, "Wrong username or password")
-        user_authenticate = authenticate(request, username=user_name, password=password)
-        if user_authenticate is not None:
-            login(request, user_authenticate)
-            return JsonResponse({'ok': False, 'error': "Invalid", 'data': None})
+        form = json.loads(request.body)
+        username = form['username']
+        password = form['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            JsonResponse({'ok': True, 'error': None, 'data': True})
         else:
-            messages.error(request, "Wrong username or password !!!")
-    return JsonResponse({'ok': True, 'error': None, 'data': True})
+            return JsonResponse({'ok': False, 'error': "Invalid", 'data': None})
 
 
 @login_required(login_url='login')
@@ -38,24 +35,33 @@ def logout_my(request):
     return JsonResponse({'ok': True, 'error': None, 'data': True})
 
 
+# TODO moze warto bedzie to przeniesc do jakiegos osobnego pliku?
+def create_my_user(form):
+    email = form['email']
+    username = form['username']
+    password = form['password']
+    first_name = form['first_name']
+    last_name = form['last_name']
+    user = User.objects.create_user(username, email, password, first_name=first_name, last_name=last_name)
+    user.is_active = str(os.environ.get('TEST') == '1')
+    user.save()
+    return user
+
+
 def signup(request):
     if request.method == 'POST':
-        form = SignupForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.is_active = False
-            if str(os.environ.get('TEST') == '1'):
-                user.is_active = True
-            user.save()
+        form = json.loads(request.body)
+        if validation.validate_registration(form):
+            user = create_my_user(form)
             current_site = get_current_site(request)
             mail_subject = 'Activation link has been sent to your email id'
             message = render_to_string('accountapp/account_activation_mail.html', {
-                'user': user,
+                'user': user.username,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user),
             })
-            to_email = form.cleaned_data.get('email')
+            to_email = form['email']
             email = EmailMessage(
                 mail_subject, message, to=[to_email]
             )
@@ -63,6 +69,33 @@ def signup(request):
             return JsonResponse({'ok': True, 'error': None, 'data': True})
 
     return JsonResponse({'ok': False, 'error': "Invalid", 'data': None})
+
+# TODO raczej do usuniecia, ale poki co zostawie
+# def signup(request):
+#     if request.method == 'POST':
+#         form = SignupForm(request.POST)
+#         if form.is_valid():
+#             user = form.save(commit=False)
+#             user.is_active = False
+#             if str(os.environ.get('TEST') == '1'):
+#                 user.is_active = True
+#             user.save()
+#             current_site = get_current_site(request)
+#             mail_subject = 'Activation link has been sent to your email id'
+#             message = render_to_string('accountapp/account_activation_mail.html', {
+#                 'user': user,
+#                 'domain': current_site.domain,
+#                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+#                 'token': account_activation_token.make_token(user),
+#             })
+#             to_email = form.cleaned_data.get('email')
+#             email = EmailMessage(
+#                 mail_subject, message, to=[to_email]
+#             )
+#             email.send()
+#             return JsonResponse({'ok': True, 'error': None, 'data': True})
+#
+#     return JsonResponse({'ok': False, 'error': "Invalid", 'data': None})
 
 
 def activate(request, uidb64, token):
@@ -80,7 +113,7 @@ def activate(request, uidb64, token):
     else:
         return JsonResponse({'ok': False, 'error': "Activation link is invalid!", 'data': None})
 
-
+# TODO jak zdazymy
 # def password_reset_request(request):
 #     if request.method == "POST":
 #         password_reset_form = PasswordResetForm(request.POST)
@@ -97,7 +130,7 @@ def activate(request, uidb64, token):
 #                     'domain': current_site,
 #                     'site_name': 'Website',
 #                     "uid": urlsafe_base64_encode(force_bytes(user.pk)),
-#                     "user": user,
+#                     "user": user.username,
 #                     'token': default_token_generator.make_token(user),
 #                     'protocol': 'http',
 #                 })
