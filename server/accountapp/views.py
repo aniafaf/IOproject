@@ -1,5 +1,7 @@
 import json
 import os
+from smtplib import SMTPException
+
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout, get_user_model
 from django.contrib.auth.decorators import login_required
@@ -9,9 +11,10 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 
-import validation
+
+from . import validation
 
 from accountapp.token import account_activation_token
 
@@ -27,10 +30,11 @@ def login_to(request):
                 if user is not None:
                     login(request, user)
                     JsonResponse({'ok': True, 'error': None, 'data': True})
-                else: return JsonResponse({'ok': False, 'error': 'Invalid username or password', 'data': None})
+                else:
+                    return JsonResponse({'ok': False, 'error': 'Invalid username or password', 'data': None})
 
         except ValueError as e:
-            return JsonResponse({'ok': False, 'error': e, 'data': None})
+            return JsonResponse({'ok': False, 'error': str(e), 'data': None})
 
 
 @login_required(login_url='login')
@@ -73,41 +77,19 @@ def signup(request):
                 email.send()
                 return JsonResponse({'ok': True, 'error': None, 'data': True})
         except ValueError as e:
-            return JsonResponse({'ok': False, 'error': e, 'data': None})
+            return JsonResponse({'ok': False, 'error': str(e), 'data': None})
+        except SMTPException as smtpe:
+            return JsonResponse({'ok': False, 'error': str(smtpe), 'data': None})
 
 
-# TODO raczej do usuniecia, ale poki co zostawie
-# def signup(request):
-#     if request.method == 'POST':
-#         form = SignupForm(request.POST)
-#         if form.is_valid():
-#             user = form.save(commit=False)
-#             user.is_active = False
-#             if str(os.environ.get('TEST') == '1'):
-#                 user.is_active = True
-#             user.save()
-#             current_site = get_current_site(request)
-#             mail_subject = 'Activation link has been sent to your email id'
-#             message = render_to_string('accountapp/account_activation_mail.html', {
-#                 'user': user,
-#                 'domain': current_site.domain,
-#                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-#                 'token': account_activation_token.make_token(user),
-#             })
-#             to_email = form.cleaned_data.get('email')
-#             email = EmailMessage(
-#                 mail_subject, message, to=[to_email]
-#             )
-#             email.send()
-#             return JsonResponse({'ok': True, 'error': None, 'data': True})
-#
-#     return JsonResponse({'ok': False, 'error': "Invalid", 'data': None})
+def test(request):
+    return HttpResponse(json.dumps(dict(os.environ)))
 
 
-def activate(request, uidb64, token):
+def activate(request, uid, token):
     user_model = get_user_model()
     try:
-        uid = force_str(urlsafe_base64_decode(uidb64))
+        uid = force_str(urlsafe_base64_decode(uid))
         user = user_model.objects.get(pk=uid)
     except(TypeError, ValueError, OverflowError, user_model.DoesNotExist):
         user = None
