@@ -7,3 +7,4 @@ accountapp/migrations/__pycache__
 accountapp/__pycache__
 ioserver/__pycache__
 db.sqlite3
+.env
