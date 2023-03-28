@@ -1,24 +1,51 @@
-import { useState } from 'react'
+import { createTheme, ThemeProvider } from '@mui/material'
+import { StrictMode } from 'react'
+import { createHashRouter, RouterProvider } from 'react-router-dom'
+import { Spinner } from './components/Spinner'
+import { NotFound } from './views/404'
+import { LoginView } from './views/Login'
+import { RegisterView } from './views/Register'
+import { PasswordRecoveryView } from './views/PasswordRecovery'
+import { ActiveAccountView } from './views/ActiveAccount'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const router = createHashRouter([
+    {
+      path: '/',
+      errorElement: <NotFound />,
+      children: [
+        {
+          path: 'login',
+          element: <LoginView />,
+        },
+        {
+          path: 'sign-up',
+          element: <RegisterView />,
+        },
+        {
+          path: 'activate',
+          element: <ActiveAccountView />,
+        },
+        {
+          path: 'recover',
+          element: <PasswordRecoveryView />,
+        },
+      ],
+    },
+  ])
+
+  const theme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  })
 
   return (
-    <div className='App'>
-      <div></div>
-      <h1>Vite + React</h1>
-      <div className='card'>
-        <button onClick={() => setCount(count => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className='read-the-docs'>
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <StrictMode>
+      <ThemeProvider theme={theme}>
+        <RouterProvider router={router} fallbackElement={<Spinner />} />
+      </ThemeProvider>
+    </StrictMode>
   )
 }
 

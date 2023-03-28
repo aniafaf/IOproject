@@ -1,0 +1,16 @@
+.form_link {
+  display: block;
+  width: 100%;
+  color: #636363;
+  text-align: right;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 400;
+  font-family: 'Libre Franklin', 'Franklin Gothic Medium', 'Arial Narrow', Arial,
+    sans-serif;
+  margin-top: 10px;
+}
+
+.form_link:hover {
+  color: #737373;
+}

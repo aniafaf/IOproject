@@ -8,3 +8,7 @@ accountapp/__pycache__
 ioserver/__pycache__
 db.sqlite3
 .env
+__pycache__
+*.sqlite3
+.venv
+pyvenv.cfg

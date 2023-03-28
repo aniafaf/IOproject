@@ -6,6 +6,6 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
     plugins: [react()],
-    base: env['ASSETS_BASE']
+    base: env['VITE_ASSETS_BASE'],
   }
 })
