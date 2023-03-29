@@ -25,23 +25,27 @@ CLIENT_PATH = SETTINGS_PATH / "../../client/"
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["account-app.herokuapp.com", "127.0.0.1", "0.0.0.0"]
+ALLOWED_HOSTS = [
+    'account-app.herokuapp.com',
+    '127.0.0.1',
+    '0.0.0.0'
+]
 
 # Application definition
 
 INSTALLED_APPS = [
-    "accountapp.apps.AccountappConfig",
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
+    'accountapp.apps.AccountappConfig',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
 ]
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
