@@ -33,7 +33,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'account-app.herokuapp.com',
     '127.0.0.1',
-    '0.0.0.0'
+    '0.0.0.0',
+    'https://io-project.herokuapp.com/'
 ]
 
 # Application definition
