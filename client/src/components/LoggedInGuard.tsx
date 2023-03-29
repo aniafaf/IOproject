@@ -1,9 +1,9 @@
 import { Navigate } from 'react-router'
-import { useLoggedIn } from '../hooks/useLoggedIn'
+import { isLoggedIn } from '../hooks/isLoggedIn'
 import { Route } from '../routes'
 
 export const LoggedInGuard = () =>
-  useLoggedIn() ? <></> : <Navigate to={Route.login()} />
+  isLoggedIn() ? <></> : <Navigate to={Route.login()} />
 
 export const NotLoggedInGuard = () =>
-  !useLoggedIn() ? <></> : <Navigate to={Route.home()} />
+  !isLoggedIn() ? <></> : <Navigate to={Route.home()} />

@@ -12,11 +12,11 @@ import { useNavigate } from "react-router-dom";
 
 export const LoginView = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   
   const handleSubmit = () => {
-    post_login(email, password).then(r => {
+    post_login(username, password).then(r => {
       if (r.ok) {
         navigate("/");
       } else {
@@ -36,9 +36,9 @@ export const LoginView = () => {
         />
         <FieldSet>
           <TextInputField
-            label='email'
+            label='username'
             validate={_ => true}
-            onUpdate={setEmail}
+            onUpdate={setUsername}
           />
           <TextInputField
             label='password'
