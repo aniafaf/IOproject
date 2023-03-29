@@ -6,35 +6,45 @@ import { FormLink } from '../../components/FormLink'
 import { NotLoggedInGuard } from '../../components/LoggedInGuard'
 import { TextInputField } from '../../components/TextInputField'
 import { Route } from '../../routes'
+import React, { useState } from "react"
 
-export const LoginView = () => (
-  <>
-    <NotLoggedInGuard />
-    <CenterSplitLayout>
-      <FormHeading
-        title={`Welcome to _our_name_`}
-        subTitle={`Manage all your finances in one place.`}
-      />
-      <FieldSet>
-        <TextInputField
-          label='email'
-          onUpdate={() => {}}
-          validate={_ => false}
+export const LoginView = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+  
+  return (
+    <>
+      <NotLoggedInGuard />
+      <CenterSplitLayout>
+        <FormHeading
+          title={`Welcome to _our_name_`}
+          subTitle={`Manage all your finances in one place.`}
         />
-        <TextInputField
-          label='password'
-          type='password'
-          onUpdate={() => {}}
-          validate={_ => false}
-        />
-        <FormLink to={Route.recovery()}>Forgot password?</FormLink>
-      </FieldSet>
-      <FieldSet>
-        <FormButton>log in</FormButton>
-        <FormLink to={Route.sign_up()} align='center'>
-          Don’t have an account? Sign up
-        </FormLink>
-      </FieldSet>
-    </CenterSplitLayout>
-  </>
-)
+        <FieldSet>
+          <TextInputField
+            label='email'
+            onUpdate={() => {}}
+            validate={_ => false}
+          />
+          <TextInputField
+            label='password'
+            type='password'
+            onUpdate={() => {}}
+            validate={_ => false}
+          />
+          <FormLink to={Route.recovery()}>Forgot password?</FormLink>
+        </FieldSet>
+        <FieldSet>
+          <FormButton>log in</FormButton>
+          <FormLink to={Route.sign_up()} align='center'>
+            Don’t have an account? Sign up
+          </FormLink>
+        </FieldSet>
+      </CenterSplitLayout>
+    </>
+  );
+}
