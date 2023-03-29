@@ -12,6 +12,8 @@ from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from django.http import JsonResponse, HttpResponse
+from django.core.exceptions import ValidationError
+from django.db import IntegrityError
 
 
 from . import validation
@@ -76,8 +78,16 @@ def signup(request):
                 )
                 email.send()
                 return JsonResponse({'ok': True, 'error': None, 'data': True})
+            else:
+                JsonResponse({'ok': True, 'error': "t", 'data': True})
         except ValueError as e:
             return JsonResponse({'ok': False, 'error': str(e), 'data': None})
+        except ValidationError as mail_error:
+            return JsonResponse({'ok': False, 'error': str(mail_error), 'data': None})
+        # TODO to lapie wszystkie errory gdzie coś koliduje z bazą danych, sprobuje to poprawic, żeby tyczyło to tylko
+        # powtarzajacego sie username
+        except IntegrityError:
+            return JsonResponse({'ok': False, 'error': 'Username already exist', 'data': None})
         except SMTPException as smtpe:
             return JsonResponse({'ok': False, 'error': str(smtpe), 'data': None})
 
