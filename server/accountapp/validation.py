@@ -9,7 +9,7 @@ password_pattern = r'^.{8,}$'
 
 def validate_name(name):
     if re.fullmatch(name_pattern, name) is None:
-        raise ValueError(f'The {name} is not a valid name')
+        raise ValueError(f'The {name} is not a valid name.')
 
     return True
 
@@ -22,8 +22,8 @@ def validate_user_email(email):
 
 def validate_username(username):
     if re.fullmatch(username_pattern, username) is None:
-        raise ValueError(f'Username must contain: minimum one character, only upper and lower case letters '
-                         f'and only _, -, ., + symbols',)
+        raise ValueError(f'Username must contain: minimum one character, only upper or lower case letters '
+                         f'and _, -, ., + symbols.',)
 
     return True
 
@@ -36,10 +36,20 @@ def validate_password(password):
 
 
 def validate_registration(form):
+    if "email" not in form:
+        raise ValueError(f'Form lacks email field.')
     email = form['email']
+    if "username" not in form:
+        raise ValueError(f'Form lacks username field.')
     username = form['username']
+    if "password" not in form:
+        raise ValueError(f'Form lacks password field.')
     password = form['password']
+    if "first_name" not in form:
+        raise ValueError(f'Form lacks first_name field.')
     first_name = form['first_name']
+    if "last_name" not in form:
+        raise ValueError(f'Form lacks last_name field.')
     last_name = form['last_name']
     validate_email(email)
     validate_username(username)
