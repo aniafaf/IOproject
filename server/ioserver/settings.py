@@ -12,10 +12,13 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+SETTINGS_PATH = Path(os.path.dirname(os.path.realpath(__file__)))
+CLIENT_PATH = SETTINGS_PATH / "../../client/"
 
 
 # Quick-start development settings - unsuitable for production
@@ -30,7 +33,9 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'account-app.herokuapp.com',
     '127.0.0.1',
-    '0.0.0.0'
+    '0.0.0.0',
+    'localhost',
+    'io-project.herokuapp.com'
 ]
 
 # Application definition
@@ -63,7 +68,9 @@ ROOT_URLCONF = "ioserver.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [
+            CLIENT_PATH / 'dist'
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -124,23 +131,24 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-# STATIC_ROOT = '../client/dist/assets/'
+STATIC_ROOT = SETTINGS_PATH / "../static/"
 
-STATIC_URL = '/assets/'
+STATIC_URL = "/assets/"
 
 STATICFILES_DIRS = [
     # location of your application, should not be public web accessible
-    '../client/dist/assets'
+    CLIENT_PATH
+    / "dist/assets/"
 ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = 587

@@ -15,8 +15,7 @@ export const LoginView = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     post_login(email, password).then(r => {
       if (r.ok) {
         navigate("/");
@@ -35,24 +34,22 @@ export const LoginView = () => {
           title={`Welcome to _our_name_`}
           subTitle={`Manage all your finances in one place.`}
         />
-        <FieldSet onSubmit={handleSubmit}>
+        <FieldSet>
           <TextInputField
             label='email'
             validate={_ => true}
-            value={email}
             onUpdate={setEmail}
           />
           <TextInputField
             label='password'
             type='password'
             validate={_ => true}
-            value={password}
             onUpdate={setPassword}
           />
           <FormLink to={Route.recovery()}>Forgot password?</FormLink>
         </FieldSet>
         <FieldSet>
-          <FormButton>log in</FormButton>
+          <FormButton onClick={handleSubmit}>log in</FormButton>
           <FormLink to={Route.sign_up()} align='center'>
             Don’t have an account? Sign up
           </FormLink>

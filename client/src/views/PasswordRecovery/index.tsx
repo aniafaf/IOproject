@@ -11,15 +11,14 @@ import React, { useState } from "react"
 export const PasswordRecoveryView = () => {
   const [email, setEmail] = useState('');
   
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
   };
   
   return (
     <>
       <NotLoggedInGuard />
       <CenterSplitLayout>
-        <FieldSet onSubmit={handleSubmit}>
+        <FieldSet>
           <FormHeading
             title={`Trouble logging in?`}
             subTitle={`Enter your email and we'll send you a link to get back into your account.`}
@@ -27,12 +26,11 @@ export const PasswordRecoveryView = () => {
           <TextInputField
             label='email'
             validate={_ => true}
-            value={email}
             onUpdate={setEmail}
           />
         </FieldSet>
         <FieldSet>
-          <FormButton>send reset link</FormButton>
+          <FormButton onClick={handleSubmit}>send reset link</FormButton>
           <FormLink to={Route.login()} align='center'>
             Back to log in
           </FormLink>

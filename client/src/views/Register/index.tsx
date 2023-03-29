@@ -14,8 +14,7 @@ export const RegisterView = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
   };
   
   return (
@@ -26,37 +25,32 @@ export const RegisterView = () => {
           <TextInputField
             label='first name'
             validate={_ => true}
-            value={firstName}
             onUpdate={setFirstName}
           />
           <TextInputField
             label='last name'
             validate={_ => true}
-            value={lastName}
             onUpdate={setLastName}
           />
           <TextInputField
             label='username'
             validate={_ => true}
-            value={username}
             onUpdate={setUsername}
           />
           <TextInputField
             label='email'
             validate={_ => true}
-            value={email}
             onUpdate={setEmail}
           />
           <TextInputField
             label='password'
             type={'password'}
             validate={_ => true}
-            value={password}
             onUpdate={setPassword}
           />
         </FieldSet>
         <FieldSet>
-          <FormButton>sign up</FormButton>
+          <FormButton onClick={handleSubmit}>sign up</FormButton>
           <FormLink to={Route.login()} align='center'>
             Already have an account? Log in
           </FormLink>
