@@ -35,7 +35,7 @@ def login_to(request):
                 user = authenticate(request, username=username, password=password)
                 if user is not None:
                     login(request, user)
-                    JsonResponse({'ok': True, 'error': None, 'data': True})
+                    return JsonResponse({'ok': True, 'error': None, 'data': True})
                 else:
                     return JsonResponse({'ok': False, 'error': 'Invalid username or password', 'data': None})
 
