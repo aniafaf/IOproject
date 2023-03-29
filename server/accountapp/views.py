@@ -24,9 +24,13 @@ from accountapp.token import account_activation_token
 def login_to(request):
     if request.method == 'POST':
         form = json.loads(request.body)
-        username = form['username']
         try:
+            if "username" not in form:
+                raise ValueError(f'Form lacks username field.')
+            username = form['username']
             if validation.validate_username(username):
+                if "password" not in form:
+                    raise ValueError(f'Form lacks password field.')
                 password = form['password']
                 user = authenticate(request, username=username, password=password)
                 if user is not None:
