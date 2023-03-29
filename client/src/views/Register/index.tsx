@@ -25,34 +25,34 @@ export const RegisterView = () => {
         <FieldSet width={'300px'}>
           <TextInputField
             label='first name'
-            validate={_ => false}
+            validate={_ => true}
             value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            onUpdate={setFirstName}
           />
           <TextInputField
             label='last name'
-            validate={_ => false}
+            validate={_ => true}
             value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            onUpdate={setLastName}
           />
           <TextInputField
             label='username'
-            validate={_ => false}
+            validate={_ => true}
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onUpdate={setUsername}
           />
           <TextInputField
             label='email'
-            validate={_ => false}
+            validate={_ => true}
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onUpdate={setEmail}
           />
           <TextInputField
             label='password'
             type={'password'}
-            validate={_ => false}
+            validate={_ => true}
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onUpdate={setPassword}
           />
         </FieldSet>
         <FieldSet>

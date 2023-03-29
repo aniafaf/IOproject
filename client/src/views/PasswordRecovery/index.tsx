@@ -26,9 +26,9 @@ export const PasswordRecoveryView = () => {
           />
           <TextInputField
             label='email'
-            validate={_ => false}
+            validate={_ => true}
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onUpdate={setEmail}
           />
         </FieldSet>
         <FieldSet>

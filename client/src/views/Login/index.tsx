@@ -27,16 +27,16 @@ export const LoginView = () => {
         <FieldSet onSubmit={handleSubmit}>
           <TextInputField
             label='email'
-            validate={_ => false}
+            validate={_ => true}
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onUpdate={setEmail}
           />
           <TextInputField
             label='password'
             type='password'
-            validate={_ => false}
+            validate={_ => true}
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onUpdate={setPassword}
           />
           <FormLink to={Route.recovery()}>Forgot password?</FormLink>
         </FieldSet>

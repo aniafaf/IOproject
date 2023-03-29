@@ -25,7 +25,7 @@ export const ActiveAccountView = () => {
           label='activation code'
           validate={_ => false}
           value={activationCode}
-          onChange={(e) => setActivationCode(e.target.value)}
+          onUpdate={setActivationCode}
         />
       </FieldSet>
       <FieldSet>
