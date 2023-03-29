@@ -16,15 +16,16 @@ export const ActiveAccountView = () => {
   
   return (
     <CenterSplitLayout>
-      <FieldSet>
+      <FieldSet onSubmit={handleSubmit}>
         <FormHeading
           title={`Enter an activation code`}
           subTitle={`We sent you a code via email.`}
         />
         <TextInputField
           label='activation code'
-          onUpdate={() => {}}
           validate={_ => false}
+          value={activationCode}
+          onChange={(e) => setActivationCode(e.target.value)}
         />
       </FieldSet>
       <FieldSet>

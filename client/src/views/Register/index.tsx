@@ -14,6 +14,10 @@ export const RegisterView = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+  
   return (
     <>
       <NotLoggedInGuard />
@@ -21,29 +25,34 @@ export const RegisterView = () => {
         <FieldSet width={'300px'}>
           <TextInputField
             label='first name'
-            onUpdate={() => {}}
             validate={_ => false}
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
           />
           <TextInputField
             label='last name'
-            onUpdate={() => {}}
             validate={_ => false}
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
           />
           <TextInputField
             label='username'
-            onUpdate={() => {}}
             validate={_ => false}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
           <TextInputField
             label='email'
-            onUpdate={() => {}}
             validate={_ => false}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <TextInputField
             label='password'
             type={'password'}
-            onUpdate={() => {}}
             validate={_ => false}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </FieldSet>
         <FieldSet>

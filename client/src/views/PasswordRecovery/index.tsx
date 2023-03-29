@@ -11,19 +11,24 @@ import React, { useState } from "react"
 export const PasswordRecoveryView = () => {
   const [email, setEmail] = useState('');
   
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+  
   return (
     <>
       <NotLoggedInGuard />
       <CenterSplitLayout>
-        <FieldSet>
+        <FieldSet onSubmit={handleSubmit}>
           <FormHeading
             title={`Trouble logging in?`}
             subTitle={`Enter your email and we'll send you a link to get back into your account.`}
           />
           <TextInputField
             label='email'
-            onUpdate={() => {}}
             validate={_ => false}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </FieldSet>
         <FieldSet>

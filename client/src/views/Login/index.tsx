@@ -14,7 +14,7 @@ export const LoginView = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  };
+  }
   
   return (
     <>
@@ -24,17 +24,19 @@ export const LoginView = () => {
           title={`Welcome to _our_name_`}
           subTitle={`Manage all your finances in one place.`}
         />
-        <FieldSet>
+        <FieldSet onSubmit={handleSubmit}>
           <TextInputField
             label='email'
-            onUpdate={() => {}}
             validate={_ => false}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <TextInputField
             label='password'
             type='password'
-            onUpdate={() => {}}
             validate={_ => false}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <FormLink to={Route.recovery()}>Forgot password?</FormLink>
         </FieldSet>
