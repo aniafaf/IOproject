@@ -1,9 +1,10 @@
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 import re
 
 name_pattern = r'^[A-Z][a-z]{0,149}$'
-email_pattern = r'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$'
 username_pattern = r'^[a-zA-Z0-9\_\-\+\.]{1,150}$'
-password_pattern = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$'
+password_pattern = r'^.{8,}$'
 
 
 def validate_name(name):
@@ -13,11 +14,10 @@ def validate_name(name):
     return True
 
 
-def validate_email(email):
-    if re.fullmatch(email_pattern, email) is None:
-        raise ValueError(f'The {email} is not a valid email address')
-
-    return True
+def validate_user_email(email):
+    if validate_email(email):
+        return True
+    raise ValidationError
 
 
 def validate_username(username):
@@ -30,8 +30,7 @@ def validate_username(username):
 
 def validate_password(password):
     if re.fullmatch(password_pattern, password) is None:
-        raise ValueError(f'Password must contain: minimum eight characters, at least one uppercase letter, '
-                         f'one lowercase letter and one number')
+        raise ValueError(f'Password must contain: minimum eight characters.')
 
     return True
 
@@ -47,5 +46,4 @@ def validate_registration(form):
     validate_password(password)
     validate_name(first_name)
     validate_name(last_name)
-
-
+    return True
