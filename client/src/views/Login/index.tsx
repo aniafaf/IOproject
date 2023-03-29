@@ -7,14 +7,24 @@ import { NotLoggedInGuard } from '../../components/LoggedInGuard'
 import { TextInputField } from '../../components/TextInputField'
 import { Route } from '../../routes'
 import React, { useState } from "react"
-import { post_login, LoginResponse } from '../../api/post_login'
+import { post_login } from '../../api/post_login'
+import { useNavigate } from "react-router-dom";
 
 export const LoginView = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
   const handleSubmit = (e) => {
     e.preventDefault();
+    post_login(email, password).then(r => {
+      if (r.ok) {
+        navigate("/");
+      } else {
+        alert("BŁĄD");
+        console.log(r.error);
+      }
+    })
   }
   
   return (
