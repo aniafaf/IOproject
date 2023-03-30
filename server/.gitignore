@@ -7,3 +7,4 @@ lib64
 .venv
 pyvenv.cfg
 **/static
+.env
