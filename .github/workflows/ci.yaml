@@ -24,6 +24,7 @@ jobs:
     runs-on: ubuntu-22.04
     needs: [ci]
     steps:
+      - uses: actions/checkout@v3
       - uses: akhileshns/heroku-deploy@v3.12.13 
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
