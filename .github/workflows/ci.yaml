@@ -2,7 +2,7 @@ name: run tests
 on: [push, pull_request, check_run]
 
 jobs:
-  client-tests:
+  ci:
     runs-on: ubuntu-22.04
 
     strategy:
