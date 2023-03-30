@@ -30,7 +30,7 @@ else
   exit 1
 fi
 
-if [[ -z "$DEBUG" ]]; then
+if [[ -n "$DEBUG" ]]; then
   exit $!
 fi
 
