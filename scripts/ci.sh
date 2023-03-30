@@ -30,6 +30,10 @@ else
   exit 1
 fi
 
+if [[ -z "$DEBUG" ]]; then
+  exit $!
+fi
+
 print_info "Committing above changes."
 git config --global user.name "ci"
 git config --global user.email "ts438730@students.mimuw.edu.pl"

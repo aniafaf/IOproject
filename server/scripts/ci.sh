@@ -5,7 +5,7 @@ source ../../scripts/helpers.sh || exit 1
 source ./venv.sh || exit 1
 
 print_info "Formatting files..."
-if black ..**/*.py; then
+if black ../**/*.py; then
   print_ok "Succesfully formatted files."
 else
   print_error "Failed to format files."
