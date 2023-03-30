@@ -7,6 +7,7 @@ describe('env', () => {
   }
 
   Object.entries(expected_env).forEach(([k, v]) =>
-    it(`sets ${k}`, () => expect({ [k]: import.meta.env[k] }).toStrictEqual({ [k]: v })),
+    it(`sets ${k}`, () =>
+      expect({ [k]: import.meta.env[k] }).toStrictEqual({ [k]: v })),
   )
 })

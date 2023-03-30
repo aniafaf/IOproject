@@ -1,4 +1,4 @@
-import { LoggedInGuard } from "../../components/LoggedInGuard";
+import { LoggedInGuard } from '../../components/LoggedInGuard'
 
 export const HomeView = () => (
   <>

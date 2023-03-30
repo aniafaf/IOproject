@@ -6,14 +6,13 @@ import { FormLink } from '../../components/FormLink'
 import { NotLoggedInGuard } from '../../components/LoggedInGuard'
 import { TextInputField } from '../../components/TextInputField'
 import { Route } from '../../routes'
-import React, { useState } from "react"
+import React, { useState } from 'react'
 
 export const PasswordRecoveryView = () => {
-  const [email, setEmail] = useState('');
-  
-  const handleSubmit = () => {
-  };
-  
+  const [email, setEmail] = useState('')
+
+  const handleSubmit = () => {}
+
   return (
     <>
       <NotLoggedInGuard />
@@ -37,5 +36,5 @@ export const PasswordRecoveryView = () => {
         </FieldSet>
       </CenterSplitLayout>
     </>
-  );
+  )
 }

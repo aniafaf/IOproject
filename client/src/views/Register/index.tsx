@@ -5,18 +5,17 @@ import { FormLink } from '../../components/FormLink'
 import { NotLoggedInGuard } from '../../components/LoggedInGuard'
 import { TextInputField } from '../../components/TextInputField'
 import { Route } from '../../routes'
-import React, { useState } from "react"
+import React, { useState } from 'react'
 
 export const RegisterView = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  
-  const handleSubmit = () => {
-  };
-  
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleSubmit = () => {}
+
   return (
     <>
       <NotLoggedInGuard />
@@ -57,5 +56,5 @@ export const RegisterView = () => {
         </FieldSet>
       </CenterSplitLayout>
     </>
-  );
+  )
 }
