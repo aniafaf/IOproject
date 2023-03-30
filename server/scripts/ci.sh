@@ -2,6 +2,7 @@
 
 cd "$(dirname "$0")" || exit 1
 source ../../scripts/helpers.sh || exit 1
+source ./venv.sh || exit $!
 
 print_info "Formatting files..."
 if black ..**/*.py; then

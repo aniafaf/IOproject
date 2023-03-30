@@ -13,14 +13,7 @@ else
   exit 1
 fi
 
-print_info "Activating python venv..."
-# shellcheck disable=all
-if source ./$VENV_PATH/bin/activate; then
-  print_ok "Successfully activated venv."
-else
-  print_error "Failed to activate python venv. See the messages above for further details."
-  exit 1
-fi
+source ./venv.sh || exit $!
 
 print_info "Installing packages..."
 if python -m pip install -r ../requirements.txt; then
