@@ -1,5 +1,7 @@
 name: run tests
-on: [push, pull_request, check_run]
+on:
+  push:
+    branches: [main]
 
 jobs:
   ci:
@@ -25,7 +27,7 @@ jobs:
     needs: [ci]
     steps:
       - uses: actions/checkout@v3
-      - uses: akhileshns/heroku-deploy@v3.12.13 
+      - uses: akhileshns/heroku-deploy@v3.12.13
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: "io-project"
