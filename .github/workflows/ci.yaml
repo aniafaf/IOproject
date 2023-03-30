@@ -1,4 +1,4 @@
-name: run tests
+name: ci
 on:
   push:
     branches: [main, 5-ustawienie-cicd]
