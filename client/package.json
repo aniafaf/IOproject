@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "mess": "nodemon -e mss -x 'find . -wholename '**/*.mss' -exec mess {} \\;'"
+    "mess": "nodemon -e mss -x 'find . -wholename '**/*.mss' -exec mess {} \\;'",
+    "ci-script": "./scripts/ci.sh"
   },
   "dependencies": {
     "@emotion/styled": "^11.10.6",

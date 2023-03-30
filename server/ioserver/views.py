@@ -3,4 +3,4 @@ from django.shortcuts import render
 
 
 def main(request):
-    return render(request, 'accountapp/index.html', {})
+    return render(request, 'index.html', {})
