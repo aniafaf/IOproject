@@ -19,8 +19,14 @@ jobs:
         with:
           python-version: "3.10"
       - run: ./scripts/ci.sh
+
+  deploy:
+    runs-on: ubuntu-22.04
+    needs: [ci]
+    steps:
       - uses: akhileshns/heroku-deploy@v3.12.13 
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: "io-project"
           heroku_email: "mavia.cona@gmail.com"
+          buildpack: "https://github.com/LaMavia/heroku-buildpack-io"
