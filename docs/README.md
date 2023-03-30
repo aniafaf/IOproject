@@ -1,5 +1,9 @@
 # Getting started
 
+## Coverage
+
+1. [client](../client/coverage/index.html)
+
 ## Navigation
 
 1. [client](./client/README.md)
