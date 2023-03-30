@@ -33,6 +33,10 @@ git config --global user.name "ci"
 git config --global user.email "ts438730@students.mimuw.edu.pl"
 
 git add -A
-git add -f ./client/coverage/*
 git commit -m "CI [$(date -u +"%Y.%m.%d %T")]"
 git push
+
+current_branch=$(git branch | grep '\*\s*' | sed 's/\*\s*//')
+git checkout -B gh-pages
+git add -f ./client/coverage/*
+git push -u origin gh-pages
