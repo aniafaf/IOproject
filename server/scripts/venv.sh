@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-cd "$(dirname "$0")" || exit 1
-source ../../scripts/helpers.sh || exit 1
 source ./consts.sh || exit 1
 
 print_info "Activating python venv..."
