@@ -13,7 +13,7 @@ else
   exit 1
 fi
 
-source ./venv.sh || exit $!
+source ./venv.sh || exit 1
 
 print_info "Installing packages..."
 if python -m pip install -r ../requirements.txt; then

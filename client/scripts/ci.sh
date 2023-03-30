@@ -9,5 +9,5 @@ if prettier --write .; then
   print_ok "Successfully formatted all the files."
 else
   print_error "Failed to format all the files."
-  exit $!
+  exit 1
 fi

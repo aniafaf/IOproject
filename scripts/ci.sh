@@ -8,7 +8,7 @@ if ./init.sh; then
   print_ok "Succesfully initialised CI env."
 else
   print_error "Failed to initialise CI env."
-  exit $!
+  exit 1
 fi
 
 print_info "Running client CI..."
@@ -17,7 +17,7 @@ if npm run ci-script; then
   print_ok "Successfully ran client CI."
 else
   print_error "Failed to run client CI."
-  exit $!
+  exit 1
 fi
 
 cd .. || exit 1 # return to the root folder
@@ -27,7 +27,7 @@ if ./server/scripts/ci.sh; then
   print_ok "Successfully ran server CI."
 else
   print_error "Failed to run server CI."
-  exit $!
+  exit 1
 fi
 
 print_info "Committing above changes."
