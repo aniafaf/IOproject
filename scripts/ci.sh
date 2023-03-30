@@ -33,5 +33,6 @@ git config --global user.name "ci"
 git config --global user.email "ts438730@students.mimuw.edu.pl"
 
 git add -A
+git add -f ./client/coverage/*
 git commit -m "CI [$(date -u +"%Y.%m.%d %T")]"
 git push
