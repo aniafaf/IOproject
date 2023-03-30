@@ -17,6 +17,8 @@ function print_error {
 }
 
 function op {
+  local fail
+  
   print_info "$1" 
   if eval "$2"; then
     print_ok "$3" 
@@ -30,11 +32,16 @@ function op {
       eval "$OP_ERR"
       unset OP_ERR
     fi
+    fail=true
   fi
 
   if [ -n "$OP_FINAL" ]; then
     print_info "Running final hook: $OP_FINAL"
     eval "$OP_FINAL"
     unset OP_FINAL
+  fi
+
+  if [ $fail = true ]; then 
+    exit 1
   fi
 }
