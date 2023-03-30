@@ -11,7 +11,8 @@
     "test-script": "vitest --run",
     "coverage": "vitest run --coverage",
     "mess": "nodemon -e mss -x 'find . -wholename '**/*.mss' -exec mess {} \\;'",
-    "ci-script": "./scripts/ci.sh"
+    "ci-script": "./scripts/ci.sh",
+    "coverage-script1": "./scripts/coverage.sh"
   },
   "dependencies": {
     "@emotion/styled": "^11.10.6",

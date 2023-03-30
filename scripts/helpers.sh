@@ -18,7 +18,7 @@ function print_error {
 
 function op {
   local fail
-  
+
   print_info "$1" 
   if eval "$2"; then
     print_ok "$3" 
@@ -41,7 +41,7 @@ function op {
     unset OP_FINAL
   fi
 
-  if [ $fail = true ]; then 
+  if [[ $fail = true ]]; then 
     exit 1
   fi
 }

@@ -15,8 +15,3 @@ op "Running client tests ($server_pid)..." \
   "npm run test-script" \
   "Succesfully ran client tests." \
   "Failed to run client tests." || exit 1
-
-op "Generating client coverage..." \
-  "npm run coverage" \
-  "Succesfully ran client coverage." \
-  "Failed to run client coverage."
