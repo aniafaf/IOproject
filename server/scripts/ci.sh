@@ -9,6 +9,6 @@ if black ..**/*.py; then
   print_ok "Succesfully formatted files."
 else
   print_error "Failed to format files."
-  exit $!
+  exit 1
 fi 
 
