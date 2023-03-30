@@ -1,4 +1,4 @@
-name: run tests
+name: coverage
 on:
   push:
     branches: [main, 5-ustawienie-cicd]
