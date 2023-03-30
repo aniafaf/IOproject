@@ -8,3 +8,5 @@ op "Formatting client files..." \
     "prettier --write ." \
     "Successfully formatted all the files." \
     "Failed to format all the files." 
+
+./test.sh || exit 1

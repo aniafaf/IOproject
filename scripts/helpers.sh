@@ -20,7 +20,21 @@ function op {
   print_info "$1" 
   if eval "$2"; then
     print_ok "$3" 
+    if [ -n "$OP_OK" ]; then
+      eval "$OP_OK"
+      unset OP_OK
+    fi
   else
     print_error "$4: $!" 
+    if [ -n "$OP_ERR" ]; then
+      eval "$OP_ERR"
+      unset OP_ERR
+    fi
+  fi
+
+  if [ -n "$OP_FINAL" ]; then
+    print_info "Running final hook: $OP_FINAL"
+    eval "$OP_FINAL"
+    unset OP_FINAL
   fi
 }

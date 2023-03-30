@@ -8,6 +8,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest",
+    "test-script": "vitest --run",
     "coverage": "vitest run --coverage",
     "mess": "nodemon -e mss -x 'find . -wholename '**/*.mss' -exec mess {} \\;'",
     "ci-script": "./scripts/ci.sh"
