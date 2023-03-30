@@ -1,0 +1,19 @@
+name: run tests
+on:
+  workflow_run:
+    workflows: [ci]
+    branches: [main]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: akhileshns/heroku-deploy@v3.12.13
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: "io-project"
+          heroku_email: "mavia.cona@gmail.com"
+          buildpack: "https://github.com/LaMavia/heroku-buildpack-io"
