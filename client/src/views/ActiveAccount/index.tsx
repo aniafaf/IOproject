@@ -5,14 +5,13 @@ import { FormHeading } from '../../components/FormHeading'
 import { FormLink } from '../../components/FormLink'
 import { TextInputField } from '../../components/TextInputField'
 import { Route } from '../../routes'
-import React, { useState } from "react"
+import React, { useState } from 'react'
 
 export const ActiveAccountView = () => {
-  const [activationCode, setActivationCode] = useState('');
+  const [activationCode, setActivationCode] = useState('')
 
-  const handleSubmit = () => {
-  };
-  
+  const handleSubmit = () => {}
+
   return (
     <CenterSplitLayout>
       <FieldSet>
@@ -28,8 +27,10 @@ export const ActiveAccountView = () => {
       </FieldSet>
       <FieldSet>
         <FormButton onClick={handleSubmit}>sign up</FormButton>
-        <FormLink to={Route.login()} align='center'>Back to log in</FormLink>
+        <FormLink to={Route.login()} align='center'>
+          Back to log in
+        </FormLink>
       </FieldSet>
     </CenterSplitLayout>
-  );
+  )
 }

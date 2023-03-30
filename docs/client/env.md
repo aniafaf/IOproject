@@ -1,5 +1,7 @@
 # ENV variable documentation
 
+<<<<<<< HEAD
+=======
 ## Navigation
 
 1. [..](../)
@@ -7,6 +9,7 @@
 1. [Environment variables](./env.md)
 1. [Testing](./tests.md)
 
+>>>>>>> main
 ## ASSETS_BASE
 
 - Type: `Path` (`string`).

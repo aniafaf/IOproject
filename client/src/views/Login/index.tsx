@@ -6,26 +6,26 @@ import { FormLink } from '../../components/FormLink'
 import { NotLoggedInGuard } from '../../components/LoggedInGuard'
 import { TextInputField } from '../../components/TextInputField'
 import { Route } from '../../routes'
-import React, { useState } from "react"
+import React, { useState } from 'react'
 import { post_login } from '../../api/post_login'
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
 
 export const LoginView = () => {
-  const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  
+  const navigate = useNavigate()
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+
   const handleSubmit = () => {
     post_login(username, password).then(r => {
       if (r.ok) {
-        navigate("/");
+        navigate('/')
       } else {
-        alert("BŁĄD");
-        console.log(r.error);
+        alert('BŁĄD')
+        console.log(r.error)
       }
     })
   }
-  
+
   return (
     <>
       <NotLoggedInGuard />
@@ -56,5 +56,5 @@ export const LoginView = () => {
         </FieldSet>
       </CenterSplitLayout>
     </>
-  );
+  )
 }
