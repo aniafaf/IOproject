@@ -9,4 +9,4 @@ op "Formatting client files..." \
     "Successfully formatted all the files." \
     "Failed to format all the files." 
 
-./test.sh || exit 1
+./scripts/test.sh || exit 1
