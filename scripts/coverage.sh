@@ -39,9 +39,10 @@ git config --global user.name "ci"
 git config --global user.email "ts438730@students.mimuw.edu.pl"
 git config pull.rebase false
 git checkout -B gh-pages
+git branch --set-upstream-to=origin gh-pages
 
 git add -A
 git add -f ./client/coverage/*
-git pull
+git pull origin/gh-pages
 git commit -m "CI [$(date -u +"%Y.%m.%d %T")]"
-git push -u origin gh-pages
+git push -f -u origin gh-pages
