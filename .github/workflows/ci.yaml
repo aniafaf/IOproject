@@ -24,3 +24,4 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: "io-project"
           heroku_email: "mavia.cona@gmail.com"
+          buildpack: "https://github.com/LaMavia/heroku-buildpack-io"
