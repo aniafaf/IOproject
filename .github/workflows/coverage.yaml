@@ -4,7 +4,7 @@ on:
     branches: [main, 5-ustawienie-cicd]
 
 jobs:
-  ci:
+  coverage:
     runs-on: ubuntu-22.04
 
     strategy:
