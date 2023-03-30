@@ -15,3 +15,12 @@ function print_ok {
 function print_error {
   print "\e[1;91mERROR\e[0m" "$1"
 }
+
+function op {
+  print_info "$1" 
+  if eval "$2"; then
+    print_ok "$3" 
+  else
+    print_error "$4: $!" 
+  fi
+}

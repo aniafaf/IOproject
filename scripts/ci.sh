@@ -3,13 +3,10 @@
 cd "$(dirname "$0")" || exit 1
 source ./helpers.sh || exit 1
 
-print_info "Initialising client CI env..."
-if ./init.sh; then
-  print_ok "Succesfully initialised CI env."
-else
-  print_error "Failed to initialise CI env."
-  exit 1
-fi
+op "Initialising client CI env..." \
+    "./init.sh" \
+    "Succesfully initialised CI env." \
+    "Failed to initialise CI env." 
 
 print_info "Running client CI..."
 cd ../client || exit 1
@@ -22,13 +19,10 @@ fi
 
 cd .. || exit 1 # return to the root folder
 
-print_info "Running server CI..."
-if ./server/scripts/ci.sh; then 
-  print_ok "Successfully ran server CI."
-else
-  print_error "Failed to run server CI."
-  exit 1
-fi
+op "Running server CI..." \
+    "./server/scripts/ci.sh" \
+    "Successfully ran server CI." \
+    "Failed to run server CI." 
 
 if [[ -n "$DEBUG" ]]; then
   exit $!

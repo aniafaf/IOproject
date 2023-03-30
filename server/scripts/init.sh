@@ -5,28 +5,19 @@ source ../../scripts/helpers.sh || exit 1
 source ./consts.sh || exit 1
 
 # scirpt
-print_info "Creating python venv..."
-if python -m venv "$VENV_PATH"; then
-  print_ok "Created python venv."
-else
-  print_error "Failed to create python venv. See the messages above for further details."
-  exit 1
-fi
+op "Creating python venv..." \
+    "python -m venv \"$VENV_PATH\"" \
+    "Created python venv." \
+    "Failed to create python venv. See the messages above for further details." 
 
 source ./venv.sh || exit 1
 
-print_info "Installing packages..."
-if python -m pip install -r ../requirements.txt; then
-  print_ok "Packages installed succesfully."
-else
-  print_error "Package installation failed. See the messages above for more details."
-  exit 1
-fi
+op "Installing packages..." \
+    "python -m pip install -r ../requirements.txt" \
+    "Packages installed succesfully." \
+    "Package installation failed. See the messages above for more details." 
 
-print_info "Applying migrations..."
-if python ../manage.py migrate; then
-  print_ok "Migrations applied successfully."
-else
-  print_error "Failed to apply migrations. See the messages above for more details."
-  exit 1
-fi
+op "Applying migrations..." \
+    "python ../manage.py migrate" \
+    "Migrations applied successfully." \
+    "Failed to apply migrations. See the messages above for more details." 
