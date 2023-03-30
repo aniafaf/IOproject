@@ -23,8 +23,8 @@ else
 fi
 
 print_info "Committing above changes."
-git config --global user.name "your username"
-git config --global user.email "your email"
+git config --global user.name "ci"
+git config --global user.email "ts438730@students.mimuw.edu.pl"
 
 git add -A
 git commit -m "CI [$(date -u +"%Y.%m.%d %T")]"
