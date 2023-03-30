@@ -20,10 +20,10 @@ else
   exit 1
 fi
 
-print_info 'Installing global npm packages...'
-if npm i docsify-cli -g; then
-  print_ok 'Successfully installed global npm packages.'
-else
-  print_error 'Failed to install global npm packages.'
-  exit 1
-fi
+# print_info 'Installing global npm packages...'
+# if npm i docsify-cli -g; then
+#  print_ok 'Successfully installed global npm packages.'
+# else
+#  print_error 'Failed to install global npm packages.'
+#  exit 1
+# fi
