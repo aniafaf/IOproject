@@ -1,0 +1,23 @@
+name: coverage
+on:
+  push:
+    branches: [main, 5-ustawienie-cicd]
+
+jobs:
+  coverage:
+    runs-on: ubuntu-22.04
+
+    strategy:
+      matrix:
+        node-version: [19.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - run: ./scripts/coverage.sh
