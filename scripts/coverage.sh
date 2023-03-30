@@ -29,6 +29,11 @@ if [[ -n "$DEBUG" ]]; then
   exit $!
 fi
 
+# Exit early if the head is detached
+if ! git symbolic-ref -q HEAD; then
+  exit $!
+fi
+
 print_info "Committing above changes."
 git config --global user.name "ci"
 git config --global user.email "ts438730@students.mimuw.edu.pl"

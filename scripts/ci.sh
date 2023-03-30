@@ -5,7 +5,7 @@ source ./helpers.sh || exit 1
 
 op "Initialising CI env..." \
     "./init.sh" \
-    "Succesfully initialised CI env." \
+    "Successfully initialised CI env." \
     "Failed to initialise CI env." 
 
 print_info "Running client CI..."
@@ -28,10 +28,17 @@ if [[ -n "$DEBUG" ]]; then
   exit $!
 fi
 
+# Exit early if the head is detached
+if ! git symbolic-ref -q HEAD; then
+  exit $!
+fi
+
 print_info "Committing above changes."
 git config --global user.name "ci"
 git config --global user.email "ts438730@students.mimuw.edu.pl"
 
 git add -A
 git commit -m "CI [$(date -u +"%Y.%m.%d %T")]"
+git checkout tmp
 git push
+
