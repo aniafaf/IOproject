@@ -52,6 +52,7 @@
 
 .sub_container__children {
   height: auto;
+  width: 100%;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;

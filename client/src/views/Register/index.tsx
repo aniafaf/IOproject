@@ -33,7 +33,7 @@ export const RegisterView = () => {
     <>
       <NotLoggedInGuard />
       <CenterSplitLayout>
-        <FieldSet width={'300px'}>
+        <FieldSet>
           <TextInputField label='first name' onUpdate={setFirstName} />
           <TextInputField label='last name' onUpdate={setLastName} />
           <TextInputField label='username' onUpdate={setUsername} />
