@@ -40,24 +40,14 @@ export const fetch_api = <T = unknown, O extends Object = Object, E = string>({
     headers['Content-Type'] ??= 'application/json'
   }
 
-  const uri = __path ?? `${API_URL}/${path}`
-  console.dir({ API_URL, uri })
-
-  return fetch(uri, {
+  return fetch(__path ?? `${API_URL}/${path}`, {
     method: method ?? 'POST',
     credentials: 'include',
     ...(body ? { body: JSON.stringify(body, null, 0) } : {}),
     ...{ headers },
     mode: 'cors',
   })
-    .then(r => {
-      console.dir({
-        status: r.status,
-        statusTest: r.statusText,
-        ok: r.ok,
-      })
-      return r.json().then(json => (transformer ?? (x => x))(json))
-    })
+    .then(r => r.json().then(json => (transformer ?? (x => x))(json)))
     .catch(e => ({
       ok: false,
       data: null,

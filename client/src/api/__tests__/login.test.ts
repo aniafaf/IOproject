@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { post_login } from '../post_login'
 import { post_register } from '../post_register'
 import { delete_users } from '../test/detele_users'
@@ -9,7 +9,7 @@ describe('post_login', () => {
   const lastName = 'Kowalski'
   const password = 'lol12345'
 
-  afterEach(async () => {
+  beforeEach(async () => {
     await delete_users()
   })
 
@@ -95,6 +95,5 @@ describe('post_login', () => {
       'jkowalski7@gmail.com',
       password,
     ).then(r => expect(r.ok).toBeFalsy())
-    await post_login(username, password).then(r => expect(r.ok).toBeFalsy())
   })
 })

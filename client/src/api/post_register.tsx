@@ -1,8 +1,8 @@
 import { fetch_api } from './call'
 
 export const post_register =  (
-    firstName: string,
-    lastName: string,
+    first_name: string,
+    last_name: string,
     username: string,
     email: string,
     password: string
@@ -10,5 +10,5 @@ export const post_register =  (
   fetch_api({
     path: 'signup/',
     method: 'POST',
-    body: {firstName, lastName, username, email, password},
+    body: {first_name, last_name, username, email, password},
   })
