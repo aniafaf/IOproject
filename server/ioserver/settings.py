@@ -54,6 +54,8 @@ INSTALLED_APPS = [
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 SESSION_COOKIE_HTTPONLY = False
+CSRF_COOKIE_SAMESITE = 'Strict'
+SESSION_COOKIE_SAMESITE = 'Strict'
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",

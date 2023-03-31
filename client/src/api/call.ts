@@ -46,7 +46,6 @@ export const fetch_api = <T = unknown, O extends Object = Object, E = string>({
     credentials: 'include',
     ...(body ? { body: JSON.stringify(body, null, 0) } : {}),
     ...{ headers },
-    mode: 'cors',
   })
     .then(r => r.json().then(json => (transformer ?? (x => x))(json)))
     .catch(e => ({
