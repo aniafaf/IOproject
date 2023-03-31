@@ -25,7 +25,12 @@ def validate_user_email(email):
 def validate_username(username):
     if re.fullmatch(username_pattern, username) is None:
         raise ValueError(f'Username must contain: minimum one character, only upper or lower case letters '
-                         f'and _, -, ., + symbols.',)
+                         f'and _, -, ., + symbols.', )
+
+    return True
+
+
+def validate_multiple_usernames(username):
     if User.objects.filter(username=username).count() > 0:
         raise ValueError(f'The username: {username} is already taken.')
 
@@ -69,6 +74,7 @@ def validate_registration(form):
     validate_name(last_name)
     validate_email(email)
     validate_username(username)
+    validate_multiple_usernames(username)
     validate_multiple_emails(email)
     validate_password(password)
 
