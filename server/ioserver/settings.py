@@ -57,7 +57,6 @@ SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 SESSION_COOKIE_HTTPONLY = False
 
 if not isDev:
-    SECURE_SSL_REDIRECT = True
     CSRF_COOKIE_SAMESITE = "Strict"
     SESSION_COOKIE_SAMESITE = "Strict"
 
