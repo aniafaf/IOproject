@@ -9,9 +9,11 @@ import React, { useState } from 'react'
 import { post_login } from '../../api/post_login'
 import { useNavigate } from 'react-router-dom'
 import { post_register } from '../../api/post_register'
+import { useAlert } from '../../hooks/alert'
 
 export const RegisterView = () => {
   const navigate = useNavigate()
+  const alert = useAlert()
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [username, setUsername] = useState('')
@@ -19,18 +21,19 @@ export const RegisterView = () => {
   const [password, setPassword] = useState('')
 
   const handleSubmit = () => {
+    alert.hide()
     post_register(firstName, lastName, username, email, password).then(r => {
       if (r.ok) {
         navigate('/')
       } else {
-        alert('BŁĄD')
-        console.log(r.error)
+        alert.display(r.error, 'error')
       }
     })
   }
 
   return (
     <>
+      <alert.AlertComponent />
       <NotLoggedInGuard />
       <CenterSplitLayout>
         <FieldSet>

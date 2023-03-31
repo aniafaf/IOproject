@@ -9,18 +9,20 @@ import { Route } from '../../routes'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { post_recover } from '../../api/post_recover'
+import { useAlert } from '../../hooks/alert'
 
 export const PasswordRecoveryView = () => {
   const navigate = useNavigate()
+  const alert = useAlert()
   const [email, setEmail] = useState('')
 
   const handleSubmit = () => {
+    alert.hide()
     post_recover(email).then(r => {
       if (r.ok) {
         navigate('/')
       } else {
-        alert('BŁĄD')
-        console.log(r.error)
+        alert.display(r.error, 'error')
       }
     })
   }

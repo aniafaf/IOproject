@@ -9,29 +9,32 @@ import { Route } from '../../routes'
 import React, { useState } from 'react'
 import { post_login } from '../../api/post_login'
 import { useNavigate } from 'react-router-dom'
+import { useAlert } from '../../hooks/alert'
 
 export const LoginView = () => {
   const navigate = useNavigate()
+  const alert = useAlert()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   const handleSubmit = () => {
+    alert.hide()
     post_login(username, password).then(r => {
       if (r.ok) {
         navigate('/')
       } else {
-        alert('BŁĄD')
-        console.log(r.error)
+        alert.display(r.error, 'error')
       }
     })
   }
 
   return (
     <>
+      <alert.AlertComponent />
       <NotLoggedInGuard />
       <CenterSplitLayout>
         <FormHeading
-          title={`Welcome to _our_name_`}
+          title={`Welcome to AccountApp`}
           subTitle={`Manage all your finances in one place.`}
         />
         <FieldSet>
