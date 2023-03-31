@@ -13,5 +13,5 @@ eval "$OP_FINAL"
 
 op "Running client tests ($server_pid)..." \
   "npm run test-script" \
-  "Succesfully ran client tests." \
+  "Successfully ran client tests." \
   "Failed to run client tests." || exit 1
