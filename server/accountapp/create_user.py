@@ -1,5 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
+from django.contrib.auth.models import User
+import os
 import re
 
 name_pattern = r'^[A-Z][a-z]{0,149}$'
@@ -57,3 +59,15 @@ def validate_registration(form):
     validate_name(first_name)
     validate_name(last_name)
     return True
+
+
+def create_my_user(form):
+    email = form['email']
+    username = form['username']
+    password = form['password']
+    first_name = form['first_name']
+    last_name = form['last_name']
+    user = User.objects.create_user(username, email, password, first_name=first_name, last_name=last_name)
+    user.is_active = str(os.environ.get('TEST') == '1')
+    user.save()
+    return user
