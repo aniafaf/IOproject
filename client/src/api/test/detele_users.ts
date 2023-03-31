@@ -4,5 +4,5 @@ export const delete_users = () =>
   fetch_api({
     path: 'delete-all/',
     method: 'POST',
-    body: {}
+    body: {},
   })

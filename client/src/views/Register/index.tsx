@@ -5,30 +5,30 @@ import { FormLink } from '../../components/FormLink'
 import { NotLoggedInGuard } from '../../components/LoggedInGuard'
 import { TextInputField } from '../../components/TextInputField'
 import { Route } from '../../routes'
-import React, { useState } from "react"
-import { post_login } from "../../api/post_login";
-import { useNavigate } from "react-router-dom";
-import {post_register} from "../../api/post_register";
+import React, { useState } from 'react'
+import { post_login } from '../../api/post_login'
+import { useNavigate } from 'react-router-dom'
+import { post_register } from '../../api/post_register'
 
 export const RegisterView = () => {
-  const navigate = useNavigate();
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const navigate = useNavigate()
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleSubmit = () => {
     post_register(firstName, lastName, username, email, password).then(r => {
       if (r.ok) {
-        navigate("/");
+        navigate('/')
       } else {
-        alert("BŁĄD");
-        console.log(r.error);
+        alert('BŁĄD')
+        console.log(r.error)
       }
     })
   }
-  
+
   return (
     <>
       <NotLoggedInGuard />
