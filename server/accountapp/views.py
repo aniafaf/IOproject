@@ -82,7 +82,7 @@ def signup(request):
                 email.send()
                 return JsonResponse({"ok": True, "error": None, "data": True})
             else:
-                JsonResponse({"ok": True, "error": "t", "data": True})
+                return JsonResponse({"ok": True, "error": "t", "data": True})
         except ValueError as e:
             return JsonResponse({"ok": False, "error": str(e), "data": None})
         except ValidationError as mail_error:
