@@ -19,6 +19,7 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 SETTINGS_PATH = Path(os.path.dirname(os.path.realpath(__file__)))
 CLIENT_PATH = SETTINGS_PATH / "../../client/"
+isDev = os.environ.get("TEST") == "1"
 
 
 # Quick-start development settings - unsuitable for production
@@ -54,8 +55,11 @@ INSTALLED_APPS = [
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 SESSION_COOKIE_HTTPONLY = False
-CSRF_COOKIE_SAMESITE = "Strict"
-SESSION_COOKIE_SAMESITE = "Strict"
+
+if isDev:
+    SECURE_SSL_REDIRECT = True
+    CSRF_COOKIE_SAMESITE = "Strict"
+    SESSION_COOKIE_SAMESITE = "Strict"
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
