@@ -162,7 +162,7 @@ def activate(request: HttpRequest):
         user.save()
         return JsonResponse(
             {
-                "ok": True, 
+                "ok": True,
                 "error": None,
                 "data": "Thank you for your email confirmation. "
                 "Now you can log in to your account.",
