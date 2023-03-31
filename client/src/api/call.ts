@@ -43,8 +43,8 @@ export const fetch_api = <T = unknown, O extends Object = Object, E = string>({
 
   return fetch(__path ?? `${API_URL}/${path}`, {
     method: method ?? 'POST',
-    credentials:
-      import.meta.env.MODE === 'production' ? 'same-origin' : 'include',
+    credentials: 'include',
+    mode: 'cors',
     ...(body ? { body: JSON.stringify(body, null, 0) } : {}),
     ...{ headers },
   })
