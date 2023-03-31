@@ -17,7 +17,15 @@ export const useAlert = (): AlertState => {
   }
 
   const AlertComponent = () => (
-    <Snackbar open={showAlert} autoHideDuration={6000} onClose={hide}>
+    <Snackbar
+      anchorOrigin={{
+        horizontal: 'center',
+        vertical: 'top',
+      }}
+      open={showAlert}
+      autoHideDuration={6000}
+      onClose={hide}
+    >
       <Alert onClose={hide} severity={alertSeverity} sx={{ width: '100%' }}>
         {alertMsg}
       </Alert>
