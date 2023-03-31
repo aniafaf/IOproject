@@ -28,10 +28,6 @@ function App() {
           element: <ActiveAccountView />,
         },
         {
-          path: '/recovery',
-          element: <PasswordRecoveryView />,
-        },
-        {
           path: '/',
           element: <HomeView />,
         },

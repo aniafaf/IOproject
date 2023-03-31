@@ -7,11 +7,23 @@ import { NotLoggedInGuard } from '../../components/LoggedInGuard'
 import { TextInputField } from '../../components/TextInputField'
 import { Route } from '../../routes'
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { post_recover } from '../../api/post_recover'
 
 export const PasswordRecoveryView = () => {
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
 
-  const handleSubmit = () => {}
+  const handleSubmit = () => {
+    post_recover(email).then(r => {
+      if (r.ok) {
+        navigate('/')
+      } else {
+        alert('BŁĄD')
+        console.log(r.error)
+      }
+    })
+  }
 
   return (
     <>
@@ -22,11 +34,7 @@ export const PasswordRecoveryView = () => {
             title={`Trouble logging in?`}
             subTitle={`Enter your email and we'll send you a link to get back into your account.`}
           />
-          <TextInputField
-            label='email'
-            validate={_ => true}
-            onUpdate={setEmail}
-          />
+          <TextInputField label='email' onUpdate={setEmail} />
         </FieldSet>
         <FieldSet>
           <FormButton onClick={handleSubmit}>send reset link</FormButton>

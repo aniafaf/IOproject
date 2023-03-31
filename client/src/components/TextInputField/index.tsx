@@ -3,7 +3,7 @@ import './index.css'
 
 export interface TextInputFieldProps {
   /** Returns `true` iff `val` is a valid input. For instance, given the field should contain an email address, it checks whether it's a valid email address. */
-  validate: (val: string) => boolean
+  validate?: (val: string) => boolean
   /** Runs after every field update, given that the `validate(val) == true`. */
   onUpdate: (val: string) => void
   /** Label to be displayed inside of, and then above the input field. */
@@ -43,7 +43,7 @@ export const TextInputField = ({
   const onChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault()
     const newVal = e.target.value
-    const valid = validate(newVal)
+    const valid = validate ? validate(newVal) : true
 
     setVal(newVal)
     if (valid) {

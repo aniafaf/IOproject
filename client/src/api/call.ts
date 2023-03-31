@@ -9,6 +9,7 @@ export type RequestMethod =
   | 'DELETE'
   | 'UPDATE'
   | 'HEAD'
+  | 'PATCH'
 
 export interface FetchApiArgs<
   T = unknown,

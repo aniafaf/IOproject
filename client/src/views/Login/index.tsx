@@ -35,15 +35,10 @@ export const LoginView = () => {
           subTitle={`Manage all your finances in one place.`}
         />
         <FieldSet>
-          <TextInputField
-            label='username'
-            validate={_ => true}
-            onUpdate={setUsername}
-          />
+          <TextInputField label='username' onUpdate={setUsername} />
           <TextInputField
             label='password'
             type='password'
-            validate={_ => true}
             onUpdate={setPassword}
           />
           <FormLink to={Route.recovery()}>Forgot password?</FormLink>

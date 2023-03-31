@@ -1,4 +1,5 @@
 .form_heading {
+  display: block;
   text-align: center;
   margin: 0;
   max-width: 80vw;
