@@ -26,6 +26,8 @@ def validate_username(username):
     if re.fullmatch(username_pattern, username) is None:
         raise ValueError(f'Username must contain: minimum one character, only upper or lower case letters '
                          f'and _, -, ., + symbols.',)
+    if User.objects.filter(username=username).count() > 0:
+        raise ValueError(f'The username: {username} is already taken.')
 
     return True
 
@@ -37,27 +39,41 @@ def validate_password(password):
     return True
 
 
+def validate_multiple_emails(email):
+    if User.objects.filter(email=email).count() > 0:
+        raise ValueError(f'Account on this email already exists.')
+
+    return True
+
+
 def validate_registration(form):
-    if "email" not in form:
-        raise ValueError(f'Form lacks email field.')
-    email = form['email']
-    if "username" not in form:
-        raise ValueError(f'Form lacks username field.')
-    username = form['username']
-    if "password" not in form:
-        raise ValueError(f'Form lacks password field.')
-    password = form['password']
     if "first_name" not in form:
         raise ValueError(f'Form lacks first_name field.')
     first_name = form['first_name']
+
     if "last_name" not in form:
         raise ValueError(f'Form lacks last_name field.')
     last_name = form['last_name']
-    validate_email(email)
-    validate_username(username)
-    validate_password(password)
+
+    if "username" not in form:
+        raise ValueError(f'Form lacks username field.')
+    username = form['username']
+
+    if "email" not in form:
+        raise ValueError(f'Form lacks email field.')
+    email = form['email']
+
+    if "password" not in form:
+        raise ValueError(f'Form lacks password field.')
+    password = form['password']
+
     validate_name(first_name)
     validate_name(last_name)
+    validate_email(email)
+    validate_username(username)
+    validate_multiple_emails(email)
+    validate_password(password)
+
     return True
 
 

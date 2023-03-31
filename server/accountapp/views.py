@@ -73,7 +73,7 @@ def signup(request):
         except ValidationError as mail_error:
             return JsonResponse({'ok': False, 'error': str(mail_error), 'data': None})
         except IntegrityError:
-            return JsonResponse({'ok': False, 'error': 'Username already exist', 'data': None})
+            return JsonResponse({'ok': False, 'error': 'Something went wrong', 'data': None})
         except SMTPException as smtpe:
             return JsonResponse({'ok': False, 'error': str(smtpe), 'data': None})
 
