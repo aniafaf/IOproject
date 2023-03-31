@@ -78,10 +78,6 @@ def signup(request):
             return JsonResponse({'ok': False, 'error': str(smtpe), 'data': None})
 
 
-def test(request):
-    return HttpResponse(json.dumps(dict(os.environ)))
-
-
 def activate(request, uid, token):
     user_model = get_user_model()
     try:
