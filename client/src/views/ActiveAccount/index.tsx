@@ -6,11 +6,23 @@ import { FormLink } from '../../components/FormLink'
 import { TextInputField } from '../../components/TextInputField'
 import { Route } from '../../routes'
 import React, { useState } from 'react'
+import { post_activate } from "../../api/post_activate";
+import { useNavigate } from "react-router-dom";
 
 export const ActiveAccountView = () => {
+  const navigate = useNavigate()
   const [activationCode, setActivationCode] = useState('')
 
-  const handleSubmit = () => {}
+  const handleSubmit = () => {
+    post_activate(activationCode).then(r => {
+      if (r.ok) {
+        navigate('/')
+      } else {
+        alert('BŁĄD')
+        console.log(r.error)
+      }
+    })
+  }
 
   return (
     <CenterSplitLayout>
