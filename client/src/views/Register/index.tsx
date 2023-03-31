@@ -34,30 +34,13 @@ export const RegisterView = () => {
       <NotLoggedInGuard />
       <CenterSplitLayout>
         <FieldSet width={'300px'}>
-          <TextInputField
-            label='first name'
-            validate={_ => true}
-            onUpdate={setFirstName}
-          />
-          <TextInputField
-            label='last name'
-            validate={_ => true}
-            onUpdate={setLastName}
-          />
-          <TextInputField
-            label='username'
-            validate={_ => true}
-            onUpdate={setUsername}
-          />
-          <TextInputField
-            label='email'
-            validate={_ => true}
-            onUpdate={setEmail}
-          />
+          <TextInputField label='first name' onUpdate={setFirstName} />
+          <TextInputField label='last name' onUpdate={setLastName} />
+          <TextInputField label='username' onUpdate={setUsername} />
+          <TextInputField label='email' onUpdate={setEmail} />
           <TextInputField
             label='password'
-            type={'password'}
-            validate={_ => true}
+            type='password'
             onUpdate={setPassword}
           />
         </FieldSet>

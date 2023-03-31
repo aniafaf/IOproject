@@ -37,13 +37,11 @@ export const LoginView = () => {
         <FieldSet>
           <TextInputField
             label='username'
-            validate={_ => true}
             onUpdate={setUsername}
           />
           <TextInputField
             label='password'
             type='password'
-            validate={_ => true}
             onUpdate={setPassword}
           />
           <FormLink to={Route.recovery()}>Forgot password?</FormLink>

@@ -36,7 +36,6 @@ export const PasswordRecoveryView = () => {
           />
           <TextInputField
             label='email'
-            validate={_ => true}
             onUpdate={setEmail}
           />
         </FieldSet>
