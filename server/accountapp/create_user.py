@@ -24,15 +24,17 @@ def validate_user_email(email):
 
 def validate_username(username):
     if re.fullmatch(username_pattern, username) is None:
-        raise ValueError(f'Username must contain: minimum one character, only upper or lower case letters '
-                         f'and _, -, ., + symbols.', )
+        raise ValueError(
+            f"Username must contain: minimum one character, only upper or lower case letters "
+            f"and _, -, ., + symbols.",
+        )
 
     return True
 
 
 def validate_multiple_usernames(username):
     if User.objects.filter(username=username).count() > 0:
-        raise ValueError(f'The username: {username} is already taken.')
+        raise ValueError(f"The username: {username} is already taken.")
 
     return True
 
@@ -46,7 +48,7 @@ def validate_password(password):
 
 def validate_multiple_emails(email):
     if User.objects.filter(email=email).count() > 0:
-        raise ValueError(f'Account on this email already exists.')
+        raise ValueError(f"Account on this email already exists.")
 
     return True
 
@@ -82,12 +84,14 @@ def validate_registration(form):
 
 
 def create_my_user(form):
-    email = form['email']
-    username = form['username']
-    password = form['password']
-    first_name = form['first_name']
-    last_name = form['last_name']
-    user = User.objects.create_user(username, email, password, first_name=first_name, last_name=last_name)
-    user.is_active = str(os.environ.get('TEST') == '1')
+    email = form["email"]
+    username = form["username"]
+    password = form["password"]
+    first_name = form["first_name"]
+    last_name = form["last_name"]
+    user = User.objects.create_user(
+        username, email, password, first_name=first_name, last_name=last_name
+    )
+    user.is_active = str(os.environ.get("TEST") == "1")
     user.save()
     return user
