@@ -32,7 +32,7 @@ export const TextInputField = ({
   validate,
   onUpdate,
   label,
-  type
+  type,
 }: TextInputFieldProps) => {
   const [val, setVal] = useState('')
   const [state, setState] = useState<TextInputFieldState>(

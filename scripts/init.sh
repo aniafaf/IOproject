@@ -4,21 +4,15 @@
 cd "$(dirname "$0")" || exit 1
 source ./helpers.sh || exit 1
 
-print_info 'Initialising server...'
-if ../server/scripts/init.sh; then 
-  print_ok 'Successfully initialised server.'
-else
-  print_error 'Failed to initialise server.' 
-  exit 1
-fi
+op 'Initialising server...' \
+    "../server/scripts/init.sh" \
+    'Successfully initialised server.' \
+    'Failed to initialise server.'  
 
-print_info 'Initialising client...'
-if ../client/scripts/init.sh; then 
-  print_ok 'Successfully initialised client.'
-else
-  print_error 'Failed to initialise client.' 
-  exit 1
-fi
+op 'Initialising client...' \
+    "../client/scripts/init.sh" \
+    'Successfully initialised client.' \
+    'Failed to initialise client.'  
 
 # print_info 'Installing global npm packages...'
 # if npm i docsify-cli -g; then

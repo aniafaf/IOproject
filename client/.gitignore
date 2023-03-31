@@ -11,8 +11,9 @@ node_modules
 dist
 dist-ssr
 *.local
-coverage
 package-lock.json
+coverage
+**/coverage/*
 
 # Editor directories and files
 .vscode/*
@@ -24,3 +25,4 @@ package-lock.json
 *.njsproj
 *.sln
 *.sw?
+.idea
