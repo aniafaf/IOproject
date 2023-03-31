@@ -11,7 +11,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpRequest
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 
@@ -119,7 +119,38 @@ def test(request):
     return HttpResponse(json.dumps(dict(os.environ)))
 
 
-def activate(request, uid, token):
+def activate(request: HttpRequest):
+    # Validate the request
+    if not request.body:
+        return JsonResponse({"ok": False, "error": "Empty request body", "data": None})
+    if request.method != "PATCH":
+        return JsonResponse(
+            {
+                "ok": False,
+                "error": f"Expected request method to be PATCH but got {request.method} instead.",
+                "data": None,
+            }
+        )
+
+    body = dict()
+    try:
+        _body = json.loads(request.body)
+        if "token" not in _body:
+            raise Exception(
+                "Expected request body to contain a 'token' field of type string."
+            )
+        if "uid" not in _body:
+            raise Exception(
+                "Expected request body to contain a 'uid' field of type string."
+            )
+        body = _body
+    except Exception as e:
+        return JsonResponse({"ok": False, "error": e, "data": None})
+
+    # Process the request
+    uid = body["uid"]
+    token = body["token"]
+
     user_model = get_user_model()
     try:
         uid = force_str(urlsafe_base64_decode(uid))
@@ -131,7 +162,7 @@ def activate(request, uid, token):
         user.save()
         return JsonResponse(
             {
-                "ok": True,
+                "ok": True, 
                 "error": None,
                 "data": "Thank you for your email confirmation. "
                 "Now you can log in to your account.",
@@ -139,7 +170,7 @@ def activate(request, uid, token):
         )
     else:
         return JsonResponse(
-            {"ok": False, "error": "Activation link is invalid!", "data": None}
+            {"ok": False, "error": "Activation token is invalid!", "data": None}
         )
 
 
