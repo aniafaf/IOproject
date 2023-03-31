@@ -143,6 +143,20 @@ def activate(request, uid, token):
         )
 
 
+def delete_all(_):
+    if os.environ.get("TEST") != "1":
+        response = JsonResponse({"ok": False, "error": "TEST API only.", "data": None})
+        response.status_code = 403
+        return response
+
+    try:
+        user_model = get_user_model()
+        del_res = user_model.objects.all().delete()
+        return JsonResponse({"ok": True, "error": None, "data": del_res})
+    except Exception as e:
+        return JsonResponse({"ok": False, "error": e, "data": None})
+
+
 # TODO jak zdazymy
 # def password_reset_request(request):
 #     if request.method == "POST":
