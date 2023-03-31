@@ -96,10 +96,6 @@ def signup(request):
             return JsonResponse({"ok": False, "error": str(smtpe), "data": None})
 
 
-def test(request):
-    return HttpResponse(json.dumps(dict(os.environ)))
-
-
 def activate(request: HttpRequest):
     # Validate the request
     if not request.body:
