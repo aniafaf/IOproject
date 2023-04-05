@@ -6,7 +6,7 @@ source ./venv.sh || exit 1
 
 op 'Preparing migrations...' \
   'python ../manage.py makemigrations' \
-  'Succesfully prepared migrations' \
+  'Successfully prepared migrations' \
   'Failed to prepare migrations'
 
 op 'Running migrations' \

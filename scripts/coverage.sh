@@ -5,7 +5,7 @@ source ./helpers.sh || exit 1
 
 op "Initialising CI env..." \
   "./init.sh" \
-  "Succesfully initialised CI env." \
+  "Successfully initialised CI env." \
   "Failed to initialise CI env."
 
 print_info "Running client coverage..."

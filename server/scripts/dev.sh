@@ -13,5 +13,5 @@ op 'Preparing database' \
 
 op 'Starting server...' \
    "python ../manage.py runserver 0.0.0.0:8000" \
-   "Server succesfully started" \
+   "Server Successfully started" \
    "Failed to start server."
