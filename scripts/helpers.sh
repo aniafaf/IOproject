@@ -25,7 +25,7 @@ function branch_name {
     exit 1
   fi
 
-  git rev-parse --abbrev-ref HEAD
+  git branch --show-current
 }
 
 function op {
