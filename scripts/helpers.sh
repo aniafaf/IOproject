@@ -25,7 +25,7 @@ function branch_name {
     exit 1
   fi
 
-  git branch | grep '\*\s*' | sed 's/\*\s*//' | awk 'NR<2{print $1}'
+  git rev-parse --abbrev-ref HEAD
 }
 
 function op {
