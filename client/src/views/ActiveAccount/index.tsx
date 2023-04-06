@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 import { post_activate } from '../../api/post_activate'
 import { useNavigate } from 'react-router-dom'
 import { useAlert } from '../../hooks/alert'
-import { get_uid } from './helpers'
+import { get_token, get_uid } from './helpers'
 
 export const ActiveAccountView = () => {
   const navigate = useNavigate()
@@ -18,16 +18,23 @@ export const ActiveAccountView = () => {
   const alert = useAlert()
 
   useEffect(() => {
-    get_uid().then(setUid)
+    Promise.all([
+      get_uid().then(setUid),
+      get_token().then(setActivationCode),
+    ]).catch(e => alert.display(e, 'error'))
   }, [])
 
   const handleSubmit = () => {
     alert.hide()
+    let msg = []
     if (!activationCode) {
-      return alert.display('Missing activation token!', 'error')
+      msg.push('Missing activation token!')
     }
     if (!uid) {
-      return alert.display('Missing UID in the url!', 'error')
+      msg.push('Missing UID in the url!')
+    }
+    if (msg) {
+      return alert.display(msg.join('\n'), 'error')
     }
 
     post_activate(uid, activationCode).then(r => {
@@ -55,6 +62,7 @@ export const ActiveAccountView = () => {
           <TextInputField
             label='activation code'
             onUpdate={setActivationCode}
+            value={activationCode}
           />
         </FieldSet>
         <FieldSet>
