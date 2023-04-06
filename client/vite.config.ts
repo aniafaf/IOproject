@@ -7,5 +7,10 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     base: env['VITE_ASSETS_BASE'],
+    test: {
+      coverage: {
+        reporter: ['html', 'text'],
+      },
+    },
   }
 })

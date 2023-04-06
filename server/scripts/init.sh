@@ -14,7 +14,7 @@ source ./venv.sh || exit 1
 
 op "Installing packages..." \
     "python -m pip install -r ../requirements.txt" \
-    "Packages installed succesfully." \
+    "Packages installed Successfully." \
     "Package installation failed. See the messages above for more details." 
 
 op "Applying migrations..." \

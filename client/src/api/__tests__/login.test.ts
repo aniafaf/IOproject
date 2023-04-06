@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { post_login } from '../post_login'
 import { post_register } from '../post_register'
-import { delete_users } from '../test/detele_users'
+import { delete_users } from '../test/delete_users'
 
 describe('post_login', () => {
   const invalidUsernames = ['jkowalski!', 'jkowalski@', 'jkowalski$']

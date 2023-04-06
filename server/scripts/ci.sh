@@ -6,6 +6,6 @@ source ./venv.sh || exit 1
 
 op "Formatting files..." \
    "black ../**/*.py" \
-   "Succesfully formatted files." \
+   "Successfully formatted files." \
    "Failed to format files."  
 
