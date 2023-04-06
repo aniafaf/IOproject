@@ -1,4 +1,4 @@
-import { HTMLInputTypeAttribute, useState } from 'react'
+import { HTMLInputTypeAttribute, useEffect, useState } from 'react'
 import './index.css'
 
 export interface TextInputFieldProps {
@@ -10,6 +10,7 @@ export interface TextInputFieldProps {
   label: string
   /** Input type */
   type?: HTMLInputTypeAttribute
+  value?: string
 }
 
 export enum TextInputFieldState {
@@ -33,12 +34,19 @@ export const TextInputField = ({
   onUpdate,
   label,
   type,
+  value,
 }: TextInputFieldProps) => {
   const [val, setVal] = useState('')
   const [state, setState] = useState<TextInputFieldState>(
     TextInputFieldState.Empty,
   )
   const id = `text_input_${label}`
+
+  useEffect(() => {
+    if (value && val !== value) {
+      setVal(value!)
+    }
+  }, [value])
 
   const onChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     e.preventDefault()
