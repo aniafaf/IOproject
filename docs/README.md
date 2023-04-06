@@ -3,6 +3,7 @@
 ## Navigation
 
 1. [client](./client/README.md)
+1. [server](./server/README.md)
 
 ## Initialising the development environment
 

@@ -17,7 +17,7 @@ function print_error {
 }
 
 function is_detached {
-  ! git symbolic-ref -q HEAD
+  ! git symbolic-ref -q HEAD > /dev/null
 }
 
 function branch_name {
