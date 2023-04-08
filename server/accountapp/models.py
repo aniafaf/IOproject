@@ -43,3 +43,12 @@ class Payment(models.Model):
         if self.event.payment_set.count() > 0:
             raise ValueError
         super(Payment, self).save(*args, **kwargs)
+
+
+class Debtor(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    payment = models.ForeignKey(Payment, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=8, decimal_places=2)
+
+    def __str__(self):
+        return str(self.payment) + ", " + str(self.user) + ": " + str(self.amount)
