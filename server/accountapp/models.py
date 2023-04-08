@@ -29,3 +29,17 @@ class Event(models.Model):
         if self.group.event_set.count() > 0:
             raise ValueError
         super(Event, self).save(*args, **kwargs)
+
+
+class Payment(models.Model):
+    name = models.CharField(max_length=30, blank=False)
+    amount = models.DecimalField(max_digits=8, decimal_places=2)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.event) + ": " + str(self.name)
+
+    def save(self, *args, **kwargs):
+        if self.event.payment_set.count() > 0:
+            raise ValueError
+        super(Payment, self).save(*args, **kwargs)
