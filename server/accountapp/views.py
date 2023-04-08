@@ -87,7 +87,6 @@ def signup(request):
             return JsonResponse({"ok": False, "error": str(e), "data": None})
         except ValidationError as mail_error:
             return JsonResponse({"ok": False, "error": str(mail_error), "data": None})
-            return JsonResponse({"ok": False, "error": str(mail_error), "data": None})
         except IntegrityError:
             return JsonResponse(
                 {"ok": False, "error": "Something went wrong", "data": None}
