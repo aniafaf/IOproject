@@ -11,9 +11,6 @@ export const GroupListView = () => {
   const alert = useAlert()
 
   useEffect(() => {
-    setLoading(true)
-    alert.hide()
-
     get_group_list()
       .then(r => {
         if (r.ok) {
