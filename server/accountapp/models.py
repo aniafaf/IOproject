@@ -25,11 +25,6 @@ class Event(models.Model):
     def __str__(self):
         return str(self.group) + ": " + str(self.name)
 
-    def save(self, *args, **kwargs):
-        if self.group.event_set.count() > 0:
-            raise ValueError
-        super(Event, self).save(*args, **kwargs)
-
 
 class Payment(models.Model):
     name = models.CharField(max_length=30, blank=False)
@@ -38,11 +33,6 @@ class Payment(models.Model):
 
     def __str__(self):
         return str(self.event) + ": " + str(self.name)
-
-    def save(self, *args, **kwargs):
-        if self.event.payment_set.count() > 0:
-            raise ValueError
-        super(Payment, self).save(*args, **kwargs)
 
 
 class Debtor(models.Model):
