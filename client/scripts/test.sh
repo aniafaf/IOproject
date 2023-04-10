@@ -7,6 +7,7 @@ cd .. || exit 1
 ../server/scripts/dev.sh &
 
 server_pid=$!
+sleep 2s
 
 export OP_FINAL="lsof -i :8000 | awk 'NR>1{print \$2}' | xargs kill"
 eval "$OP_FINAL"
