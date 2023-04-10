@@ -53,32 +53,26 @@ def validate_multiple_emails(email):
     return True
 
 
+def check_fields(form):
+    required_fields = ["email", "username", "password", "first_name", "last_name"]
+    for field in required_fields:
+        if field not in form:
+            raise ValueError(f"Form lacks {field} field")
+
+
 def validate_registration(form):
-    if "email" not in form:
-        raise ValueError(f"Form lacks email field.")
-    email = form["email"]
-    if "username" not in form:
-        raise ValueError(f"Form lacks username field.")
-    username = form["username"]
-    if "password" not in form:
-        raise ValueError(f"Form lacks password field.")
-    password = form["password"]
-    if "first_name" not in form:
-        raise ValueError(f"Form lacks first_name field.")
-    first_name = form["first_name"]
-    if "last_name" not in form:
-        raise ValueError(f"Form lacks last_name field.")
-    last_name = form["last_name"]
-    validate_email(email)
-    validate_username(username)
-    validate_password(password)
-    validate_name(first_name)
-    validate_name(last_name)
-    validate_email(email)
-    validate_username(username)
-    validate_multiple_usernames(username)
-    validate_multiple_emails(email)
-    validate_password(password)
+    check_fields(form)
+
+    validate_email(form["email"])
+    validate_multiple_emails(form["email"])
+
+    validate_username(form["username"])
+    validate_multiple_usernames(form["username"])
+
+    validate_password(form["password"])
+
+    validate_name(form["first_name"])
+    validate_name(form["last_name"])
 
     return True
 
