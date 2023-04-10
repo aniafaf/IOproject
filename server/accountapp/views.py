@@ -169,7 +169,10 @@ def delete_all(_):
 
 @login_required(login_url="login")
 def group_selected(request, pk):
-    group = Group.objects.get(id=pk)
+    try:
+        group = Group.objects.get(id=pk)
+    except Model.DoesNotExist:
+        return JsonResponse({"ok": False, "error": "Group with given id does not exist", "data": None})
     user = request.user
     try:
         UserGroup.objects.get(user=user, group=group)
