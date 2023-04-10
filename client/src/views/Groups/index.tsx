@@ -28,7 +28,7 @@ export const GroupListView = () => {
       <alert.AlertComponent />
       <Spinner open={loading} />
 
-      <Link to={Route.groupCreate()}>add group</Link>
+      <Link to={Route.groups.create()}>add group</Link>
       <ol className='group-list'>
         {groups.map((group, i) => (
           <GroupListItemElement {...group} key={i} />

@@ -7,8 +7,9 @@ import { LoginView } from './views/Login'
 import { RegisterView } from './views/Register'
 import { ActiveAccountView } from './views/ActiveAccount'
 import { HomeView } from './views/Home'
-import { Route } from './routes'
+import { Route, RoutePattern } from './routes'
 import { GroupListView } from './views/Groups'
+import { GroupView } from './views/Groups/[groupId]'
 
 function App() {
   const router = createHashRouter([
@@ -29,13 +30,12 @@ function App() {
           element: <ActiveAccountView />,
         },
         {
-          id: 'groups',
-          children: [
-            {
-              path: Route.groups(),
-              element: <GroupListView />,
-            },
-          ],
+          path: Route.groups.list(),
+          element: <GroupListView />,
+        },
+        {
+          path: RoutePattern.group(),
+          element: <GroupView />,
         },
         {
           path: Route.home(),

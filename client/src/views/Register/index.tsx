@@ -22,13 +22,15 @@ export const RegisterView = () => {
 
   const handleSubmit = () => {
     alert.hide()
-    post_register(firstName, lastName, username, email, password).then(r => {
-      if (r.ok) {
-        navigate('/')
-      } else {
-        alert.display(r.error, 'error')
-      }
-    })
+    post_register(firstName, lastName, username, email, password)
+      .then(r => {
+        if (r.ok) {
+          navigate('/')
+        } else {
+          alert.display(r.error, 'error')
+        }
+      })
+      .catch(e => alert.display(e, 'error'))
   }
 
   return (
