@@ -5,6 +5,6 @@ export class Route {
   static activate = () => '/activate'
   static recovery = () => '/recovery'
   static groups = () => '/groups'
-  static group = (id: string) => `/groups/${id}`
+  static group = (id: number) => `/groups/${id}`
   static groupCreate = () => '/groups/create'
 }
