@@ -1,4 +1,4 @@
-from models import Group, UserGroup
+from .models import Group, UserGroup
 
 
 def validate_group(form):
