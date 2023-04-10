@@ -172,18 +172,30 @@ def group_selected(request, pk):
     try:
         group = Group.objects.get(id=pk)
     except Model.DoesNotExist:
-        return JsonResponse({"ok": False, "error": "Group with given id does not exist", "data": None})
+        return JsonResponse(
+            {"ok": False, "error": "Group with given id does not exist", "data": None}
+        )
     user = request.user
     try:
         UserGroup.objects.get(user=user, group=group)
     except Model.DoesNotExist:
-        return JsonResponse({"ok": False, "error": "You are not in this group", "data": None})
+        return JsonResponse(
+            {"ok": False, "error": "You are not in this group", "data": None}
+        )
     except Model.MultipleObjectsReturned:
-        return JsonResponse({"ok": False, "error": "Database is not working properly, tests only", "data": None})
+        return JsonResponse(
+            {
+                "ok": False,
+                "error": "Database is not working properly, tests only",
+                "data": None,
+            }
+        )
 
     user_list = list(UserGroup.objects.filter(group=group).values("user"))
     event_list = list(group.event_set.all())
-    return JsonResponse({"ok": True, "error": None, "data": {"users": user_list, "events": event_list}})
+    return JsonResponse(
+        {"ok": True, "error": None, "data": {"users": user_list, "events": event_list}}
+    )
 
 
 @login_required(login_url="login")
