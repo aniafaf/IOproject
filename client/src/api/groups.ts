@@ -21,11 +21,11 @@ export interface GroupDetails {
 export const get_group_list = () =>
   fetch_api<{ groups: Group[] }>({
     path: 'group_list/',
-    method: 'GET',
+    method: 'POST',
   })
 
 export const get_group_details = (id: number) =>
   fetch_api<GroupDetails>({
     path: `group_selected/?pk=${id}`,
-    method: 'GET',
+    method: 'POST',
   })
