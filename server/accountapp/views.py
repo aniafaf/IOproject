@@ -4,6 +4,7 @@ from smtplib import SMTPException
 from django.contrib.auth import login, authenticate, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
+from django.db.models import Model
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
@@ -13,7 +14,9 @@ from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 
 
-from . import create_user
+from .models import UserGroup, Group, Event, Payment
+
+from . import create_user, create_group
 
 from accountapp.token import account_activation_token
 
@@ -162,3 +165,55 @@ def delete_all(_):
         return JsonResponse({"ok": True, "error": None, "data": del_res})
     except Exception as e:
         return JsonResponse({"ok": False, "error": e, "data": None})
+
+
+@login_required(login_url="login")
+def group_selected(request, pk):
+    try:
+        group = Group.objects.get(id=pk)
+    except Model.DoesNotExist:
+        return JsonResponse(
+            {"ok": False, "error": "Group with given id does not exist", "data": None}
+        )
+    user = request.user
+    try:
+        UserGroup.objects.get(user=user, group=group)
+    except Model.DoesNotExist:
+        return JsonResponse(
+            {"ok": False, "error": "You are not in this group", "data": None}
+        )
+    except Model.MultipleObjectsReturned:
+        return JsonResponse(
+            {
+                "ok": False,
+                "error": "Database is not working properly, tests only",
+                "data": None,
+            }
+        )
+
+    user_list = list(UserGroup.objects.filter(group=group).values("user"))
+    event_list = list(group.event_set.all())
+    return JsonResponse(
+        {"ok": True, "error": None, "data": {"users": user_list, "events": event_list}}
+    )
+
+
+@login_required(login_url="login")
+def group_list(request):
+    user = request.user
+    groups = list(UserGroup.objects.filter(user=user).values("group"))
+    return JsonResponse({"ok": True, "error": None, "data": {"groups": groups}})
+
+
+@login_required(login_url="login")
+def create_group(request):
+    # TODO complete functions in create_group.py file
+    user = request.user
+    try:
+        if request.method == "POST":
+            form = json.loads(request.body)
+            create_group.validate_group(form)
+            create_group.create_group(user, form["name"])
+    # TODO change exception to more detailed one
+    except Exception:
+        return JsonResponse({"ok": False, "error": "#TODO", "data": None})

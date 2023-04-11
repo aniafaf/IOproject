@@ -8,6 +8,9 @@ urlpatterns = [
     path("login/", views.login_to, name="login"),
     path("signup/", views.signup, name="signup"),
     path("activate/", views.activate, name="activate"),
+    path("group/<int:pk>/", views.group_selected, name="group_selected"),
+    path("group_list", views.group_list, name="group_list"),
+    path("create_group", views.create_group, name="create_group"),
 ]
 
 if isTest:
