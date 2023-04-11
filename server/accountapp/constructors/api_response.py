@@ -15,14 +15,14 @@ def ok_response(
 
 
 def error_response(error: T, status=400) -> JsonResponse:
-    res = JsonResponse(dict(ok=True, error=error, data=None))
+    res = JsonResponse(dict(ok=False, error=error, data=None))
     res.status_code = status
     return res
 
 
 def session_expired_response(request: HttpRequest) -> JsonResponse:
     res = JsonResponse(
-        dict(ok=True, error="Session has expired", data=None, redirect="/login")
+        dict(ok=False, error="Session has expired", data=None, redirect="/login")
     )
     res.status_code = 401
     try:
