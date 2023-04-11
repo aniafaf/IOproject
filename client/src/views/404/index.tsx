@@ -15,7 +15,10 @@ export const NotFound = () => {
     <CenterSplitLayout>
       <FieldSet>
         <FormHeading title='Error: 404' subTitle={`Page ${path} not found`} />
-        <p style={{textAlign: 'center'}} className='form_heading__subtitle'>{s`${error}`}</p>
+        <p
+          style={{ textAlign: 'center' }}
+          className='form_heading__subtitle'
+        >{s`${error}`}</p>
         <FormButton
           style={{
             marginTop: '50px',
