@@ -5,9 +5,11 @@ import { Spinner } from './components/Spinner'
 import { NotFound } from './views/404'
 import { LoginView } from './views/Login'
 import { RegisterView } from './views/Register'
-import { PasswordRecoveryView } from './views/PasswordRecovery'
 import { ActiveAccountView } from './views/ActiveAccount'
 import { HomeView } from './views/Home'
+import { Route, RoutePattern } from './routes'
+import { GroupListView } from './views/Groups'
+import { GroupView } from './views/Groups/[groupId]'
 
 function App() {
   const router = createHashRouter([
@@ -16,19 +18,27 @@ function App() {
       errorElement: <NotFound />,
       children: [
         {
-          path: '/login',
+          path: Route.login(),
           element: <LoginView />,
         },
         {
-          path: '/sign-up',
+          path: Route.sign_up(),
           element: <RegisterView />,
         },
         {
-          path: '/activate',
+          path: Route.activate(),
           element: <ActiveAccountView />,
         },
         {
-          path: '/',
+          path: Route.groups.list(),
+          element: <GroupListView />,
+        },
+        {
+          path: RoutePattern.group(),
+          element: <GroupView />,
+        },
+        {
+          path: Route.home(),
           element: <HomeView />,
         },
       ],

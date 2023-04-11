@@ -1,5 +1,6 @@
 import { Alert, AlertColor, Snackbar } from '@mui/material'
 import { useState } from 'react'
+import { str } from '../helpers/str'
 
 export interface AlertState {
   display: (msg: string, severity: AlertColor) => void
@@ -34,7 +35,7 @@ export const useAlert = (): AlertState => {
 
   return {
     display: (msg, severity) => {
-      setAlertMsg(msg)
+      setAlertMsg(str(msg))
       setAlertSeverity(severity)
       setShowAlert(true)
     },
