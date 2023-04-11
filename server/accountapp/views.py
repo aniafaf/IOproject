@@ -21,7 +21,7 @@ from .constructors.api_response import (
 
 from .models import UserGroup, Group, Event, Payment
 
-from . import create_user, create_group
+from . import create_user, group
 
 from accountapp.token import account_activation_token
 
@@ -177,13 +177,13 @@ def group_list(request):
 def create_group(request):
     if not request.user.is_authenticated:
         return session_expired_response(request)
-    # TODO complete functions in create_group.py file
+    # TODO complete functions in group.py file
     user = request.user
     try:
         if request.method == "POST":
             form = json.loads(request.body)
-            create_group.validate_group(form)
-            create_group.create_group(user, form["name"])
+            group.validate_group(form)
+            group.create_group(user, form["name"])
     # TODO change exception to more detailed one
     except Exception:
         return error_response("#TODO")
