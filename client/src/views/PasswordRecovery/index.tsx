@@ -10,26 +10,31 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { post_recover } from '../../api/post_recover'
 import { useAlert } from '../../hooks/alert'
+import { Spinner } from '../../components/Spinner'
 
 export const PasswordRecoveryView = () => {
   const navigate = useNavigate()
   const alert = useAlert()
   const [email, setEmail] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = () => {
+    setLoading(true)
     alert.hide()
-    post_recover(email).then(r => {
-      if (r.ok) {
-        navigate('/')
-      } else {
-        alert.display(r.error, 'error')
-      }
-    })
+
+    post_recover(email)
+      .then(r =>
+        r.ok ? navigate(Route.home()) : alert.display(r.error, 'error'),
+      )
+      .catch(e => alert.display(e, 'error'))
+      .finally(() => setLoading(false))
   }
 
   return (
     <>
       <NotLoggedInGuard />
+      <alert.AlertComponent />
+      <Spinner open={loading} />
       <CenterSplitLayout>
         <FieldSet>
           <FormHeading

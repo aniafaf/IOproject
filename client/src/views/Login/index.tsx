@@ -10,28 +10,32 @@ import React, { useState } from 'react'
 import { post_login } from '../../api/post_login'
 import { useNavigate } from 'react-router-dom'
 import { useAlert } from '../../hooks/alert'
+import { Spinner } from '../../components/Spinner'
 
 export const LoginView = () => {
   const navigate = useNavigate()
   const alert = useAlert()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = () => {
+    setLoading(true)
     alert.hide()
-    post_login(username, password).then(r => {
-      if (r.ok) {
-        navigate('/')
-      } else {
-        alert.display(r.error, 'error')
-      }
-    })
+
+    post_login(username, password)
+      .then(r =>
+        r.ok ? navigate(Route.home()) : alert.display(r.error, 'error'),
+      )
+      .catch(e => alert.display(e, 'error'))
+      .finally(() => setLoading(false))
   }
 
   return (
     <>
       <alert.AlertComponent />
       <NotLoggedInGuard />
+      <Spinner open={loading} />
       <CenterSplitLayout>
         <FormHeading
           title={`Welcome to AccountApp`}
