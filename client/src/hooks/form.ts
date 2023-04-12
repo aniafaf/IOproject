@@ -7,7 +7,7 @@ interface FormAction<P, K extends keyof P = keyof P> {
 
 export const useForm = <F extends Object>(
   def: Partial<F> = {},
-): [<P extends keyof F>(field: P, value: F[P]) => void, () => Partial<F>] => {
+): [<P extends keyof F>(field: P, value: F[P]) => void, F] => {
   const [state, dispatch] = useReducer(
     (old: Partial<F>, { field, value }: FormAction<F>) =>
       ({
@@ -23,6 +23,6 @@ export const useForm = <F extends Object>(
         field,
         value,
       }),
-    () => state,
+    state as F,
   ]
 }

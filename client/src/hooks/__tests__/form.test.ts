@@ -8,10 +8,10 @@ describe('useForm', () => {
     const obj = { a: 2 }
     const {
       result: {
-        current: [_, getState],
+        current: [_, form],
       },
     } = renderHook(() => useForm(obj))
-    expect(getState()).toEqual(obj)
+    expect(form).toEqual(obj)
   })
 
   it('Modifies field', () => {
@@ -19,6 +19,6 @@ describe('useForm', () => {
     const { result, rerender } = renderHook(() => useForm(obj))
     result.current[0]('a', 5)
     rerender()
-    expect(result.current[1]()).toEqual({ a: 5 })
+    expect(result.current[1]).toEqual({ a: 5 })
   })
 })
