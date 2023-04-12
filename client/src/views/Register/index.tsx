@@ -10,6 +10,7 @@ import { post_login } from '../../api/post_login'
 import { useNavigate } from 'react-router-dom'
 import { post_register } from '../../api/post_register'
 import { useAlert } from '../../hooks/alert'
+import { Spinner } from '../../components/Spinner'
 
 export const RegisterView = () => {
   const navigate = useNavigate()
@@ -19,22 +20,25 @@ export const RegisterView = () => {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = () => {
+    setLoading(true)
     alert.hide()
-    post_register(firstName, lastName, username, email, password).then(r => {
-      if (r.ok) {
-        navigate('/')
-      } else {
-        alert.display(r.error, 'error')
-      }
-    })
+
+    post_register(firstName, lastName, username, email, password)
+      .then(r =>
+        r.ok ? navigate(Route.home()) : alert.display(r.error, 'error'),
+      )
+      .catch(e => alert.display(e, 'error'))
+      .finally(() => setLoading(false))
   }
 
   return (
     <>
-      <alert.AlertComponent />
       <NotLoggedInGuard />
+      <alert.AlertComponent />
+      <Spinner open={loading} />
       <CenterSplitLayout>
         <FieldSet>
           <TextInputField label='first name' onUpdate={setFirstName} />
