@@ -18,7 +18,6 @@ from .constructors.api_response import (
     session_expired_response,
 )
 
-
 from .models import UserGroup, Group, Event, Payment
 
 from . import create_user, group
@@ -187,3 +186,20 @@ def create_group(request):
     # TODO change exception to more detailed one
     except Exception:
         return error_response("#TODO")
+
+
+def add_to_group(request):
+    if not request.user.is_authenticated:
+        return session_expired_response(request)
+    if request.method == "POST":
+        form = json.loads(request.body)
+        try:
+            if "username" not in form:
+                raise ValueError(f"Form lacks username field.")
+            group.validate_group(form)
+            username = form["username"]
+            # TODO group.add_user(group, username)
+        except ValueError as e:
+            return error_response(str(e))
+    else:
+        return error_response(f"Invalid method: expected POST but got {request.method}")
