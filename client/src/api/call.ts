@@ -57,9 +57,10 @@ export const fetch_api = <T = unknown, O extends Object = Object, E = string>({
     ...{ headers },
   })
     .then(r =>
-      r.ok
-        ? r.json().then(json => (transformer ?? (x => x))(json))
-        : catchToError(`${r.url}: ${r.statusText}`),
+      r
+        .json()
+        .catch(() => catchToError(`${r.url}: ${r.statusText}`))
+        .then(json => (transformer ?? (x => x))(json)),
     )
     .catch(catchToError)
 }
