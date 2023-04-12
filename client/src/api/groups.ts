@@ -18,6 +18,10 @@ export interface GroupDetails {
   events: Event[]
 }
 
+export interface GroupCreationForm {
+  name: string
+}
+
 export const get_group_list = () =>
   fetch_api<{ groups: Group[] }>({
     path: 'group_list/',
@@ -28,4 +32,11 @@ export const get_group_details = (id: number) =>
   fetch_api<GroupDetails>({
     path: `group_selected/?pk=${id}`,
     method: 'POST',
+  })
+
+export const post_group_create = (form: GroupCreationForm) =>
+  fetch_api({
+    path: 'create_group/',
+    method: 'POST',
+    body: form,
   })

@@ -20,6 +20,7 @@ export class Route {
     list: () => '/',
     byId: (id: number) => `${id}`,
     create: () => '/create',
+    join: () => '/join'
   })
 }
 

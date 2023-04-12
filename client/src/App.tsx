@@ -10,6 +10,7 @@ import { HomeView } from './views/Home'
 import { Route, RoutePattern } from './routes'
 import { GroupListView } from './views/Groups'
 import { GroupView } from './views/Groups/[groupId]'
+import { GroupCreateView } from './views/Groups/create'
 
 function App() {
   const router = createHashRouter([
@@ -36,6 +37,10 @@ function App() {
         {
           path: RoutePattern.group(),
           element: <GroupView />,
+        },
+        {
+          path: Route.groups.create(),
+          element: <GroupCreateView />,
         },
         {
           path: Route.home(),
