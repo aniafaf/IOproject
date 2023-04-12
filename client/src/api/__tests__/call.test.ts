@@ -7,7 +7,6 @@ describe('fetch_api', () => {
     fetch_api({ path: '/inexistent/api' }).then(r => expect(r.ok).toBeFalsy()))
 
   it('resolves on existent url', () =>
-    /**@todo replace by an existent api, and remove `transformer` */
     fetch_api({
       path: '',
       __path: 'https://dummyjson.com/products',
@@ -18,7 +17,6 @@ describe('fetch_api', () => {
   it('sends body record', () => {
     const title = 'an exciting new product name!'
 
-    /**@todo replace by an existent api, and remove `transformer` */
     return fetch_api<{ title: string }>({
       path: '',
       __path: 'https://dummyjson.com/products/add',
@@ -54,5 +52,31 @@ describe('fetch_api', () => {
     })
   })
 
-  /**@todo add a transformerless test when the api is ready */
+  it('stringifies object error', () => {
+    const obj = { a: 'Hello' }
+    return fetch_api({
+      path: '',
+      __path: 'http://postman-echo.com/post',
+      transformer: _ => {
+        throw obj
+      },
+    }).then(r => {
+      expect(r.ok).toBeFalsy()
+      expect(r.error).toEqual({ source: 'fetch catch', ...obj })
+    })
+  })
+
+  it('stringifies primitive error', () => {
+    const error = 'Hello'
+    return fetch_api({
+      path: '',
+      __path: 'http://postman-echo.com/post',
+      transformer: _ => {
+        throw error
+      },
+    }).then(r => {
+      expect(r.ok).toBeFalsy()
+      expect(r.error).toEqual({ source: 'fetch catch', error })
+    })
+  })
 })
