@@ -26,7 +26,9 @@ def create_group(user, form):
     connection.save()
 
 
-def add_to_group(group_id, user):
+def add_to_group(user, form):
+    validate_existing_group(form)
+    group_id = form["group_id"]
     group = Group.objects.get(pk=group_id)
     connection = UserGroup(user=user, group=group)
     connection.save()
