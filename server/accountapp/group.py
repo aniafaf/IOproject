@@ -17,6 +17,6 @@ def create_group(user, name):
 
 
 def add_to_group(group_id, user):
-    group = Group.objects.get(pk=1)
+    group = Group.objects.get(pk=group_id)
     connection = UserGroup(user=user, group=group)
     connection.save()
