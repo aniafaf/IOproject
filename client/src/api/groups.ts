@@ -30,7 +30,7 @@ export const get_group_list = () =>
 
 export const get_group_details = (id: number) =>
   fetch_api<GroupDetails>({
-    path: `group_selected/?pk=${id}`,
+    path: `group_selected/${id}/`,
     method: 'POST',
   })
 
