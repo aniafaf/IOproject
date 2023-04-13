@@ -187,7 +187,7 @@ def create_group(request):
         return error_response(f"Invalid method: expected POST but got {request.method}")
 
 
-def add_to_group(request):
+def join_group(request):
     if not request.user.is_authenticated:
         return session_expired_response(request)
     if request.method == "POST":
