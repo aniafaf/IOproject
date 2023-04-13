@@ -176,29 +176,27 @@ def group_list(request):
 def create_group(request):
     if not request.user.is_authenticated:
         return session_expired_response(request)
-    # TODO complete functions in group.py file
-    user = request.user
-    try:
-        if request.method == "POST":
+    if request.method == "POST":
+        try:
             form = json.loads(request.body)
-            group.validate_group(form)
+            user = request.user
             group.create_group(user, form["name"])
-    # TODO change exception to more detailed one
-    except Exception:
-        return error_response("#TODO")
+        except ValueError as e:
+            return error_response(str(e))
+    else:
+        return error_response(f"Invalid method: expected POST but got {request.method}")
 
 
 def add_to_group(request):
     if not request.user.is_authenticated:
         return session_expired_response(request)
     if request.method == "POST":
-        form = json.loads(request.body)
         try:
-            if "username" not in form:
-                raise ValueError(f"Form lacks username field.")
+            form = json.loads(request.body)
             group.validate_group(form)
-            username = form["username"]
-            # TODO group.add_user(group, username)
+            user = request.user
+            group_id = form["group_id"]
+            group.add_to_group(group_id, user)
         except ValueError as e:
             return error_response(str(e))
     else:
