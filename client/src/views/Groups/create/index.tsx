@@ -17,8 +17,8 @@ export const GroupCreateView = () => {
     name: '',
   })
   const [groupId, setGroupId] = useState('')
-  const invitationBase = useHref(Route.groups.join())
-  const invitationLink = `${location.origin}/${invitationBase}?groupId=${groupId}`
+  const invitationBase = useHref(Route.groups.join(+groupId))
+  const invitationLink = `${location.origin}/${invitationBase}/`
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()

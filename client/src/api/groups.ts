@@ -16,6 +16,7 @@ export interface Event {
 export interface GroupDetails {
   users: User[]
   events: Event[]
+  group: Group
 }
 
 export interface GroupCreationForm {
@@ -30,7 +31,7 @@ export const get_group_list = () =>
 
 export const get_group_details = (id: number) =>
   fetch_api<GroupDetails>({
-    path: `group_selected/${id}/`,
+    path: `group/${id}/`,
     method: 'POST',
   })
 
