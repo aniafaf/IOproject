@@ -10,11 +10,14 @@ import { post_activate } from '../../api/post_activate'
 import { useNavigate } from 'react-router-dom'
 import { useAlert } from '../../hooks/alert'
 import { get_token, get_uid } from './helpers'
+import { NotLoggedInGuard } from '../../components/LoggedInGuard'
+import { Spinner } from '../../components/Spinner'
 
 export const ActiveAccountView = () => {
   const navigate = useNavigate()
   const [activationCode, setActivationCode] = useState('')
   const [uid, setUid] = useState('')
+  const [loading, setLoading] = useState(false)
   const alert = useAlert()
 
   useEffect(() => {
@@ -33,26 +36,24 @@ export const ActiveAccountView = () => {
     if (!uid) {
       msg.push('Missing UID in the url!')
     }
-    if (msg) {
+    if (msg.length > 0) {
       return alert.display(msg.join('\n'), 'error')
     }
 
-    post_activate(uid, activationCode).then(r => {
-      console.dir(r, { depth: 0 })
-      debugger
-      if (r.ok) {
-        debugger
-        navigate(Route.home())
-      } else {
-        alert.display(r.error, 'error')
-        console.log(r.error)
-      }
-    })
+    setLoading(true)
+    post_activate(uid, activationCode)
+      .then(r =>
+        r.ok ? navigate(Route.home()) : alert.display(r.error, 'error'),
+      )
+      .catch(e => alert.display(e, 'error'))
+      .finally(() => setLoading(false))
   }
 
   return (
     <>
+      <NotLoggedInGuard />
       <alert.AlertComponent />
+      <Spinner open={loading} />
       <CenterSplitLayout>
         <FieldSet>
           <FormHeading
