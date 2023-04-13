@@ -150,19 +150,19 @@ def group_selected(request, pk):
         return session_expired_response(request)
     try:
         group = Group.objects.get(id=pk)
-    except Model.DoesNotExist:
+    except Group.DoesNotExist:
         return error_response("Group with given id does not exist")
     user = request.user
     try:
         UserGroup.objects.get(user=user, group=group)
-    except Model.DoesNotExist:
+    except UserGroup.DoesNotExist:
         return error_response("You are not in this group")
-    except Model.MultipleObjectsReturned:
+    except UserGroup.MultipleObjectsReturned:
         return error_response("Database is not working properly, tests only")
 
     user_list = list(UserGroup.objects.filter(group=group).values("user"))
-    event_list = list(group.event_set.all())
-    return ok_response({"users": user_list, "events": event_list})
+    event_list = list(group.event_set.all().values())
+    return ok_response({"group": group, "users": user_list, "events": event_list})
 
 
 def group_list(request):
@@ -180,7 +180,7 @@ def create_group(request):
         try:
             form = json.loads(request.body)
             user = request.user
-            group.create_group(user, form["name"])
+            group.create_group(user, form)
         except ValueError as e:
             return error_response(str(e))
     else:
@@ -193,10 +193,8 @@ def add_to_group(request):
     if request.method == "POST":
         try:
             form = json.loads(request.body)
-            group.validate_group(form)
             user = request.user
-            group_id = form["group_id"]
-            group.add_to_group(group_id, user)
+            group.add_to_group(user, form)
         except ValueError as e:
             return error_response(str(e))
     else:
