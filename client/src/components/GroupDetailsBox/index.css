@@ -33,6 +33,14 @@
 .members_list_box {
   overflow-y: scroll;
   height: 94%;
+  width: 100%;
+}
+
+.members_list {
+  list-style: none;
+  padding-left: 0;
+  width: 100%;
+  padding: 15px;
 }
 
 .events_list_box {
@@ -62,7 +70,8 @@
 }
 
 .events_button:disabled {
-  --bg-color: #7e7e7e;
+  --bg-color: #d2d2d247;
+  color: rgba(51, 51, 51, 0.727);
   cursor: default;
 }
 
@@ -75,13 +84,12 @@
 }
 
 .user_element {
-  margin: 10px;
+  margin: 10px 0 0 0;
   list-style-type: none;
   text-align: right;
-  padding: 7.5px;
-  height: 40px;
-  width: 300px;
-  color: #1775D2;
+  padding: 12.5px;
+  width: 100%;
+  color: #1775d2;
   background: linear-gradient(
     172.07deg,
     rgba(229, 244, 255, 0.82) 53.05%,
@@ -90,19 +98,14 @@
 }
 
 .event_element {
-  margin: 10px;
+  margin: 10px 0 0 0;
   list-style-type: none;
   text-align: left;
   padding: 15px;
-  /* height: 40px; */
   width: 600px;
   box-sizing: border-box;
-  color: #1775D2;
-  background: linear-gradient(
-    172.07deg,
-    rgba(229, 244, 255, 0.82) 53.05%,
-    rgba(248, 251, 252, 0.41) 128.5%
-  );
+  color: #fdfdfd;
+  background: #043c70;
 }
 
 @media screen and (max-width: 800px) {
@@ -113,7 +116,8 @@
     overflow-y: visible;
   }
 
-  .events_box, .members_box {
+  .events_box,
+  .members_box {
     width: 100vw;
     height: 100vh;
   }

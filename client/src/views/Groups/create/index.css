@@ -1,8 +1,22 @@
 .add_group_panel {
-    height: auto;
-    flex-basis: 1;
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  height: auto;
+  flex-basis: 1;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add_group_form {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  background: linear-gradient(
+    115.7deg,
+    #e6f4ff 66.51%,
+    rgba(248, 251, 252, 0.5) 101.91%
+  );
+  padding: 15px;
+  border-radius: 10px;
+  color: #737373;
 }

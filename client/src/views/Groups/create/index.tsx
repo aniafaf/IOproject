@@ -6,7 +6,7 @@ import { useAlert } from '../../../hooks/alert'
 import { Group, post_group_create } from '../../../api/groups'
 import { FieldSet } from '../../../components/FieldSet'
 import { FormButton } from '../../../components/FormButton'
-import { useHref} from 'react-router'
+import { useHref } from 'react-router'
 import { Route } from '../../../routes'
 import { LoggedInPanel } from '../../../components/LoggedInPanel'
 import './index.css'
@@ -54,7 +54,7 @@ export const GroupCreateView = () => {
           </div>
         </div>
         <div className='add_group_panel'>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className='add_group_form'>
             <FieldSet>
               <TextInputField
                 label='name'
@@ -62,19 +62,19 @@ export const GroupCreateView = () => {
               />
               <FormButton type='submit'>Add group</FormButton>
             </FieldSet>
+            {group && (
+              <>
+                <img
+                  src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(
+                    invitationLink,
+                  )}`}
+                />
+                <p>
+                  invitation link: <a href={invitationLink}>{invitationLink}</a>
+                </p>
+              </>
+            )}
           </form>
-          {group && (
-            <>
-              <img
-                src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(
-                  invitationLink,
-                )}`}
-              />
-              <p>
-                invitation link: <a href={invitationLink}>{invitationLink}</a>
-              </p>
-            </>
-          )}
         </div>
       </div>
     </>

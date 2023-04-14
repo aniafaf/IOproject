@@ -38,6 +38,10 @@ export const GroupDetailsBox = ({
   const handleDialogOpen = () => setDialogOpen(true)
   const handleDialogClose = () => setDialogOpen(false)
 
+  if (!group) {
+    return <></>
+  }
+
   return (
     <>
       <div className='group_details_box'>
@@ -49,7 +53,7 @@ export const GroupDetailsBox = ({
             <ul className='event_list' style={{ color: '#073B78' }}>
               {/* get event_list */}
               <li className='event_element'>event1</li>
-              <li>event2</li>
+              <li className='event_element'>event2</li>
             </ul>
 
             <div style={{ position: 'absolute', right: 20, top: 20 }}>
@@ -68,8 +72,8 @@ export const GroupDetailsBox = ({
             <h2 style={{ color: '#073B78', fontFamily: 'Libre Bodoni' }}>
               members
             </h2>
-            <ul className='group_list'>
-              {users!.map(
+            <ul className='members_list'>
+              {users?.map(
                 ({ username, first_name: name, last_name: surname }, i) => (
                   console.dir({ name, surname }),
                   (
