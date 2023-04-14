@@ -20,10 +20,11 @@ export class Route {
     list: () => '/',
     byId: (id: number) => `/${id}`,
     create: () => '/create',
-    join: () => '/join',
+    join: (id: number) => `/${id}/join`,
   })
 }
 
 export class RoutePattern {
   static group = () => '/groups/:groupId'
+  static group_join = () => '/groups/:groupId/join'
 }

@@ -4,7 +4,8 @@ import { User } from './users'
 export interface Group {
   id: number
   name: string
-  admin: User
+  admin_id: number
+  hash: number
 }
 
 export interface Event {
@@ -16,10 +17,16 @@ export interface Event {
 export interface GroupDetails {
   users: User[]
   events: Event[]
+  group: Group
 }
 
 export interface GroupCreationForm {
   name: string
+}
+
+export interface GroupJoinForm {
+  group_id: number
+  hash: string
 }
 
 export const get_group_list = () =>
@@ -30,13 +37,20 @@ export const get_group_list = () =>
 
 export const get_group_details = (id: number) =>
   fetch_api<GroupDetails>({
-    path: `group_selected/${id}/`,
+    path: `group/${id}/`,
     method: 'POST',
   })
 
 export const post_group_create = (form: GroupCreationForm) =>
-  fetch_api({
+  fetch_api<Group>({
     path: 'create_group/',
+    method: 'POST',
+    body: form,
+  })
+
+export const post_group_join = (form: GroupJoinForm) =>
+  fetch_api({
+    path: 'join/',
     method: 'POST',
     body: form,
   })

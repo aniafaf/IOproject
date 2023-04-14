@@ -11,6 +11,8 @@ urlpatterns = [
     path("group/<int:pk>/", views.group_selected, name="group_selected"),
     path("group_list/", views.group_list, name="group_list"),
     path("create_group/", views.create_group, name="create_group"),
+    path("join/", views.join_group, name="join_group"),
+    path("logout/", views.logout_my, name="logout"),
 ]
 
 if isTest:

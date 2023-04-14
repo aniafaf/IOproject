@@ -4,7 +4,7 @@ import { useForm } from '../../../hooks/form'
 import { LoggedInGuard } from '../../../components/LoggedInGuard'
 import { Spinner } from '../../../components/Spinner'
 import { useAlert } from '../../../hooks/alert'
-import { post_group_create } from '../../../api/groups'
+import { Group, post_group_create } from '../../../api/groups'
 import { FieldSet } from '../../../components/FieldSet'
 import { FormButton } from '../../../components/FormButton'
 import { useHref } from 'react-router'
@@ -16,18 +16,16 @@ export const GroupCreateView = () => {
   const [setField, form] = useForm({
     name: '',
   })
-  const [groupId, setGroupId] = useState('')
-  const invitationBase = useHref(Route.groups.join())
-  const invitationLink = `${location.origin}/${invitationBase}?groupId=${groupId}`
+  const [group, setGroup] = useState<Group | undefined>(undefined)
+  const invitationBase = useHref(Route.groups.join(group?.id!))
+  const invitationLink = `${location.origin}/${invitationBase}/?hash=${group?.hash}&name=${group?.name}`
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()
 
     setLoading(true)
     post_group_create(form)
-      .then(r =>
-        r.ok ? setGroupId(r.data as string) : alert.display(r.error, 'error'),
-      )
+      .then(r => (r.ok ? setGroup(r.data) : alert.display(r.error, 'error')))
       .catch(e => alert.display(e, 'error'))
       .finally(() => setLoading(false))
   }
@@ -43,7 +41,7 @@ export const GroupCreateView = () => {
           <FormButton type='submit'>Add group</FormButton>
         </FieldSet>
       </form>
-      {groupId && (
+      {group && (
         <>
           <img
             src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(

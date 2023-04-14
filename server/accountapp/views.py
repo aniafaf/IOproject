@@ -12,16 +12,16 @@ from django.core.mail import EmailMessage
 from django.http import JsonResponse, HttpResponse, HttpRequest
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
+from django.contrib.auth.models import User
 from .constructors.api_response import (
     ok_response,
     error_response,
     session_expired_response,
 )
 
-
 from .models import UserGroup, Group, Event, Payment
 
-from . import create_user, create_group
+from . import create_user, group
 
 from accountapp.token import account_activation_token
 
@@ -151,39 +151,63 @@ def group_selected(request, pk):
         return session_expired_response(request)
     try:
         group = Group.objects.get(id=pk)
-    except Model.DoesNotExist:
+    except Group.DoesNotExist:
         return error_response("Group with given id does not exist")
     user = request.user
     try:
         UserGroup.objects.get(user=user, group=group)
-    except Model.DoesNotExist:
+    except UserGroup.DoesNotExist:
         return error_response("You are not in this group")
-    except Model.MultipleObjectsReturned:
+    except UserGroup.MultipleObjectsReturned:
         return error_response("Database is not working properly, tests only")
 
-    user_list = list(UserGroup.objects.filter(group=group).values("user"))
-    event_list = list(group.event_set.all())
-    return ok_response({"users": user_list, "events": event_list})
+    user_id_list = UserGroup.objects.filter(group=group).values_list("user", flat=True)
+    user_list = list(
+        User.objects.filter(id__in=user_id_list).values(
+            "id", "username", "first_name", "last_name", "email"
+        )
+    )
+    event_list = list(group.event_set.all().values())
+    group = Group.objects.filter(id=pk).values().first()
+    return ok_response({"group": group, "users": user_list, "events": event_list})
 
 
 def group_list(request):
     if not request.user.is_authenticated:
         return session_expired_response(request)
     user = request.user
-    groups = list(UserGroup.objects.filter(user=user).values("group"))
-    return ok_response({"groups": groups})
+    group_id_list = UserGroup.objects.filter(user=user).values_list("group", flat=True)
+    group_list = list(Group.objects.filter(id__in=group_id_list).values("id", "name"))
+    return ok_response({"groups": group_list})
 
 
 def create_group(request):
     if not request.user.is_authenticated:
         return session_expired_response(request)
-    # TODO complete functions in create_group.py file
-    user = request.user
-    try:
-        if request.method == "POST":
+    if request.method == "POST":
+        try:
             form = json.loads(request.body)
-            create_group.validate_group(form)
-            create_group.create_group(user, form["name"])
-    # TODO change exception to more detailed one
-    except Exception:
-        return error_response("#TODO")
+            user = request.user
+            new_group = group.create_group(user, form)
+            return ok_response(
+                dict(id=new_group.pk, name=new_group.name, hash=new_group.hash)
+            )
+        except ValueError as e:
+            return error_response(str(e))
+    else:
+        return error_response(f"Invalid method: expected POST but got {request.method}")
+
+
+def join_group(request):
+    if not request.user.is_authenticated:
+        return session_expired_response(request)
+    if request.method == "POST":
+        try:
+            form = json.loads(request.body)
+            user = request.user
+            group.add_to_group(user, form)
+            return ok_response(True)
+        except ValueError as e:
+            return error_response(str(e))
+    else:
+        return error_response(f"Invalid method: expected POST but got {request.method}")
