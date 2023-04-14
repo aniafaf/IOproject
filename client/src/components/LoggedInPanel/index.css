@@ -68,9 +68,9 @@
 }
 
 .group_list {
-    list-style: none;
-    padding-left: 0;
-    width: 100%;
+  list-style: none;
+  padding-left: 0;
+  width: 100%;
 }
 
 .main_page_box_container {
@@ -127,14 +127,14 @@
   right: 20px;
 }
 
-.log_out_button button{
-    background-color: Transparent;
-    border: none; 
-    cursor: pointer;
-  }
+.log_out_button button {
+  background-color: Transparent;
+  border: none;
+  cursor: pointer;
+}
 
 .groups_button {
-  --bg-color: rgba(3, 109, 207, 0.77);;
+  --bg-color: rgba(3, 109, 207, 0.77);
 
   font-size: 1.3rem;
   font-family: 'Libre Bodoni';
@@ -143,8 +143,8 @@
   padding: 5px;
   border: none;
   cursor: pointer;
-  background: #FFFFFF;
-  color: #064F98;
+  background: #ffffff;
+  color: #064f98;
   margin-bottom: 5px;
 }
 

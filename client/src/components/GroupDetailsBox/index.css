@@ -81,7 +81,7 @@
   padding: 7.5px;
   height: 40px;
   width: 300px;
-  color: #1775D2;
+  color: #1775d2;
   background: linear-gradient(
     172.07deg,
     rgba(229, 244, 255, 0.82) 53.05%,
@@ -97,7 +97,7 @@
   /* height: 40px; */
   width: 600px;
   box-sizing: border-box;
-  color: #1775D2;
+  color: #1775d2;
   background: linear-gradient(
     172.07deg,
     rgba(229, 244, 255, 0.82) 53.05%,
@@ -113,7 +113,8 @@
     overflow-y: visible;
   }
 
-  .events_box, .members_box {
+  .events_box,
+  .members_box {
     width: 100vw;
     height: 100vh;
   }

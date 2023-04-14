@@ -1,7 +1,7 @@
 .group-item {
-    margin-bottom: 3px; 
-    margin-left: 0px;
-    margin-right: 0px;
+  margin-bottom: 3px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .group-item__link {
@@ -11,7 +11,7 @@
   list-style-type: none;
   height: 40px;
   width: 100%;
-  color: #1775D2;
+  color: #1775d2;
   background: rgba(162, 203, 240, 0.15);
   padding: 7px;
 }
@@ -20,5 +20,5 @@
 .group-item__link:focus,
 .group-item__link.active {
   background: rgba(3, 109, 207, 0.77);
-  color: #FFFFFF;
+  color: #ffffff;
 }
