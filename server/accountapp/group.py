@@ -15,7 +15,7 @@ def validate_new_group(form):
     if "name" not in form:
         raise ValueError("Form lacks name field.")
     name = form["name"]
-    if name.len > 30 or name.len == 0:
+    if len(name) > 30 or len(name) == 0:
         raise ValueError("Group name must contains between 1 to 30 characters.")
 
 
