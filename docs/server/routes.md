@@ -23,19 +23,37 @@
 	  - token
 	  - uid
 
+4. **group/<int:pk>**
+	
+	<int:pk> in the url is the id (primary key) of the group
+	user want to see.
+	- Group with given id must exist.
+	- User must be logged in and be in the group in order to see
+	it's content.
 
+5. **group_list**
+
+	Lists all group of user.
+	- User must be logged in in order to see his/her list of groups.
+
+6. **group_create**
+	
+	- User must be logged in in order to create group.
+	- Requires body with:
+	  * name of the group
+ 
 ## Constraints:
-  - **username**:
+- **username**:
 	* minimum one character
 	* only upper or lower case letters and \_, -, ., + symbols
 	* maximum 150 characters 
 	* must be unique
-  - **email**:
+-   **email**:
 	* must be a valid email
 	* must be uniqe
-  - **password**:
+-   **password**:
 	* minimum 8 characters
-  - **first\_name, last\_name**
+-   **first\_name, last\_name**
 	* must starts with a capital letter
 	* minimum one character
 	* maximum 150 characters

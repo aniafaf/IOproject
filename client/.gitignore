@@ -14,6 +14,11 @@ dist-ssr
 package-lock.json
 coverage
 **/coverage/*
+**/cypress/e2e/1-getting-started
+**/cypress/e2e/2-advanced-examples
+**/cypress/fixtures/example.json
+**/cypress/videos
+.nyc_output
 
 # Editor directories and files
 .vscode/*

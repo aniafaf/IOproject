@@ -4,6 +4,7 @@ from smtplib import SMTPException
 from django.contrib.auth import login, authenticate, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
+from django.db.models import Model
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
@@ -11,9 +12,16 @@ from django.core.mail import EmailMessage
 from django.http import JsonResponse, HttpResponse, HttpRequest
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
+from django.contrib.auth.models import User
+from .constructors.api_response import (
+    ok_response,
+    error_response,
+    session_expired_response,
+)
 
+from .models import UserGroup, Group, Event, Payment
 
-from . import create_user
+from . import create_user, group
 
 from accountapp.token import account_activation_token
 
@@ -32,32 +40,20 @@ def login_to(request):
                 user = authenticate(request, username=username, password=password)
                 if user is not None:
                     login(request, user)
-                    return JsonResponse({"ok": True, "error": None, "data": True})
+                    return ok_response(True)
                 else:
-                    return JsonResponse(
-                        {
-                            "ok": False,
-                            "error": "Invalid username or password",
-                            "data": None,
-                        }
-                    )
+                    return error_response("Invalid username or password")
 
         except ValueError as e:
-            return JsonResponse({"ok": False, "error": str(e), "data": None})
+            return error_response(str(e))
     else:
-        return JsonResponse(
-            {
-                "ok": False,
-                "error": f"Invalid method: expected POST but got {request.method}",
-                "data": None,
-            }
-        )
+        return error_response(f"Invalid method: expected POST but got {request.method}")
 
 
-@login_required(login_url="login")
 def logout_my(request):
-    logout(request)
-    return JsonResponse({"ok": True, "error": None, "data": True})
+    if request.user.is_authenticated:
+        logout(request)
+    return ok_response(True)
 
 
 def signup(request):
@@ -80,33 +76,26 @@ def signup(request):
                 to_email = form["email"]
                 email = EmailMessage(mail_subject, message, to=[to_email])
                 email.send()
-                return JsonResponse({"ok": True, "error": None, "data": True})
+                return ok_response(True)
             else:
-                return JsonResponse({"ok": True, "error": "t", "data": True})
+                return ok_response(True)
         except ValueError as e:
-            return JsonResponse({"ok": False, "error": str(e), "data": None})
+            return error_response(str(e))
         except ValidationError as mail_error:
-            return JsonResponse({"ok": False, "error": str(mail_error), "data": None})
-            return JsonResponse({"ok": False, "error": str(mail_error), "data": None})
+            return error_response(str(mail_error))
         except IntegrityError:
-            return JsonResponse(
-                {"ok": False, "error": "Something went wrong", "data": None}
-            )
+            return error_response("Something went wrong")
         except SMTPException as smtpe:
-            return JsonResponse({"ok": False, "error": str(smtpe), "data": None})
+            return error_response(str(smtpe))
 
 
 def activate(request: HttpRequest):
     # Validate the request
     if not request.body:
-        return JsonResponse({"ok": False, "error": "Empty request body", "data": None})
+        return error_response("Empty request body")
     if request.method != "PATCH":
-        return JsonResponse(
-            {
-                "ok": False,
-                "error": f"Expected request method to be PATCH but got {request.method} instead.",
-                "data": None,
-            }
+        return error_response(
+            f"Expected request method to be PATCH but got {request.method} instead."
         )
 
     body = dict()
@@ -122,7 +111,7 @@ def activate(request: HttpRequest):
             )
         body = _body
     except Exception as e:
-        return JsonResponse({"ok": False, "error": e, "data": None})
+        return error_response(e)
 
     # Process the request
     uid = body["uid"]
@@ -137,29 +126,108 @@ def activate(request: HttpRequest):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        return JsonResponse(
-            {
-                "ok": True,
-                "error": None,
-                "data": "Thank you for your email confirmation. "
-                "Now you can log in to your account.",
-            }
+        return ok_response(
+            "Thank you for your email confirmation. "
+            "Now you can log in to your account."
         )
     else:
-        return JsonResponse(
-            {"ok": False, "error": "Activation token is invalid!", "data": None}
-        )
+        return error_response("Activation token is invalid!")
 
 
 def delete_all(_):
     if os.environ.get("TEST") != "1":
-        response = JsonResponse({"ok": False, "error": "TEST API only.", "data": None})
-        response.status_code = 403
-        return response
+        return error_response("TEST API only.", status=403)
 
     try:
         user_model = get_user_model()
         del_res = user_model.objects.all().delete()
-        return JsonResponse({"ok": True, "error": None, "data": del_res})
+        return ok_response(del_res)
     except Exception as e:
-        return JsonResponse({"ok": False, "error": e, "data": None})
+        return error_response(e)
+
+
+def group_selected(request, pk):
+    if not request.user.is_authenticated:
+        return session_expired_response(request)
+    try:
+        group = Group.objects.get(id=pk)
+    except Group.DoesNotExist:
+        return error_response("Group with given id does not exist")
+    user = request.user
+    try:
+        UserGroup.objects.get(user=user, group=group)
+    except UserGroup.DoesNotExist:
+        return error_response("You are not in this group")
+    except UserGroup.MultipleObjectsReturned:
+        return error_response("Database is not working properly, tests only")
+
+    user_id_list = UserGroup.objects.filter(group=group).values_list("user", flat=True)
+    user_list = list(
+        User.objects.filter(id__in=user_id_list).values(
+            "id", "username", "first_name", "last_name", "email"
+        )
+    )
+    event_list = list(group.event_set.all().values())
+    group = Group.objects.filter(id=pk).values().first()
+    return ok_response({"group": group, "users": user_list, "events": event_list})
+
+
+def group_list(request):
+    if not request.user.is_authenticated:
+        return session_expired_response(request)
+    user = request.user
+    group_id_list = UserGroup.objects.filter(user=user).values_list("group", flat=True)
+    group_list = list(
+        Group.objects.filter(id__in=group_id_list).values(
+            "id", "name", "admin_id", "hash"
+        )
+    )
+    return ok_response({"groups": group_list})
+
+
+def create_group(request):
+    if not request.user.is_authenticated:
+        return session_expired_response(request)
+    if request.method == "POST":
+        try:
+            form = json.loads(request.body)
+            user = request.user
+            new_group = group.create_group(user, form)
+            return ok_response(
+                dict(
+                    id=new_group.pk,
+                    name=new_group.name,
+                    hash=new_group.hash,
+                    admin_id=new_group.admin.pk,
+                )
+            )
+        except ValueError as e:
+            return error_response(str(e))
+    else:
+        return error_response(f"Invalid method: expected POST but got {request.method}")
+
+
+def join_group(request):
+    if not request.user.is_authenticated:
+        return session_expired_response(request)
+    if request.method == "POST":
+        try:
+            form = json.loads(request.body)
+            user = request.user
+            group.add_to_group(user, form)
+            return ok_response(True)
+        except ValueError as e:
+            return error_response(str(e))
+    else:
+        return error_response(f"Invalid method: expected POST but got {request.method}")
+
+
+def delete_all_groups(_):
+    if os.environ.get("TEST") != "1":
+        return error_response("TEST API only.", status=403)
+
+    try:
+        del_res = Group.objects.all().delete()
+        return ok_response(del_res)
+    except Exception as e:
+        return error_response(e)

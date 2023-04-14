@@ -6,11 +6,13 @@ export type ApiResponse<T, E = string> =
       ok: true
       data: T
       error: null
+      redirect?: string
     }
   | {
       ok: false
       data: null
       error: E
+      redirect?: string
     }
 
 /**

@@ -37,6 +37,14 @@ export const fetch_api = <T = unknown, O extends Object = Object, E = string>({
   transformer,
 }: FetchApiArgs<T, O, E>): ApiCall<T, E> => {
   const headers = (_headers ?? {})!
+  const catchToError = (e: any) => ({
+    ok: false,
+    data: null,
+    error: {
+      source: 'fetch catch',
+      ...(typeof e === 'object' ? e : { error: e }),
+    } as E,
+  })
   if (typeof body === 'object') {
     headers['Content-Type'] ??= 'application/json'
   }
@@ -48,13 +56,11 @@ export const fetch_api = <T = unknown, O extends Object = Object, E = string>({
     ...(body ? { body: JSON.stringify(body, null, 0) } : {}),
     ...{ headers },
   })
-    .then(r => r.json().then(json => (transformer ?? (x => x))(json)))
-    .catch(e => ({
-      ok: false,
-      data: null,
-      error: {
-        source: 'fetch catch',
-        ...e,
-      } as E,
-    }))
+    .then(r =>
+      r
+        .json()
+        .catch(() => catchToError(`${r.url}: ${r.statusText}`))
+        .then(json => (transformer ?? (x => x))(json)),
+    )
+    .catch(catchToError)
 }

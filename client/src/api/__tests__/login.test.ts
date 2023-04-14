@@ -17,7 +17,9 @@ describe('post_login', () => {
     const username = 'jkowalski'
     const email = 'jkowalski1@gmail.com'
     await post_register(firstName, lastName, username, email, password).then(
-      r => expect(r.ok).toBeTruthy(),
+      r => (
+        console.dir({ debug: r }, { depth: 15 }), expect(r.ok).toBeTruthy()
+      ),
     )
     await post_login(username, password).then(r => expect(r.ok).toBeTruthy())
   })
