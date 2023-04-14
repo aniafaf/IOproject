@@ -36,16 +36,16 @@ function App() {
           element: <GroupListView />,
         },
         {
-          path: RoutePattern.group(),
-          element: <GroupView />,
-        },
-        {
           path: Route.groups.create(),
           element: <GroupCreateView />,
         },
         {
           path: RoutePattern.group_join(),
           element: <GroupJoinView />,
+        },
+        {
+          path: RoutePattern.group(),
+          element: <GroupView />,
         },
         {
           path: Route.home(),

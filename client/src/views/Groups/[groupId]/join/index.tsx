@@ -1,4 +1,4 @@
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { CenterSplitLayout } from '../../../../components/CenterSplitLayout'
 import { FieldSet } from '../../../../components/FieldSet'
 import { FormHeading } from '../../../../components/FormHeading'
@@ -6,67 +6,59 @@ import { LoggedInGuard } from '../../../../components/LoggedInGuard'
 import { Spinner } from '../../../../components/Spinner'
 import { useAlert } from '../../../../hooks/alert'
 import { useEffect, useState } from 'react'
-import { Group, get_group_details } from '../../../../api/groups'
-import { useForm } from '../../../../hooks/form'
+import {
+  post_group_join,
+} from '../../../../api/groups'
 import { FormButton } from '../../../../components/FormButton'
 import { FormLink } from '../../../../components/FormLink'
 import { Route } from '../../../../routes'
+import { useForm } from '../../../../hooks/form'
+import { get_query } from '../../../../helpers/get_query'
 
 export const GroupJoinView = () => {
-  const { groupId } = useParams()
+  const { groupId: group_id } = useParams()
   const alert = useAlert()
+  const navigate = useNavigate()
+  const [set, { hash, name }] = useForm({ hash: '', name: '' })
   const [loading, setLoading] = useState(true)
-  const [group, setGroup] = useState<Group | undefined>({
-    id: +groupId!,
-    name: 'Morgage',
-    admin: {
-      name: 'Ashley',
-      surname: 'Gavin',
-      email: 'e.gavin@gmail.com',
-      username: 'dabutch',
-      id: 5,
-    },
-  })
 
   useEffect(() => {
     alert.hide()
 
-    get_group_details(+groupId!)
-      .then(r =>
-        r.ok
-          ? setGroup(
-              r.data?.group ?? {
-                id: groupId,
-                name: 'Morgage',
-                admin: {},
-              },
-            )
-          : alert.display(r.error, 'error'),
-      )
+    Promise.all([get_query('hash'), get_query('name')])
+      .then(([h, n]) => (set('hash', h), set('name', n)))
       .catch(e => alert.display(e, 'error'))
       .finally(() => setLoading(false))
   }, [])
 
   const handleSubmit: React.FormEventHandler = e => {
     e.preventDefault()
+
+    post_group_join({ group_id: +group_id!, hash }).then(r =>
+      r.ok
+        ? navigate(Route.home())
+        : (alert.display(r.error, 'error'),
+          r.redirect && navigate(r.redirect!)),
+    )
   }
+
+  const valid = name && hash
 
   return (
     <>
       <alert.AlertComponent />
       <Spinner open={loading} />
-      {/* <LoggedInGuard/> */}
+      <LoggedInGuard />
       <CenterSplitLayout>
         <FormHeading
           title='Group Invitation'
-          subTitle={
-            group &&
-            `Do you want to join ${group.admin.username}'s ${group.name} group?`
-          }
+          subTitle={valid && `Do you want to join ${name}?`}
         />
         <form action='' onSubmit={handleSubmit}>
           <FieldSet width={'300px'}>
-            <FormButton type='submit'>Join</FormButton>
+            <FormButton disabled={!valid} type='submit'>
+              Join
+            </FormButton>
             <FormLink align='center' to={Route.home()}>
               Return Home
             </FormLink>
