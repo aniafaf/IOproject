@@ -17,14 +17,14 @@ export const GroupJoinView = () => {
   const { groupId: group_id } = useParams()
   const alert = useAlert()
   const navigate = useNavigate()
-  const [set, { hash, name }] = useForm({ hash: '', name: '' })
+  const [set, { hash, name }] = useForm({ hash: -1, name: '' })
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     alert.hide()
 
     Promise.all([get_query('hash'), get_query('name')])
-      .then(([h, n]) => (set('hash', h), set('name', n)))
+      .then(([h, n]) => (set('hash', +h), set('name', n)))
       .catch(e => alert.display(e, 'error'))
       .finally(() => setLoading(false))
   }, [])
@@ -40,7 +40,7 @@ export const GroupJoinView = () => {
     )
   }
 
-  const valid = name && hash
+  const valid = name && hash !== -1
 
   return (
     <>
@@ -50,7 +50,7 @@ export const GroupJoinView = () => {
       <CenterSplitLayout>
         <FormHeading
           title='Group Invitation'
-          subTitle={valid && `Do you want to join ${name}?`}
+          subTitle={valid ? `Do you want to join ${name}?` : ''}
         />
         <form action='' onSubmit={handleSubmit}>
           <FieldSet width={'300px'}>
