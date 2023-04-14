@@ -12,6 +12,7 @@ from django.core.mail import EmailMessage
 from django.http import JsonResponse, HttpResponse, HttpRequest
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
+from django.contrib.auth.models import User
 from .constructors.api_response import (
     ok_response,
     error_response,
@@ -160,7 +161,9 @@ def group_selected(request, pk):
     except UserGroup.MultipleObjectsReturned:
         return error_response("Database is not working properly, tests only")
 
-    user_list = list(UserGroup.objects.filter(group=group).values("user"))
+    user_id_list = UserGroup.objects.filter(group=group).values_list("user", flat=True)
+    user_list = list(User.objects.filter(id__in=user_id_list).values("id", "username", "first_name",
+                                                                     "last_name", "email"))
     event_list = list(group.event_set.all().values())
     group = list(Group.objects.filter(id=pk).values())
     return ok_response({"group": group, "users": user_list, "events": event_list})
