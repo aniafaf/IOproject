@@ -16,4 +16,11 @@ urlpatterns = [
 ]
 
 if isTest:
-    urlpatterns.extend([path("delete-all/", views.delete_all, name="delete-all")])
+    urlpatterns.extend(
+        [
+            path("delete-all/", views.delete_all, name="delete-all"),
+            path(
+                "delete-all-groups/", views.delete_all_groups, name="delete-all-groups"
+            ),
+        ]
+    )

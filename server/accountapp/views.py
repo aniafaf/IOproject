@@ -177,7 +177,11 @@ def group_list(request):
         return session_expired_response(request)
     user = request.user
     group_id_list = UserGroup.objects.filter(user=user).values_list("group", flat=True)
-    group_list = list(Group.objects.filter(id__in=group_id_list).values("id", "name"))
+    group_list = list(
+        Group.objects.filter(id__in=group_id_list).values(
+            "id", "name", "admin_id", "hash"
+        )
+    )
     return ok_response({"groups": group_list})
 
 
@@ -190,7 +194,12 @@ def create_group(request):
             user = request.user
             new_group = group.create_group(user, form)
             return ok_response(
-                dict(id=new_group.pk, name=new_group.name, hash=new_group.hash)
+                dict(
+                    id=new_group.pk,
+                    name=new_group.name,
+                    hash=new_group.hash,
+                    admin_id=new_group.admin.pk,
+                )
             )
         except ValueError as e:
             return error_response(str(e))
@@ -211,3 +220,14 @@ def join_group(request):
             return error_response(str(e))
     else:
         return error_response(f"Invalid method: expected POST but got {request.method}")
+
+
+def delete_all_groups(_):
+    if os.environ.get("TEST") != "1":
+        return error_response("TEST API only.", status=403)
+
+    try:
+        del_res = Group.objects.all().delete()
+        return ok_response(del_res)
+    except Exception as e:
+        return error_response(e)
