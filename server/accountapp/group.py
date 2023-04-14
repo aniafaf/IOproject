@@ -27,6 +27,7 @@ def create_group(user, form):
     group.save()
     connection = UserGroup(user=user, group=group)
     connection.save()
+    return group
 
 
 def add_to_group(user, form):

@@ -168,7 +168,7 @@ def group_selected(request, pk):
         )
     )
     event_list = list(group.event_set.all().values())
-    group = list(Group.objects.filter(id=pk).values())
+    group = Group.objects.filter(id=pk).values().first()
     return ok_response({"group": group, "users": user_list, "events": event_list})
 
 
@@ -188,8 +188,10 @@ def create_group(request):
         try:
             form = json.loads(request.body)
             user = request.user
-            group.create_group(user, form)
-            return ok_response(True)
+            new_group = group.create_group(user, form)
+            return ok_response(
+                dict(id=new_group.pk, name=new_group.name, hash=new_group.hash)
+            )
         except ValueError as e:
             return error_response(str(e))
     else:
