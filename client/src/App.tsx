@@ -45,7 +45,7 @@ function App() {
         },
         {
           path: RoutePattern.group_join(),
-          element: <GroupJoinView />
+          element: <GroupJoinView />,
         },
         {
           path: Route.home(),
