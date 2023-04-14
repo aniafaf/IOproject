@@ -40,5 +40,7 @@ def add_to_group(user, form):
         group = Group.objects.get(pk=group_id, hash=hash)
     except Group.DoesNotExist:
         raise ValueError("Given link is not correct.")
+    if UserGroup.objects.filter(user=user, group=group).exists():
+        raise ValueError("User is already in group.")
     connection = UserGroup(user=user, group=group)
     connection.save()

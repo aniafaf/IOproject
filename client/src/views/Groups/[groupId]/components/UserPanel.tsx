@@ -10,7 +10,7 @@ export const UserPanel = ({ users }: UserPanelProps) => (
     <ol className='list'>
       {users.map((user, i) => (
         <li key={i} className='list__item'>
-          {user.name} {user.surname}
+          {user.first_name} {user.last_name}
         </li>
       ))}
     </ol>

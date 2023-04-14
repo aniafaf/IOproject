@@ -1,11 +1,15 @@
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { Group } from '../../../api/groups'
 import { Route } from '../../../routes'
+import './index.css'
 
 export const GroupListItemElement = ({ name, id }: Group) => (
   <li className='group-item'>
-    <Link className='group-item__link' to={Route.groups.byId(id)}>
+    <NavLink
+      to={Route.groups.byId(id)}
+      className='group_nav_button group-item__link'
+    >
       {name}
-    </Link>
+    </NavLink>
   </li>
 )
