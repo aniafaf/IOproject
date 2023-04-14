@@ -8,7 +8,9 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest",
-    "test-script": "vitest --run",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run --component --headless",
+    "test-script": "vitest --run && npm run cypress:run",
     "coverage": "vitest run --coverage",
     "mess": "nodemon -e mss -x 'find . -wholename '**/*.mss' -exec mess {} \\;'",
     "ci-script": "./scripts/ci.sh",
@@ -17,19 +19,25 @@
   "dependencies": {
     "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.11.13",
-    "@types/node": "^18.15.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^6.9.0",
     "react-router-dom": "^6.9.0"
   },
   "devDependencies": {
+    "@bahmutov/cypress-code-coverage": "^2.5.1",
+    "@cypress/code-coverage": "^3.10.4",
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@mui/types": "^7.2.3",
     "@testing-library/react": "^14.0.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^18.15.11",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",
+    "@vitest/browser": "^0.30.1",
     "@vitest/coverage-c8": "^0.29.3",
+    "cypress": "^12.9.0",
     "happy-dom": "^8.9.0",
     "i": "^0.3.7",
     "npm": "^9.6.2",
@@ -38,6 +46,7 @@
     "typescript": "^4.9.3",
     "vite": "^4.2.0",
     "vite-plugin-environment": "^1.1.3",
+    "vite-plugin-istanbul": "^4.0.1",
     "vitest": "^0.29.3"
   }
 }

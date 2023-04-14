@@ -30,7 +30,6 @@ export const GroupView = () => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const alert = useAlert()
-  const [tabIndex, setTabIndex] = useState(0)
 
   if (!groupId) {
     navigate(Route.groups.list())
@@ -51,8 +50,6 @@ export const GroupView = () => {
       .catch(e => alert.display(e, 'error'))
       .finally(() => setLoading(false))
   }, [])
-
-  const onTabChange = (_: unknown, newIndex: number) => setTabIndex(newIndex)
 
   return (
     <>
