@@ -173,8 +173,9 @@ def group_list(request):
     if not request.user.is_authenticated:
         return session_expired_response(request)
     user = request.user
-    groups = list(UserGroup.objects.filter(user=user).values("group"))
-    return ok_response({"groups": groups})
+    group_id_list = UserGroup.objects.filter(user=user).values_list("group", flat=True)
+    group_list = list(Group.objects.filter(id__in=group_id_list).values("id", "name"))
+    return ok_response({"groups": group_list})
 
 
 def create_group(request):
