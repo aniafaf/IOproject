@@ -26,7 +26,7 @@ export interface GroupCreationForm {
 
 export interface GroupJoinForm {
   group_id: number
-  hash: string
+  hash: number
 }
 
 export const get_group_list = () =>

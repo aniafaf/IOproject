@@ -13,7 +13,7 @@ import { UserPanel } from './components/UserPanel'
 
 export const GroupView = () => {
   const { groupId } = useParams()
-  const [{ users, events }, setGroup] = useState<GroupDetails>({
+  const [{ users, events }, setGroup] = useState<Partial<GroupDetails>>({
     events: [],
     users: [],
   })
@@ -48,10 +48,10 @@ export const GroupView = () => {
       </nav>
       <div className='tabs'>
         <TabPanel index={0} value={tabIndex}>
-          <UserPanel users={users} groupId={+groupId!} />
+          <UserPanel users={users!} groupId={+groupId!} />
         </TabPanel>
         <TabPanel index={1} value={tabIndex}>
-          <EventPanel events={events} groupId={+groupId!} />
+          <EventPanel events={events!} groupId={+groupId!} />
         </TabPanel>
       </div>
     </>
