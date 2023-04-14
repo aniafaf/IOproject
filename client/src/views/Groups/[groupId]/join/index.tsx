@@ -24,7 +24,7 @@ export const GroupJoinView = () => {
     alert.hide()
 
     Promise.all([get_query('hash'), get_query('name')])
-      .then(([h, n]) => (set('hash', +h), set('name', n)))
+      .then(([h, n]) => (set('hash', +h), set('name', decodeURIComponent(n))))
       .catch(e => alert.display(e, 'error'))
       .finally(() => setLoading(false))
   }, [])
