@@ -6,9 +6,7 @@ import { LoggedInGuard } from '../../../../components/LoggedInGuard'
 import { Spinner } from '../../../../components/Spinner'
 import { useAlert } from '../../../../hooks/alert'
 import { useEffect, useState } from 'react'
-import {
-  post_group_join,
-} from '../../../../api/groups'
+import { post_group_join } from '../../../../api/groups'
 import { FormButton } from '../../../../components/FormButton'
 import { FormLink } from '../../../../components/FormLink'
 import { Route } from '../../../../routes'
