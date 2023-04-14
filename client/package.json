@@ -10,7 +10,7 @@
     "test": "vitest",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --component --headless",
-    "test-script": "vitest --run",
+    "test-script": "vitest --run && npm run cypress:run",
     "coverage": "vitest run --coverage",
     "mess": "nodemon -e mss -x 'find . -wholename '**/*.mss' -exec mess {} \\;'",
     "ci-script": "./scripts/ci.sh",
