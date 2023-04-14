@@ -13,7 +13,7 @@ export interface Event {
   name: string
   group: Group
 }
-
+ 
 export interface GroupDetails {
   users: User[]
   events: Event[]
