@@ -18,7 +18,7 @@ export class Route {
 
   static groups = prefixed('/groups', {
     list: () => '/',
-    byId: (id: number) => `${id}`,
+    byId: (id: number) => `/${id}`,
     create: () => '/create',
     join: () => '/join',
   })

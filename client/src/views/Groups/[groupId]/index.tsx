@@ -53,6 +53,7 @@ export const GroupView = () => {
         <TabPanel index={1} value={tabIndex}>
           <EventPanel events={events} groupId={+groupId!} />
         </TabPanel>
+        {users.map(user => <div>{user.name}</div>)}
       </div>
     </>
   )
