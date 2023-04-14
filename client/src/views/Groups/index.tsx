@@ -35,24 +35,27 @@ export const GroupListView = () => {
       <div className='main_page_box'>
         <div className='user_info'>
           <div className='user_info--top'>
-            <LoggedInPanel />
+            <LoggedInPanel
+              setLoading={setLoading}
+              onLogoutError={e => alert.display(e, 'error')}
+            />
           </div>
           <div className='user_info--bottom'>
             <div className='group_list_box'>
               <h2 style={{ color: '#073B78', fontFamily: 'Libre Bodoni' }}>
                 groups
               </h2>
-              <ul className='group_list' style={{ color: '#073B78' }}>
+              <ul className='group_list'>
                 {groups.map((group, i) => (
                   <GroupListItemElement {...group} key={i} />
                 ))}
-                <li>group1</li>
-                <li>group2</li>
-                {/* @TODO chage button style and make grouplistClicable */}
               </ul>
             </div>
             <div>
-              <button className='groups_button' onClick={() => navigate(Route.groups.create())}>
+              <button
+                className='groups_button'
+                onClick={() => navigate(Route.groups.create())}
+              >
                 add
               </button>
             </div>

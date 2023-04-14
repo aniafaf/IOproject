@@ -4,6 +4,7 @@
   display: flex;
   flex-flow: row nowrap;
   background: linear-gradient(0deg, #5795ce, #5795ce);
+  overflow: hidden;
 }
 
 .user_profile {
@@ -47,25 +48,28 @@
 .user_photo {
   width: 150px;
   height: 150px;
-  background-image: url('./assets/user_photo.png');
+  background-image: var(--img-url, url('./assets/user_photo.png'));
 }
 
 .user_info--bottom {
+  width: 100%;
   height: auto;
   flex-basis: 1;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .group_list_box {
   height: 90%;
+  width: 100%;
   overflow-y: scroll;
 }
 
 .group_list {
-    display:inline-block;*display:inline; /*IE7*/
-    *zoom:1; /*IE7*/
+    list-style: none;
+    padding-left: 0;
     width: 100%;
 }
 
@@ -73,7 +77,6 @@
   --left-width: 30%;
   width: var(--center-split-width);
   height: var(--center-split-height);
-  margin-top: var(--center-split-margin-top);
   display: grid;
   grid-template:
     'csc_left csc_right' 1fr
@@ -124,6 +127,12 @@
   right: 20px;
 }
 
+.log_out_button button{
+    background-color: Transparent;
+    border: none; 
+    cursor: pointer;
+  }
+
 .groups_button {
   --bg-color: rgba(3, 109, 207, 0.77);;
 
@@ -140,7 +149,8 @@
 }
 
 .groups_button:hover,
-.groups_button:focus {
+.groups_button:focus,
+.groups_button:active {
   --bg-color: #1c66ab;
 }
 
@@ -149,10 +159,19 @@
     --center-split-width: 100vw;
     --center-split-height: 100vh;
     --center-split-margin-top: 0;
+
+    flex-flow: column nowrap;
+    overflow-y: auto;
+    height: 300vh;
+    scroll-behavior: smooth;
   }
 
   .main_page_box_container {
     --left-width: 100%;
     border-radius: 0;
+  }
+
+  .user_info {
+    width: 100vw;
   }
 }
