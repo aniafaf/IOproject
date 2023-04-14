@@ -162,6 +162,7 @@ def group_selected(request, pk):
 
     user_list = list(UserGroup.objects.filter(group=group).values("user"))
     event_list = list(group.event_set.all().values())
+    group = list(Group.objects.filter(id=pk).values())
     return ok_response({"group": group, "users": user_list, "events": event_list})
 
 
@@ -181,6 +182,7 @@ def create_group(request):
             form = json.loads(request.body)
             user = request.user
             group.create_group(user, form)
+            return ok_response(True)
         except ValueError as e:
             return error_response(str(e))
     else:
@@ -195,6 +197,7 @@ def join_group(request):
             form = json.loads(request.body)
             user = request.user
             group.add_to_group(user, form)
+            return ok_response(True)
         except ValueError as e:
             return error_response(str(e))
     else:
