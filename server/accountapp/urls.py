@@ -20,7 +20,9 @@ if isTest:
         [
             path("delete-all/", views_register.delete_all, name="delete-all"),
             path(
-                "delete-all-groups/", views_group.delete_all_groups, name="delete-all-groups"
+                "delete-all-groups/",
+                views_group.delete_all_groups,
+                name="delete-all-groups",
             ),
         ]
     )
