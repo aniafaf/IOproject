@@ -33,7 +33,7 @@ def login_to(request):
             if "username" not in form:
                 raise ValueError(f"Form lacks username field.")
             username = form["username"]
-            if create_user.validate_username(username):
+            if handle_register.validate_username(username):
                 if "password" not in form:
                     raise ValueError(f"Form lacks password field.")
                 password = form["password"]
@@ -60,8 +60,8 @@ def signup(request):
     if request.method == "POST":
         form = json.loads(request.body)
         try:
-            if create_user.validate_registration(form):
-                user = create_user.create_my_user(form)
+            if handle_register.validate_registration(form):
+                user = handle_register.create_my_user(form)
                 current_site = get_current_site(request)
                 mail_subject = "Activation link has been sent to your email id"
                 message = render_to_string(
