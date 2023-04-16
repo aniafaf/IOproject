@@ -7,11 +7,9 @@ from .constructors.api_response import (
     session_expired_response,
 )
 
-from .models import UserGroup, Group, Event, Payment
+from .models import UserGroup, Group
 
-from . import handle_register, handle_groups
-
-from accountapp.token import account_activation_token
+from . import handle_groups
 
 
 def group_selected(request, pk):

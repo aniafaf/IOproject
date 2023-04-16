@@ -2,26 +2,21 @@ import json
 import os
 from smtplib import SMTPException
 from django.contrib.auth import login, authenticate, logout, get_user_model
-from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
-from django.db.models import Model
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
-from django.http import JsonResponse, HttpResponse, HttpRequest
+from django.http import HttpRequest
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
-from django.contrib.auth.models import User
 from .constructors.api_response import (
     ok_response,
     error_response,
     session_expired_response,
 )
 
-from .models import UserGroup, Group, Event, Payment
-
-from . import handle_register, handle_groups
+from . import handle_register
 
 from accountapp.token import account_activation_token
 
