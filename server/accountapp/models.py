@@ -4,7 +4,9 @@ from django.contrib.auth.models import User
 
 class Group(models.Model):
     name = models.CharField(max_length=30, blank=False)
-    admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name="administrates")
+    admin = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="administrates"
+    )
     hash = models.IntegerField()
     members = models.ManyToManyField(User, related_name="app_groups")
 

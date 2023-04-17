@@ -25,9 +25,7 @@ def group_selected(request, pk):
         return error_response("You are not in this group")
 
     user_list = list(
-        user_list.values(
-            "id", "username", "first_name", "last_name", "email"
-        )
+        user_list.values("id", "username", "first_name", "last_name", "email")
     )
     event_list = list(group.event_set.all().values())
     group = Group.objects.filter(id=pk).values().first()
