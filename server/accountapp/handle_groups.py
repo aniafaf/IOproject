@@ -1,6 +1,6 @@
 import random
 
-from .models import Group, UserGroup
+from .models import Group
 
 
 def validate_existing_group(form):
@@ -25,8 +25,7 @@ def create_group(user, form):
     hash = random.randint(10000000, 99999999)
     group = Group(admin=user, name=name, hash=hash)
     group.save()
-    connection = UserGroup(user=user, group=group)
-    connection.save()
+    group.members.add(user)
     return group
 
 
@@ -40,7 +39,7 @@ def add_to_group(user, form):
         group = Group.objects.get(pk=group_id, hash=hash)
     except Group.DoesNotExist:
         raise ValueError("Given link is not correct.")
-    if UserGroup.objects.filter(user=user, group=group).exists():
+    user_list = group.members.all()
+    if user in user_list:
         raise ValueError("User is already in group.")
-    connection = UserGroup(user=user, group=group)
-    connection.save()
+    group.members.add(user)

@@ -7,7 +7,7 @@ from .constructors.api_response import (
     session_expired_response,
 )
 
-from .models import UserGroup, Group
+from .models import Group
 
 from . import handle_groups
 
@@ -20,16 +20,12 @@ def group_selected(request, pk):
     except Group.DoesNotExist:
         return error_response("Group with given id does not exist")
     user = request.user
-    try:
-        UserGroup.objects.get(user=user, group=group)
-    except UserGroup.DoesNotExist:
+    user_list = group.members.all()
+    if user not in user_list:
         return error_response("You are not in this group")
-    except UserGroup.MultipleObjectsReturned:
-        return error_response("Database is not working properly, tests only")
 
-    user_id_list = UserGroup.objects.filter(group=group).values_list("user", flat=True)
     user_list = list(
-        User.objects.filter(id__in=user_id_list).values(
+        user_list.values(
             "id", "username", "first_name", "last_name", "email"
         )
     )
@@ -42,12 +38,7 @@ def group_list(request):
     if not request.user.is_authenticated:
         return session_expired_response(request)
     user = request.user
-    group_id_list = UserGroup.objects.filter(user=user).values_list("group", flat=True)
-    group_list = list(
-        Group.objects.filter(id__in=group_id_list).values(
-            "id", "name", "admin_id", "hash"
-        )
-    )
+    group_list = list(user.app_groups.all().values())
     return ok_response({"groups": group_list})
 
 
