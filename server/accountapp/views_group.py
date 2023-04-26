@@ -77,10 +77,23 @@ def join_group(request):
         return error_response(f"Invalid method: expected POST but got {request.method}")
 
 
+def create_event(request):
+    if not request.user.is_authenticated:
+        return session_expired_response(request)
+    if request.method == "POST":
+        try:
+            form = json.loads(request.body)
+            handle_groups.create_event(form)
+            return ok_response(True)
+        except ValueError as e:
+            return error_response(str(e))
+    else:
+        return error_response(f"Invalid method: expected POST but got {request.method}")
+
+
 def delete_all_groups(_):
     if os.environ.get("TEST") != "1":
         return error_response("TEST API only.", status=403)
-
     try:
         del_res = Group.objects.all().delete()
         return ok_response(del_res)
