@@ -16,10 +16,12 @@ class Group(models.Model):
 
 class Event(models.Model):
     name = models.CharField(max_length=30, blank=False)
+    location = models.CharField(max_length=45, blank=True)
+    date = models.DateField(auto_now=True, auto_now_add=True)
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.group) + ": " + str(self.name)
+        return str(self.group) + ": " + str(self.name) + ", " + str(self.location) + "(" + str(self.date) + ")"
 
 
 class Payment(models.Model):
