@@ -1,6 +1,6 @@
 import random
 
-from .models import Group
+from .models import Group, Event
 
 
 def validate_existing_group(form):
@@ -43,3 +43,14 @@ def add_to_group(user, form):
     if user in user_list:
         raise ValueError("User is already in group.")
     group.members.add(user)
+
+
+def create_event(form):
+    validate_existing_group(form)
+    if "name" not in form:
+        raise ValueError("Form lacks hash field.")
+    group_id = form["group_id"]
+    group = Group.objects.get(pk=group_id)
+    name = form["name"]
+    event = Event(name=name, group=group)
+    event.save()
