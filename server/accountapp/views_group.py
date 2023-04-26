@@ -88,7 +88,15 @@ def create_event(request, pk):
     user_list = group.members.all()
     if user not in user_list:
         return error_response("You are not in this group")
-    return ok_response(True)
+    if request.method == "POST":
+        try:
+            form = json.loads(request.body)
+            handle_groups.create_event(form, pk)
+            return ok_response(True)
+        except ValueError as e:
+            return error_response(str(e))
+    else:
+        return error_response(f"Invalid method: expected POST but got {request.method}")
 
 
 def event_selected(request, pk_g, pk_e):
@@ -102,6 +110,14 @@ def event_selected(request, pk_g, pk_e):
     user_list = group.members.all()
     if user not in user_list:
         return error_response("You are not in this group")
+
+    try:
+        event = Event.objects.get(id=pk_e)
+    except Event.DoesNotExist:
+        return error_response("Event with given id does not exist")
+
+    if event.group != group:
+        return error_response("This event does not exist in your group")
 
     event = Event.objects.filter(id=pk_e).values().first()
     return ok_response({"event": event})

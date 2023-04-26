@@ -17,7 +17,7 @@ class Group(models.Model):
 class Event(models.Model):
     name = models.CharField(max_length=30, blank=False)
     location = models.CharField(max_length=45, blank=True)
-    date = models.DateField(auto_now=True, auto_now_add=True)
+    date = models.DateField(auto_now_add=True)
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
 
     def __str__(self):
