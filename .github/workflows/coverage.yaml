@@ -1,9 +1,5 @@
 name: coverage
-on:
-  workflow_run:
-    workflows: [ci]
-    types:
-      - completed
+on: [push]
 env:
   SECRET_KEY: ${{ vars.SECRET_KEY }}
   EMAIL_HOST_USER: ${{ vars.EMAIL_HOST_USER }}
