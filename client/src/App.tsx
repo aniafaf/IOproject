@@ -12,6 +12,7 @@ import { GroupListView } from './views/Groups'
 import { GroupView } from './views/Groups/[groupId]'
 import { GroupCreateView } from './views/Groups/create'
 import { GroupJoinView } from './views/Groups/[groupId]/join'
+import { EventAddView } from './views/Groups/[groupId]/events/add'
 
 function App() {
   const router = createHashRouter([
@@ -30,6 +31,10 @@ function App() {
         {
           path: Route.activate(),
           element: <ActiveAccountView />,
+        },
+        {
+          path: RoutePattern.group_event_add(),
+          element: <EventAddView />,
         },
         {
           path: Route.groups.list(),

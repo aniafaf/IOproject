@@ -8,13 +8,13 @@ from .constructors.api_response import (
 )
 
 from .models import Group, Event
+from .constructors.session_guard import session_guard
 
 from . import handle_groups
 
 
+@session_guard
 def group_selected(request, pk):
-    if not request.user.is_authenticated:
-        return session_expired_response(request)
     try:
         group = Group.objects.get(id=pk)
     except Group.DoesNotExist:
@@ -32,17 +32,15 @@ def group_selected(request, pk):
     return ok_response({"group": group, "users": user_list, "events": event_list})
 
 
+@session_guard
 def group_list(request):
-    if not request.user.is_authenticated:
-        return session_expired_response(request)
     user = request.user
     group_list = list(user.app_groups.all().values())
     return ok_response({"groups": group_list})
 
 
+@session_guard
 def create_group(request):
-    if not request.user.is_authenticated:
-        return session_expired_response(request)
     if request.method == "POST":
         try:
             form = json.loads(request.body)
@@ -62,9 +60,8 @@ def create_group(request):
         return error_response(f"Invalid method: expected POST but got {request.method}")
 
 
+@session_guard
 def join_group(request):
-    if not request.user.is_authenticated:
-        return session_expired_response(request)
     if request.method == "POST":
         try:
             form = json.loads(request.body)
@@ -77,9 +74,8 @@ def join_group(request):
         return error_response(f"Invalid method: expected POST but got {request.method}")
 
 
+@session_guard
 def create_event(request, pk):
-    if not request.user.is_authenticated:
-        return session_expired_response(request)
     try:
         group = Group.objects.get(id=pk)
     except Group.DoesNotExist:
@@ -99,9 +95,8 @@ def create_event(request, pk):
         return error_response(f"Invalid method: expected POST but got {request.method}")
 
 
+@session_guard
 def event_selected(request, pk_g, pk_e):
-    if not request.user.is_authenticated:
-        return session_expired_response(request)
     try:
         group = Group.objects.get(id=pk_g)
     except Group.DoesNotExist:

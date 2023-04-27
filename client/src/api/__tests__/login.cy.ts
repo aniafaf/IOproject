@@ -1,4 +1,3 @@
-import { beforeEach, describe, expect, it } from 'vitest'
 import { post_login } from '../post_login'
 import { post_register } from '../post_register'
 import { delete_users } from '../test/delete_users'
@@ -17,11 +16,9 @@ describe('post_login', () => {
     const username = 'jkowalski'
     const email = 'jkowalski1@gmail.com'
     await post_register(firstName, lastName, username, email, password).then(
-      r => (
-        console.dir({ debug: r }, { depth: 15 }), expect(r.ok).toBeTruthy()
-      ),
+      r => (console.dir({ debug: r }, { depth: 15 }), expect(r.ok).to.be.true),
     )
-    await post_login(username, password).then(r => expect(r.ok).toBeTruthy())
+    await post_login(username, password).then(r => expect(r.ok).to.be.true)
   })
 
   it('invalid username, contains ! character', async () => {
@@ -32,9 +29,9 @@ describe('post_login', () => {
       invalidUsernames[0],
       email,
       password,
-    ).then(r => expect(r.ok).toBeFalsy())
-    await post_login(invalidUsernames[0], password).then(r =>
-      expect(r.ok).toBeFalsy(),
+    ).then(r => expect(r.ok).to.be.false)
+    await post_login(invalidUsernames[0], password).then(
+      r => expect(r.ok).to.be.false,
     )
   })
 
@@ -46,9 +43,9 @@ describe('post_login', () => {
       invalidUsernames[1],
       email,
       password,
-    ).then(r => expect(r.ok).toBeFalsy())
-    await post_login(invalidUsernames[1], password).then(r =>
-      expect(r.ok).toBeFalsy(),
+    ).then(r => expect(r.ok).to.be.false)
+    await post_login(invalidUsernames[1], password).then(
+      r => expect(r.ok).to.be.false,
     )
   })
 
@@ -60,9 +57,9 @@ describe('post_login', () => {
       invalidUsernames[2],
       email,
       password,
-    ).then(r => expect(r.ok).toBeFalsy())
-    await post_login(invalidUsernames[2], password).then(r =>
-      expect(r.ok).toBeFalsy(),
+    ).then(r => expect(r.ok).to.be.false)
+    await post_login(invalidUsernames[2], password).then(
+      r => expect(r.ok).to.be.false,
     )
   })
 
@@ -76,9 +73,9 @@ describe('post_login', () => {
       username,
       email,
       invalidPassword,
-    ).then(r => expect(r.ok).toBeFalsy())
-    await post_login(username, invalidPassword).then(r =>
-      expect(r.ok).toBeFalsy(),
+    ).then(r => expect(r.ok).to.be.false)
+    await post_login(username, invalidPassword).then(
+      r => expect(r.ok).to.be.false,
     )
   })
 
@@ -86,9 +83,9 @@ describe('post_login', () => {
     const email = 'jkowalski6@gmail.com'
     const username = 'kowalskijan'
     await post_register(firstName, lastName, username, email, password).then(
-      r => expect(r.ok).toBeTruthy(),
+      r => expect(r.ok).to.be.true,
     )
-    await post_login(username, password).then(r => expect(r.ok).toBeTruthy())
+    await post_login(username, password).then(r => expect(r.ok).to.be.true)
 
     await post_register(
       firstName,
@@ -96,6 +93,6 @@ describe('post_login', () => {
       username,
       'jkowalski7@gmail.com',
       password,
-    ).then(r => expect(r.ok).toBeFalsy())
+    ).then(r => expect(r.ok).to.be.false)
   })
 })

@@ -50,23 +50,19 @@
 }
 
 .events_button {
-  --bg-color: rgba(3, 109, 207, 0.77);
+  --bg-color: #fff;
+  --size: 35px;
 
+  display: block;
   font-size: 1.3rem;
+  line-height: var(--size);
   font-family: 'Libre Bodoni';
-  width: 35px;
-  height: 35px;
-  padding: 5px;
+  width: var(--size);
+  height: var(--size);
   border: none;
   cursor: pointer;
   background: var(--bg-color);
   color: #064f98;
-  margin-bottom: 5px;
-}
-
-.events_button:hover,
-.events_button:focus {
-  --bg-color: #1c66ab;
 }
 
 .events_button:disabled {

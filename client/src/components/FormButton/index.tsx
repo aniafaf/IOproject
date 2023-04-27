@@ -6,6 +6,7 @@ export interface FormButtonProps {
   disabled?: boolean
   style?: CSSProperties
   type?: 'button' | 'submit' | 'reset'
+  className?: string
 }
 
 export const FormButton = ({
@@ -14,9 +15,10 @@ export const FormButton = ({
   children,
   style,
   type,
+  className,
 }: PropsWithChildren<FormButtonProps>) => (
   <button
-    className='form_button'
+    className={`form_button ${className ?? ''}`}
     style={style}
     disabled={disabled}
     onClick={onClick}

@@ -11,10 +11,9 @@
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --component --headless",
     "test-script": "vitest --run && npm run cypress:run",
-    "coverage": "vitest run --coverage",
+    "coverage": "vitest run --coverage && npm run cypress:run && nyc report --reporter=text",
     "mess": "nodemon -e mss -x 'find . -wholename '**/*.mss' -exec mess {} \\;'",
-    "ci-script": "./scripts/ci.sh",
-    "coverage-script1": "./scripts/coverage.sh"
+    "ci-script": "./scripts/ci.sh"
   },
   "dependencies": {
     "@emotion/styled": "^11.10.6",

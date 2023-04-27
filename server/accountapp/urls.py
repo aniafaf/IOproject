@@ -19,6 +19,7 @@ urlpatterns = [
     path("create_group/", views_group.create_group, name="create_group"),
     path("join/", views_group.join_group, name="join_group"),
     path("logout/", views_register.logout_my, name="logout"),
+    path("whoami/", views_register.whoami, name="who_am_i"),
 ]
 
 if isTest:

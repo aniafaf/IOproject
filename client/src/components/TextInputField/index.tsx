@@ -11,6 +11,7 @@ export interface TextInputFieldProps {
   /** Input type */
   type?: HTMLInputTypeAttribute
   value?: string
+  className?: string
 }
 
 export enum TextInputFieldState {
@@ -35,6 +36,7 @@ export const TextInputField = ({
   label,
   type,
   value,
+  className,
 }: TextInputFieldProps) => {
   const [val, setVal] = useState('')
   const [state, setState] = useState<TextInputFieldState>(
@@ -68,7 +70,7 @@ export const TextInputField = ({
   }
 
   return (
-    <div className={`text_input ${classOfState(state)}`}>
+    <div className={`text_input ${classOfState(state)} ${className ?? ''}`}>
       <label htmlFor={id} className='text_input__label'>
         {label}
       </label>
