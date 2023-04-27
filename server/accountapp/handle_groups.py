@@ -51,5 +51,8 @@ def create_event(form, group_id):
     name = form["name"]
     event = Event(name=name, group=group)
     if "location" in form:
+        location = form["location"]
+        if len(location) > 45:
+            raise ValueError("Location must be under 45 characters.")
         event.location = form["location"]
     event.save()
