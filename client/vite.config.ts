@@ -11,10 +11,13 @@ export default defineConfig(({ mode }) => {
       istanbul({
         cypress: true,
         requireEnv: false,
-        extension: ['.cy.ts'],
+        extension: ['.ts', '.tsx'],
         include: 'src/*',
       }),
     ],
+    build: {
+      sourcemap: 'inline',
+    },
     base: env['VITE_ASSETS_BASE'],
     test: {
       coverage: {
