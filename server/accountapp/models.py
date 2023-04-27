@@ -21,7 +21,16 @@ class Event(models.Model):
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.group) + ": " + str(self.name) + ", " + str(self.location) + "(" + str(self.date) + ")"
+        return (
+            str(self.group)
+            + ": "
+            + str(self.name)
+            + ", "
+            + str(self.location)
+            + "("
+            + str(self.date)
+            + ")"
+        )
 
 
 class Payment(models.Model):
