@@ -26,5 +26,5 @@ jobs:
         uses: nick-fields/retry@v2
         with:
           max_attempts: 3
-          timeout_seconds: 15
+          timeout_seconds: 30
           command: ./scripts/coverage.sh
