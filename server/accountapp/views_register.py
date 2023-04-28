@@ -7,7 +7,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
-from django.http import HttpRequest
+from django.http import HttpRequest, JsonResponse
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from .constructors.api_response import (
@@ -15,6 +15,8 @@ from .constructors.api_response import (
     error_response,
     session_expired_response,
 )
+
+from .constructors.session_guard import session_guard
 
 from . import handle_register
 
@@ -127,6 +129,12 @@ def activate(request: HttpRequest):
         )
     else:
         return error_response("Activation token is invalid!")
+
+
+@session_guard
+def whoami(request: HttpRequest) -> JsonResponse:
+    user = request.user
+    return ok_response({"username": user.get_username()})
 
 
 def delete_all(_):

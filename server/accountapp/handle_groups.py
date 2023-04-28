@@ -1,6 +1,6 @@
 import random
 
-from .models import Group
+from .models import Group, Event
 
 
 def validate_existing_group(form):
@@ -11,16 +11,16 @@ def validate_existing_group(form):
         raise ValueError("Group doesn't exits")
 
 
-def validate_new_group(form):
+def validate_new_element(form):
     if "name" not in form:
         raise ValueError("Form lacks name field.")
     name = form["name"]
     if len(name) > 30 or len(name) == 0:
-        raise ValueError("Group name must contains between 1 to 30 characters.")
+        raise ValueError("Name must contains between 1 to 30 characters.")
 
 
 def create_group(user, form):
-    validate_new_group(form)
+    validate_new_element(form)
     name = form["name"]
     hash = random.randint(10000000, 99999999)
     group = Group(admin=user, name=name, hash=hash)
@@ -43,3 +43,16 @@ def add_to_group(user, form):
     if user in user_list:
         raise ValueError("User is already in group.")
     group.members.add(user)
+
+
+def create_event(form, group_id):
+    validate_new_element(form)
+    group = Group.objects.get(pk=group_id)
+    name = form["name"]
+    event = Event(name=name, group=group)
+    if "location" in form:
+        location = form["location"]
+        if len(location) > 45:
+            raise ValueError("Location must be under 45 characters.")
+        event.location = form["location"]
+    event.save()

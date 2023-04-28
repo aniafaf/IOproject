@@ -1,6 +1,5 @@
 import { fetch_api } from '../call'
 import { describe, expect, it } from 'vitest'
-import path from 'path'
 
 describe('fetch_api', () => {
   it('fails on unresolved url', () =>

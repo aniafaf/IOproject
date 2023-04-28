@@ -1,0 +1,73 @@
+.event-add-container {
+  align-content: space-around;
+  align-items: center;
+  justify-items: center;
+  flex-flow: column nowrap;
+}
+
+.event-add-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  margin: auto;
+  background: linear-gradient(
+    115.7deg,
+    #f8fbfc 31.12%,
+    rgba(230 230 255 / 0) 101.91%
+  );
+  /* padding: 150px 200px; */
+  width: min(100vw, 700px);
+  height: min(100vh, 400px);
+  padding: 0 200px;
+  border-radius: 10px;
+  box-shadow: 7.5px 7.5px 10px 0 rgb(0 0 0 / 0.05),
+    -7.5px -7.5px 10px 0 rgb(0 0 0 / 0.05);
+}
+
+.back-button {
+  background: #0156a5;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  padding: 15px 50px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.back-button,
+.back-button:visited {
+  color: #fff;
+}
+
+.back-button:hover,
+.back-button:focus {
+  color: #fff;
+  background: #0b77dc;
+}
+
+.event-add-title {
+  color: #fff;
+}
+
+.event-add-button-light {
+  margin-top: 5vh;
+}
+
+@media screen and (max-width: 800px) {
+  .event-add-form {
+    width: 100%;
+    height: 100%;
+    margin: none;
+    padding: 50px;
+  }
+  .back-button {
+    top: unset;
+    right: 20px;
+    bottom: 20px;
+    left: 20px;
+  }
+}

@@ -51,19 +51,20 @@ export const GroupDetailsBox = ({
               events
             </h1>
             <ul className='event_list' style={{ color: '#073B78' }}>
-              {/* get event_list */}
-              <li className='event_element'>event1</li>
-              <li className='event_element'>event2</li>
+              {events?.map(e => (
+                <li key={e.id} className='event_element'>
+                  {e.name}
+                </li>
+              ))}
             </ul>
 
             <div style={{ position: 'absolute', right: 20, top: 20 }}>
-              <button
+              <Link
                 className='events_button'
-                onClick={() => navigate(Route.groups.create())}
-                disabled
+                to={Route.groups.events(group.id).add()}
               >
                 +
-              </button>
+              </Link>
             </div>
           </div>
         </div>

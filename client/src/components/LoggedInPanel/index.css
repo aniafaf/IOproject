@@ -163,6 +163,7 @@
     flex-flow: column nowrap;
     overflow-y: auto;
     scroll-behavior: smooth;
+    height: auto;
   }
 
   .main_page_box_container {
