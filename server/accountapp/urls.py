@@ -15,7 +15,11 @@ urlpatterns = [
         views_group.event_selected,
         name="event_selected",
     ),
-    path("group/<int:pk_g>/event/<int:pk_e>/create_payment/", views_payment.create_payment, name="create_payment"),
+    path(
+        "group/<int:pk_g>/event/<int:pk_e>/create_payment/",
+        views_payment.create_payment,
+        name="create_payment",
+    ),
     path("group_list/", views_group.group_list, name="group_list"),
     path("create_group/", views_group.create_group, name="create_group"),
     path("join/", views_group.join_group, name="join_group"),
