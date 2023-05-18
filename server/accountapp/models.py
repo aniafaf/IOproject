@@ -34,12 +34,11 @@ class Event(models.Model):
 
 
 class Payment(models.Model):
-
     class Category(models.TextChoices):
-        HOUSEHOLD = 'HH', 'Household'
-        FOOD = 'F', 'Food'
-        ENTERTAINMENT = 'E', 'Entertainment'
-        OTHER = 'O', 'Other'
+        HOUSEHOLD = "HH", "Household"
+        FOOD = "F", "Food"
+        ENTERTAINMENT = "E", "Entertainment"
+        OTHER = "O", "Other"
 
     name = models.CharField(max_length=30, blank=False)
     amount = models.DecimalField(max_digits=8, decimal_places=2)
