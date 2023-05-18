@@ -12,7 +12,7 @@ from . import handle_payments
 
 @session_guard
 def create_payment(request, pk_g, pk_e):
-    group = Group.objects.get(pk_g)
+    group = Group.objects.get(id=pk_g)
     user_list = group.members.all()
     user = request.user
     if user not in user_list:

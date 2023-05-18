@@ -10,7 +10,7 @@ def validate_new_element(form):
 def create_payment(user, form, pk_e):
     validate_new_element(form)
     name = form["name"]
-    amount = form["amount"]
+    amount = int(form["amount"])
     category = form["category"]
     event = Event.objects.get(id=pk_e)
     payment = Payment(name=name, amount=amount, category=category, lender=user, event=event)
@@ -19,8 +19,7 @@ def create_payment(user, form, pk_e):
     payment.save()
 
     users_id = form["users_id"]
-    even = form["even"] in form
-    if even:
+    if "even" in form:
         even_split = amount / len(users_id)
         for id in users_id:
             user = User.objects.get(id=id)
