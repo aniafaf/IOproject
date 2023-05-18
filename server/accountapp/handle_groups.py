@@ -24,8 +24,8 @@ def create_group(user, form):
     name = form["name"]
     hash = random.randint(10000000, 99999999)
     group = Group(admin=user, name=name, hash=hash)
-    group.members.add(user)
     group.save()
+    group.members.add(user)
     basic_event = Event(name="Other", group=group)
     basic_event.save()
     return group
