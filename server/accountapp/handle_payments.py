@@ -13,7 +13,9 @@ def create_payment(user, form, pk_e):
     amount = int(form["amount"])
     category = form["category"]
     event = Event.objects.get(id=pk_e)
-    payment = Payment(name=name, amount=amount, category=category, lender=user, event=event)
+    payment = Payment(
+        name=name, amount=amount, category=category, lender=user, event=event
+    )
     if "description" in form:
         payment.description = form["description"]
     payment.save()
@@ -27,7 +29,7 @@ def create_payment(user, form, pk_e):
             debtor.save()
     else:
         users_debt = form["users_debt"]
-        for (id, debt) in zip(users_id, users_debt):
+        for id, debt in zip(users_id, users_debt):
             user = User.objects.get(id=id)
             debtor = Debtor(user=user, payment=payment, amount=debt)
             debtor.save()
