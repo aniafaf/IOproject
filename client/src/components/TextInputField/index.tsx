@@ -38,7 +38,7 @@ export const TextInputField = ({
   value,
   className,
 }: TextInputFieldProps) => {
-  const [val, setVal] = useState('')
+  const [val, setVal] = useState(value)
   const [state, setState] = useState<TextInputFieldState>(
     TextInputFieldState.Empty,
   )
@@ -82,6 +82,7 @@ export const TextInputField = ({
         id={id}
         className='text_input__input'
         onChange={onChange}
+        {...(val ? { checked: true } : {})}
       />
     </div>
   )
