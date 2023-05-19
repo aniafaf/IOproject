@@ -8,7 +8,7 @@ def validate_existing_group(form):
         raise ValueError("Form lacks group_id field.")
     group_id = form["group_id"]
     if not Group.objects.filter(id=group_id).exists():
-        raise ValueError("Group doesn't exits")
+        raise ValueError("Group does not exist.")
 
 
 def validate_new_element(form):

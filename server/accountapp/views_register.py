@@ -39,12 +39,12 @@ def login_to(request):
                     login(request, user)
                     return ok_response(True)
                 else:
-                    return error_response("Invalid username or password")
+                    return error_response("Invalid username or password.")
 
         except ValueError as e:
             return error_response(str(e))
     else:
-        return error_response(f"Invalid method: expected POST but got {request.method}")
+        return error_response(f"Invalid method: expected POST but got {request.method}.")
 
 
 def logout_my(request):
