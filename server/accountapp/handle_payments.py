@@ -11,11 +11,12 @@ def create_payment(user, form, pk_e):
     validate_new_element(form)
     name = form["name"]
     amount = int(form["amount"])
-    category = form["category"]
     event = Event.objects.get(id=pk_e)
     payment = Payment(
-        name=name, amount=amount, category=category, lender=user, event=event
+        name=name, amount=amount, category='O', lender=user, event=event
     )
+    if "category" in form:
+        payment.category = form["category"]
     if "description" in form:
         payment.description = form["description"]
     payment.save()
