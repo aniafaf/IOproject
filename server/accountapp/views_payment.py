@@ -12,7 +12,11 @@ from . import handle_payments
 
 @session_guard
 def create_payment(request, pk_g, pk_e):
-    group = Group.objects.get(id=pk_g)
+    try:
+        group = Group.objects.get(id=pk_g)
+    except Group.DoesNotExist:
+        return error_response("Group with given id does not exist")
+
     user_list = group.members.all()
     user = request.user
     if user not in user_list:
@@ -25,7 +29,6 @@ def create_payment(request, pk_g, pk_e):
             return ok_response(True)
         except ValueError as e:
             return error_response(str(e))
-
     user_list = list(
         user_list.values("id", "username", "first_name", "last_name", "email")
     )

@@ -105,7 +105,6 @@ def event_selected(request, pk_g, pk_e):
     user_list = group.members.all()
     if user not in user_list:
         return error_response("You are not in this group")
-
     try:
         event = Event.objects.get(id=pk_e)
     except Event.DoesNotExist:
