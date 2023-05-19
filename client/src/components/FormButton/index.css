@@ -18,6 +18,7 @@
   margin-bottom: 5px;
 }
 
-.form_button:hover, .form_button:focus {
+.form_button:hover,
+.form_button:focus {
   --bg-color: #1c66ab;
 }
