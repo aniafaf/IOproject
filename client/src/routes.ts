@@ -33,6 +33,11 @@ export class Route {
     events: (group_id: number) =>
       prefixed(`/${group_id}/events`, {
         add: () => '/add',
+        byId: (event_id: number) => `/${event_id}`,
+        payments: (event_id: number) =>
+          prefixed(`/${event_id}/payments`, {
+            add: () => '/add',
+          }),
       }),
   })
 }
@@ -41,4 +46,7 @@ export class RoutePattern {
   static group = () => '/groups/:groupId'
   static group_join = () => '/groups/:groupId/join'
   static group_event_add = () => '/groups/:groupId/events/add'
+  static group_event = () => '/groups/:groupId/events/:eventId'
+  static group_event_payment_add = () =>
+    '/groups/:groupId/events/:eventId/payments/add'
 }

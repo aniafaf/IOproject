@@ -10,3 +10,5 @@ export const post_event_add = (group_id: number, form: EventAddForm) =>
     path: `group/${group_id}/create_event/`,
     body: form,
   })
+
+// export const get_event_payment_add = ()

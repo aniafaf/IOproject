@@ -13,6 +13,8 @@ import { GroupView } from './views/Groups/[groupId]'
 import { GroupCreateView } from './views/Groups/create'
 import { GroupJoinView } from './views/Groups/[groupId]/join'
 import { EventAddView } from './views/Groups/[groupId]/events/add'
+import { EventView } from './views/Groups/[groupId]/events/[eventId]'
+import { PaymentAddView } from './views/Groups/[groupId]/events/[eventId]/payments/add'
 
 function App() {
   const router = createHashRouter([
@@ -51,6 +53,14 @@ function App() {
         {
           path: RoutePattern.group(),
           element: <GroupView />,
+        },
+        {
+          path: RoutePattern.group_event(),
+          element: <EventView />,
+        },
+        {
+          path: RoutePattern.group_event_payment_add(),
+          element: <PaymentAddView />,
         },
         {
           path: Route.home(),
