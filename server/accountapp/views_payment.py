@@ -1,5 +1,5 @@
 import json
-from .models import Group, Event, Payment
+from .models import Group, Event, Payment, User
 from .constructors.session_guard import session_guard
 from .constructors.api_response import (
     ok_response,
@@ -63,6 +63,12 @@ def payment_selected(request, pk_g, pk_e, pk_p):
     if payment.event != event:
         return error_response("This payment does not exist in this event")
 
-    debtors_list = list(payment.debtor_set.all().values())
+    debtors = payment.debtor_set.all()
+    debtors_list = []
+    for debtor in debtors:
+        user = debtor.user
+        element = {"username": user.username, "first_name": user.first_name,
+                   "last_name": user.last_name, "email": user.email, "amount": debtor.amount}
+        debtors_list.append(element)
     payment = Payment.objects.filter(id=pk_p).values().first()
     return ok_response({"payment": payment, "debtors": debtors_list})

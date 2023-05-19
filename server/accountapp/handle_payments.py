@@ -12,7 +12,7 @@ def create_payment(user, form, pk_e):
     name = form["name"]
     amount = int(form["amount"])
     event = Event.objects.get(id=pk_e)
-    payment = Payment(name=name, amount=amount, category="O", lender=user, event=event)
+    payment = Payment(name=name, amount=amount, lender=user, event=event)
     if "category" in form:
         payment.category = form["category"]
     if "description" in form:
