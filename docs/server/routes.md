@@ -22,7 +22,7 @@
 	Requirees body with:
 	  - token
 	  - uid
-	  - 
+
 1. **group_list/**
 
 	Lists all group of user.
@@ -82,7 +82,27 @@
 	  * "description" (optional, defualt is None)
 	  * "users_id" list of debtors represented as user's ids
 	  * "even" - if this field is present it will automatically split total money among all the debtors
-	  * "users_debt" - debt at i-th position means that user = users_id[i] need to pay users_debt[i]     
+	  * "users_debt" - debt at i-th position means that user = users_id[i] need to pay users_debt[i]    
+
+1. **group/<int:pk_g>/event/<int:pk_e>/payment/<int:pk_p>**
+	
+	<int:pk_g> in the url is the id (primary key) of the group's
+	event user want to see.
+	<int:pk_e> in the url is the id (primary key) of the event's 
+	payment user want to see.
+	<int:pk_p> in the url is the id (primary key) of the payment
+	user want to see.
+	- Group with given id must exist.
+	- User must be logged in and be in the group in order to see
+	event's content.
+	- Event with given id must exist.
+	- Event with given id must be in the group.
+	- Payment with given id must exist.
+	- Payment with given id must be in the evet.
+
+	Returns JSON with:
+	  * "payment" - object containg information about payment such as name, description, etc.
+	  * "debtors" - list of debtors objects containing user and amout of "borrowed" money 
  
 ## Constraints:
 - **username**:
