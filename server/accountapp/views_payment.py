@@ -40,6 +40,7 @@ def create_payment(request, pk_g, pk_e):
     return ok_response({"users": user_list})
 
 
+@session_guard
 def payment_selected(request, pk_g, pk_e, pk_p):
     try:
         group = Group.objects.get(id=pk_g)
