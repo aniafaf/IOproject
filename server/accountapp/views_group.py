@@ -113,8 +113,9 @@ def event_selected(request, pk_g, pk_e):
     if event.group != group:
         return error_response("This event does not exist in your group")
 
+    payment_list = list(event.payment_set.all().values())
     event = Event.objects.filter(id=pk_e).values().first()
-    return ok_response({"event": event})
+    return ok_response({"event": event, "payments": payment_list})
 
 
 def delete_all_groups(_):
