@@ -155,7 +155,7 @@ export const PaymentAddView = () => {
                   className='event-add-input'
                 />
                 <TextInputField
-                  onUpdate={set('amount')}
+                  onUpdate={v => set('amount')(+v)}
                   value={`${form.amount}`}
                   label='amount'
                   type='number'
