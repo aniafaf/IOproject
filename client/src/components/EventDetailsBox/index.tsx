@@ -1,7 +1,12 @@
 import { Route } from '../../routes'
 import './index.css'
 import { useEffect, useState } from 'react'
-import { EventDetails, GroupDetails } from '../../api/groups'
+import {
+  EventDetails,
+  GroupDetails,
+  PaymentCategory,
+  string_of_payment_category,
+} from '../../api/groups'
 import { useAlert } from '../../hooks/alert'
 import { Link } from 'react-router-dom'
 
@@ -11,13 +16,6 @@ export const EventDetailsBox = ({
   group,
   users,
 }: GroupDetails & Partial<EventDetails>) => {
-  const alert = useAlert()
-  const [loading, setLoading] = useState(true)
-  const [dialogOpen, setDialogOpen] = useState(false)
-
-  const handleDialogOpen = () => setDialogOpen(true)
-  const handleDialogClose = () => setDialogOpen(false)
-
   if (!event) {
     return <></>
   }
@@ -31,9 +29,12 @@ export const EventDetailsBox = ({
               payments
             </h1>
             <ul className='event_list' style={{ color: '#073B78' }}>
-              {payments?.map(({ id, name }) => (
-                <li key={id} className='event_element'>
-                  {name}
+              {payments?.map(({ id, name, amount, description, category }) => (
+                <li key={id} className='event_element' title={description}>
+                  {name} {amount}${' '}
+                  {category
+                    ? string_of_payment_category(category as PaymentCategory)
+                    : ''}
                 </li>
               ))}
             </ul>

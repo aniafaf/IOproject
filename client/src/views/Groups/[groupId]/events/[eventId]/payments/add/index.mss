@@ -42,6 +42,7 @@
     &__checkbox {
       margin: auto;
       height: 70%;
+      cursor: pointer;
     }
 
     &__amount {
@@ -49,5 +50,12 @@
       border: none;
       outline: none;
     }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .event-add-form__container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
   }
 }
