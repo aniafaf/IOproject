@@ -1,6 +1,5 @@
 import json
-import os
-from .models import Group, Event
+from .models import Group, Event, Payment
 from .constructors.session_guard import session_guard
 from .constructors.api_response import (
     ok_response,
@@ -16,11 +15,17 @@ def create_payment(request, pk_g, pk_e):
         group = Group.objects.get(id=pk_g)
     except Group.DoesNotExist:
         return error_response("Group with given id does not exist")
-
-    user_list = group.members.all()
     user = request.user
+    user_list = group.members.all()
     if user not in user_list:
         return error_response("You are not in this group")
+    try:
+        event = Event.objects.get(id=pk_e)
+    except Event.DoesNotExist:
+        return error_response("Event with given id does not exist")
+
+    if event.group != group:
+        return error_response("This event does not exist in your group")
 
     if request.method == "POST":
         try:
@@ -33,3 +38,30 @@ def create_payment(request, pk_g, pk_e):
         user_list.values("id", "username", "first_name", "last_name", "email")
     )
     return ok_response({"users": user_list})
+
+
+def payment_selected(request, pk_g, pk_e, pk_p):
+    try:
+        group = Group.objects.get(id=pk_g)
+    except Group.DoesNotExist:
+        return error_response("Group with given id does not exist")
+    user = request.user
+    user_list = group.members.all()
+    if user not in user_list:
+        return error_response("You are not in this group")
+    try:
+        event = Event.objects.get(id=pk_e)
+    except Event.DoesNotExist:
+        return error_response("Event with given id does not exist")
+    if event.group != group:
+        return error_response("This event does not exist in your group")
+    try:
+        payment = Payment.objects.get(id=pk_p)
+    except Payment.DoesNotExist:
+        return error_response("Payment with given id does not exist")
+    if payment.event != event:
+        return error_response("This payment does not exist in this event")
+
+    debtors_list = list(payment.debtor_set.all().values())
+    payment = Payment.objects.filter(id=pk_p).values().first()
+    return ok_response({"payment": payment, "debtors": debtors_list})
