@@ -24,7 +24,9 @@ def create_payment(user, form, pk_e):
         elif category == "O":
             payment.category = Payment.Category.OTHER
         else:
-            raise ValueError(f"The {category} is not a valid category. Possible Categories are: HH, F, E, O")
+            raise ValueError(
+                f"The {category} is not a valid category. Possible Categories are: HH, F, E, O"
+            )
     if "description" in form:
         payment.description = form["description"]
     payment.save()
