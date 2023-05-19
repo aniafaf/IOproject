@@ -57,7 +57,9 @@ def create_group(request):
         except ValueError as e:
             return error_response(str(e))
     else:
-        return error_response(f"Invalid method: expected POST but got {request.method}.")
+        return error_response(
+            f"Invalid method: expected POST but got {request.method}."
+        )
 
 
 @session_guard
@@ -71,7 +73,9 @@ def join_group(request):
         except ValueError as e:
             return error_response(str(e))
     else:
-        return error_response(f"Invalid method: expected POST but got {request.method}.")
+        return error_response(
+            f"Invalid method: expected POST but got {request.method}."
+        )
 
 
 @session_guard
@@ -92,7 +96,9 @@ def create_event(request, pk):
         except ValueError as e:
             return error_response(str(e))
     else:
-        return error_response(f"Invalid method: expected POST but got {request.method}.")
+        return error_response(
+            f"Invalid method: expected POST but got {request.method}."
+        )
 
 
 @session_guard
