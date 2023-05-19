@@ -67,8 +67,13 @@ def payment_selected(request, pk_g, pk_e, pk_p):
     debtors_list = []
     for debtor in debtors:
         user = debtor.user
-        element = {"username": user.username, "first_name": user.first_name,
-                   "last_name": user.last_name, "email": user.email, "amount": debtor.amount}
+        element = {
+            "username": user.username,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+            "email": user.email,
+            "amount": debtor.amount,
+        }
         debtors_list.append(element)
     payment = Payment.objects.filter(id=pk_p).values().first()
     return ok_response({"payment": payment, "debtors": debtors_list})
