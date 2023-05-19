@@ -14,7 +14,17 @@ def create_payment(user, form, pk_e):
     event = Event.objects.get(id=pk_e)
     payment = Payment(name=name, amount=amount, lender=user, event=event)
     if "category" in form:
-        payment.category = form["category"]
+        category = form["category"]
+        if category == "F":
+            payment.category = Payment.Category.FOOD
+        elif category == "HH":
+            payment.category = Payment.Category.HOUSEHOLD
+        elif category == "E":
+            payment.category = Payment.Category.ENTERTAINMENT
+        elif category == "O":
+            payment.category = Payment.Category.OTHER
+        else:
+            raise ValueError(f"The {category} is not a valid category. Possible Categories are: HH, F, E, O")
     if "description" in form:
         payment.description = form["description"]
     payment.save()
