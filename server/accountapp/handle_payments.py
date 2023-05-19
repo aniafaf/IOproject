@@ -15,8 +15,8 @@ def validate_new_element(form):
 
 
 def get_category(category):
-    categories = {"F": Payment.category.FOOD, "HH": Payment.category.HOUSEHOLD, "E": Payment.Category.ENTERTAINMENT,
-                  "O": Payment.category.OTHER}
+    categories = {"F": Payment.Category.FOOD, "HH": Payment.Category.HOUSEHOLD, "E": Payment.Category.ENTERTAINMENT,
+                  "O": Payment.Category.OTHER}
     if category in categories.keys():
         return categories[category]
     else:
@@ -47,10 +47,11 @@ def create_payment(user, form, pk_e):
         try:
             User.objects.get(id=id)
         except User.DoesNotExist:
+            payment.delete()
             raise ValueError("User with given id does not exist.")
 
     if "even" in form:
-        even_split = (amount / Decimal(len(users_id)).quantize(Decimal('.01'), rounding=ROUND_DOWN)
+        even_split = (amount / Decimal(len(users_id))).quantize(Decimal('.01'), rounding=ROUND_DOWN)
         for id in users_id:
             user = User.objects.get(id=id)
             debtor = Debtor(user=user, payment=payment, amount=even_split)
