@@ -18,11 +18,11 @@ def group_selected(request, pk):
     try:
         group = Group.objects.get(id=pk)
     except Group.DoesNotExist:
-        return error_response("Group with given id does not exist")
+        return error_response("Group with given id does not exist.")
     user = request.user
     user_list = group.members.all()
     if user not in user_list:
-        return error_response("You are not in this group")
+        return error_response("You are not in this group.")
 
     user_list = list(
         user_list.values("id", "username", "first_name", "last_name", "email")
@@ -57,7 +57,9 @@ def create_group(request):
         except ValueError as e:
             return error_response(str(e))
     else:
-        return error_response(f"Invalid method: expected POST but got {request.method}")
+        return error_response(
+            f"Invalid method: expected POST but got {request.method}."
+        )
 
 
 @session_guard
@@ -71,7 +73,9 @@ def join_group(request):
         except ValueError as e:
             return error_response(str(e))
     else:
-        return error_response(f"Invalid method: expected POST but got {request.method}")
+        return error_response(
+            f"Invalid method: expected POST but got {request.method}."
+        )
 
 
 @session_guard
@@ -79,11 +83,11 @@ def create_event(request, pk):
     try:
         group = Group.objects.get(id=pk)
     except Group.DoesNotExist:
-        return error_response("Group with given id does not exist")
+        return error_response("Group with given id does not exist.")
     user = request.user
     user_list = group.members.all()
     if user not in user_list:
-        return error_response("You are not in this group")
+        return error_response("You are not in this group.")
     if request.method == "POST":
         try:
             form = json.loads(request.body)
@@ -92,7 +96,9 @@ def create_event(request, pk):
         except ValueError as e:
             return error_response(str(e))
     else:
-        return error_response(f"Invalid method: expected POST but got {request.method}")
+        return error_response(
+            f"Invalid method: expected POST but got {request.method}."
+        )
 
 
 @session_guard
@@ -100,22 +106,22 @@ def event_selected(request, pk_g, pk_e):
     try:
         group = Group.objects.get(id=pk_g)
     except Group.DoesNotExist:
-        return error_response("Group with given id does not exist")
+        return error_response("Group with given id does not exist.")
     user = request.user
     user_list = group.members.all()
     if user not in user_list:
-        return error_response("You are not in this group")
-
+        return error_response("You are not in this group.")
     try:
         event = Event.objects.get(id=pk_e)
     except Event.DoesNotExist:
-        return error_response("Event with given id does not exist")
+        return error_response("Event with given id does not exist.")
 
     if event.group != group:
-        return error_response("This event does not exist in your group")
+        return error_response("This event does not exist in your group.")
 
+    payment_list = list(event.payment_set.all().values())
     event = Event.objects.filter(id=pk_e).values().first()
-    return ok_response({"event": event})
+    return ok_response({"event": event, "payments": payment_list})
 
 
 def delete_all_groups(_):

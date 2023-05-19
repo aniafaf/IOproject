@@ -43,7 +43,11 @@ class Payment(models.Model):
     name = models.CharField(max_length=30, blank=False)
     amount = models.DecimalField(max_digits=8, decimal_places=2)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    category = models.CharField(max_length=2, choices=Category.choices)
+    category = models.CharField(
+        max_length=2, choices=Category.choices, default=Category.OTHER
+    )
+    description = models.TextField(blank=True, null=True, default=None)
+    lender = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.event) + ": " + str(self.name)

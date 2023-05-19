@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views_register, views_group
+from . import views_register, views_group, views_payment
 import os
 
 isTest = os.environ.get("TEST") == "1"
@@ -14,6 +14,16 @@ urlpatterns = [
         "group/<int:pk_g>/event/<int:pk_e>/",
         views_group.event_selected,
         name="event_selected",
+    ),
+    path(
+        "group/<int:pk_g>/event/<int:pk_e>/create_payment/",
+        views_payment.create_payment,
+        name="create_payment",
+    ),
+    path(
+        "group/<int:pk_g>/event/<int:pk_e>/payment/<int:pk_p>/",
+        views_payment.payment_selected,
+        name="payment_selected",
     ),
     path("group_list/", views_group.group_list, name="group_list"),
     path("create_group/", views_group.create_group, name="create_group"),
