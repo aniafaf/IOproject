@@ -13,28 +13,28 @@ import { useAlert } from '../../hooks/alert'
 import { Spinner } from '../../components/Spinner'
 
 export const PasswordRecoveryCompleteView = () => {
-    const navigate = useNavigate()
-    const alert = useAlert()
-    const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+  const alert = useAlert()
+  const [loading, setLoading] = useState(false)
 
-    return (
-        <>
-            <NotLoggedInGuard />
-            <alert.AlertComponent />
-            <Spinner open={loading} />
-            <CenterSplitLayout>
-                <FieldSet>
-                    <FormHeading
-                        title={`Password reset complete`}
-                        subTitle={`Your password has been set. You may go ahead and log in now.`}
-                    />
-                </FieldSet>
-                <FieldSet>
-                    <FormLink to={Route.login()} align='center'>
-                        Log in
-                    </FormLink>
-                </FieldSet>
-            </CenterSplitLayout>
-        </>
-    )
+  return (
+    <>
+      <NotLoggedInGuard />
+      <alert.AlertComponent />
+      <Spinner open={loading} />
+      <CenterSplitLayout>
+        <FieldSet>
+          <FormHeading
+            title={`Password reset complete`}
+            subTitle={`Your password has been set. You may go ahead and log in now.`}
+          />
+        </FieldSet>
+        <FieldSet>
+          <FormLink to={Route.login()} align='center'>
+            Log in
+          </FormLink>
+        </FieldSet>
+      </CenterSplitLayout>
+    </>
+  )
 }

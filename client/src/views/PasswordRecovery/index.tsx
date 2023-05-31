@@ -24,7 +24,9 @@ export const PasswordRecoveryView = () => {
 
     post_recover(email)
       .then(r =>
-        r.ok ? navigate(Route.reset_password_sent()) : alert.display(r.error, 'error'),
+        r.ok
+          ? navigate(Route.reset_password_sent())
+          : alert.display(r.error, 'error'),
       )
       .catch(e => alert.display(e, 'error'))
       .finally(() => setLoading(false))

@@ -31,10 +31,24 @@ urlpatterns = [
     path("join/", views_group.join_group, name="join_group"),
     path("logout/", views_register.logout_my, name="logout"),
     path("whoami/", views_register.whoami, name="who_am_i"),
-    path("reset_password/", auth_views.PasswordResetView.as_view(), name="reset_password"),
-    path("reset_password_sent/", auth_views.PasswordResetDoneView.as_view(), name="password_reset_done"),
-    path("reset/<uidb64>/<token>/", auth_views.PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
-    path("reset_password_complete/", auth_views.PasswordResetCompleteView.as_view(), name="password_reset_complete"),
+    path(
+        "reset_password/", auth_views.PasswordResetView.as_view(), name="reset_password"
+    ),
+    path(
+        "reset_password_sent/",
+        auth_views.PasswordResetDoneView.as_view(),
+        name="password_reset_done",
+    ),
+    path(
+        "reset/<uidb64>/<token>/",
+        auth_views.PasswordResetConfirmView.as_view(),
+        name="password_reset_confirm",
+    ),
+    path(
+        "reset_password_complete/",
+        auth_views.PasswordResetCompleteView.as_view(),
+        name="password_reset_complete",
+    ),
 ]
 
 if isTest:
