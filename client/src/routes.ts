@@ -24,6 +24,8 @@ export class Route {
   static sign_up = () => '/sign-up'
   static activate = () => '/activate'
   static recovery = () => '/recovery'
+  static reset_password_sent = () => '/reset_password_sent'
+  static reset_password_complete = () => '/reset_password_complete'
 
   static groups = prefixed('/groups', {
     list: () => '/',
