@@ -30,6 +30,7 @@ urlpatterns = [
     path("join/", views_group.join_group, name="join_group"),
     path("logout/", views_register.logout_my, name="logout"),
     path("whoami/", views_register.whoami, name="who_am_i"),
+    path("set_debt_done/", views_payment.set_debt_done, name="set_debt_done"),
 ]
 
 if isTest:
