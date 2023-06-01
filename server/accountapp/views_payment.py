@@ -81,14 +81,14 @@ def payment_selected(request, pk_g, pk_e, pk_p):
 
 @session_guard
 def set_debt_done(request, pk_g, pk_e, pk_p):
-    if request.method != 'PATCH':
+    if request.method != "PATCH":
         return error_response(
             f"Expected request method to be PATCH but got {request.method} instead."
         )
     form = json.loads(request.body)
-    if 'pk_u' not in form:
+    if "pk_u" not in form:
         return error_response("Expected field with users id")
-    pk_u = form['pk_u']
+    pk_u = form["pk_u"]
 
     try:
         group = Group.objects.get(id=pk_g)

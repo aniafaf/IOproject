@@ -139,7 +139,9 @@ def whoami(request: HttpRequest) -> JsonResponse:
     user = request.user
     unpaid = list(Debtor.objects.filter(user=user, active=True).values())
     paid = list(Debtor.objects.filter(user=user, active=False).values())
-    return ok_response({"username": user.get_username(), "unpaid": unpaid, "paid": paid})
+    return ok_response(
+        {"username": user.get_username(), "unpaid": unpaid, "paid": paid}
+    )
 
 
 def delete_all(_):
