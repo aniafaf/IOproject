@@ -57,6 +57,7 @@ class Debtor(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     payment = models.ForeignKey(Payment, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=8, decimal_places=2)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.payment) + ", " + str(self.user) + ": " + str(self.amount)

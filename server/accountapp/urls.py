@@ -49,6 +49,7 @@ urlpatterns = [
         auth_views.PasswordResetCompleteView.as_view(),
         name="password_reset_complete",
     ),
+    path("set_debt_done/", views_payment.set_debt_done, name="set_debt_done"),
 ]
 
 if isTest:
