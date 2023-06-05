@@ -15,6 +15,10 @@ import { GroupJoinView } from './views/Groups/[groupId]/join'
 import { EventAddView } from './views/Groups/[groupId]/events/add'
 import { EventView } from './views/Groups/[groupId]/events/[eventId]'
 import { PaymentAddView } from './views/Groups/[groupId]/events/[eventId]/payments/add'
+import { PasswordRecoveryView } from './views/PasswordRecovery'
+import { PasswordRecoveryCompleteView } from './views/PasswordRecoveryComplete'
+import { PasswordRecoverySentView } from './views/PasswordRecoverySent'
+import { PasswordRecoveryConfirmView } from './views/PasswordRecoveryConfirm'
 
 function App() {
   const router = createHashRouter([
@@ -31,8 +35,24 @@ function App() {
           element: <RegisterView />,
         },
         {
+          path: Route.recovery(),
+          element: <PasswordRecoveryView />,
+        },
+        {
+          path: Route.reset_password_complete(),
+          element: <PasswordRecoveryCompleteView />,
+        },
+        {
+          path: Route.reset_password_sent(),
+          element: <PasswordRecoverySentView />,
+        },
+        {
           path: Route.activate(),
           element: <ActiveAccountView />,
+        },
+        {
+          path: Route.reset_password_confirm(),
+          element: <PasswordRecoveryConfirmView />,
         },
         {
           path: RoutePattern.group_event_add(),

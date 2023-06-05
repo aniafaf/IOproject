@@ -13,7 +13,7 @@ import { useAlert } from '../../hooks/alert'
 import { Spinner } from '../../components/Spinner'
 import { post_recover_password } from '../../api/post_recover_password'
 
-export const PasswordRecoveryView = () => {
+export const PasswordRecoveryConfirmView = () => {
   const navigate = useNavigate()
   const alert = useAlert()
   const [password, setPassword] = useState('')
@@ -23,7 +23,7 @@ export const PasswordRecoveryView = () => {
   const handleSubmit = () => {
     setLoading(true)
     alert.hide()
-    post_recover_password(password, passwordConfirmation).then(
+    post_recover_password(password, passwordConfirmation).then(() =>
       navigate(Route.reset_password_complete()),
     )
   }
